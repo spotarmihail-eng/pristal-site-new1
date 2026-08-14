@@ -1,0 +1,12 @@
+PRISTAL — GITHUB PAGES
+
+1. Создай репозиторий на GitHub, например pristal-site.
+2. Загрузи ВСЁ содержимое этой папки в корень репозитория.
+   Важно: вместе с .github и .nojekyll.
+3. Сделай push в ветку main.
+4. Открой Settings → Pages.
+5. В Build and deployment → Source выбери GitHub Actions.
+6. После успешного workflow открой ссылку, которую GitHub покажет в Pages.
+
+Сайт статический и не содержит секретов.
+Discord Bot/API/база НЕ должны размещаться в GitHub Pages.
