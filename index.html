@@ -267,10 +267,8 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
         <a href="#recruitment">Набор</a>
         <a href="#news">Новости</a>
         <a href="#contacts">Соцсети</a>
-        <a href="#participants">🤝 Участники</a>
-        <a href="#login">🔐 Discord вход</a>
       </div>
-    </nav>
+    <a href="participants.html">🤝 Участники</a></nav>
   </div>
 </header>
 
@@ -650,36 +648,6 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
       </div>
     </div>
   </section>
-
-<section id="participants">
-<div class="container">
-<h2>🤝 Участники развития Pristal</h2>
-<p>Спасибо всем, кто помогал проекту.</p>
-<div id="participants-list"></div>
-</div>
-</section>
-
-<section id="login">
-<div class="container">
-<h2>🔐 Вход через Discord</h2>
-<p>Привяжи Discord аккаунт к Pristal.</p>
-<button class="btn primary" onclick="discordLogin()">Войти через Discord</button>
-<p>Для настоящей авторизации нужен Discord OAuth API.</p>
-</div>
-</section>
-<script>
-fetch('participants.json').then(r=>r.json()).then(data=>{
-document.getElementById('participants-list').innerHTML=data.map(p=>`
-<div class="card">
-<img src="https://minotar.net/avatar/${p.nick}/64">
-<b>${p.nick}</b><br>${p.help}
-</div>`).join('')
-});
-function discordLogin(){
-location.href="https://discord.com/oauth2/authorize?client_id=ВСТАВЬ_ID_БОТА&response_type=code&scope=identify";
-}
-</script>
-
 </main>
 
 <footer>
@@ -917,5 +885,12 @@ document.addEventListener("click",(e)=>{
     </div>
   </div>
 </div>
+
+<section id="participants" class="container" style="margin:70px auto;text-align:center">
+<h2>🤝 Участники развития Pristal</h2>
+<p>Спасибо всем, кто помогал проекту.</p>
+<div id="participants-list"></div>
+</section>
+<script>fetch("participants.json").then(r=>r.json()).then(d=>{document.getElementById("participants-list").innerHTML=d.map(p=>`<div class="card"><img src="https://minotar.net/avatar/${p.nick}/64"><b>${p.nick}</b><br>${p.help}</div>`).join("")})</script>
 </body>
 </html>
