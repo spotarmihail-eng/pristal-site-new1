@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Участники развития Pristal</title>
+<style>
+body{margin:0;background:#0b1018;color:white;font-family:Arial;text-align:center;padding:40px}
+.card{display:inline-flex;align-items:center;gap:15px;background:#182433;padding:15px;margin:10px;border-radius:15px;width:300px}
+img{width:64px;height:64px;border-radius:8px}
+small{color:#aaa;display:block}
+</style>
+</head>
+<body>
+<h1>🤝 Участники развития Pristal</h1>
+<p>Спасибо всем, кто помогал проекту.</p>
+<div id="list"></div>
+<script>
+fetch("participants.json")
+.then(r=>r.json())
+.then(data=>{
+ document.getElementById("list").innerHTML=data.map(p=>`
+ <div class="card">
+ <img src="https://minotar.net/avatar/${p.nick}/64">
+ <div><b>${p.nick}</b><small>${p.help}</small></div>
+ </div>`).join("");
+});
+</script>
+</body>
+</html>
