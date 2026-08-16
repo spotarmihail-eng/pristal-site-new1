@@ -1,0 +1,3 @@
+Discord вход добавлен как кнопка OAuth.
+Чтобы он был полностью рабочим: нужен Discord Developer Application, API сервер и база данных.
+Вставь client_id и подключи OAuth callback через API.
