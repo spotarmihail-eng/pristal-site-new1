@@ -90,21 +90,6 @@
     .place{font-weight:900;width:70px}.gold{color:#ffd65a}.silver{color:#c8d0db}.bronze{color:#d99462}
     .player{font-weight:800}.stat{color:#8ef195;font-family:monospace}
     .leader-note{text-align:center;color:#778190;font-size:13px;margin-top:16px}
-    .donate-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .donate-card{position:relative;padding:30px;border-radius:22px;background:linear-gradient(145deg,#121923,#0b0f15);
-      border:1px solid rgba(255,255,255,.08);overflow:hidden}
-    .donate-card.featured{border-color:rgba(105,229,111,.45);box-shadow:0 0 35px rgba(105,229,111,.08)}
-    .donate-card .tag{display:inline-block;padding:5px 9px;border-radius:999px;background:rgba(105,229,111,.1);
-      color:#8bf18f;font-size:11px;font-weight:900;letter-spacing:.06em;margin-bottom:13px}
-    .donate-card h3{font-size:25px}.donate-card p{color:#929baa;margin:8px 0 18px}
-    .price{font-size:34px;font-weight:900;margin:18px 0}.price small{font-size:13px;color:#778190;font-weight:600}
-    .perks{list-style:none;display:grid;gap:9px;color:#c8ced7;margin:18px 0 24px}
-    .perks li:before{content:"✓";color:#69e56f;font-weight:900;margin-right:9px}
-    .buy{width:100%;text-align:center;display:block}
-    .donate-note{text-align:center;color:#778190;font-size:13px;margin-top:22px}
-    .shop-banner{margin-bottom:25px;padding:18px 20px;border-radius:16px;background:#0d141c;border:1px solid rgba(255,255,255,.07);
-      color:#aeb7c3;text-align:center}
-    @media(max-width:800px){.donate-grid{grid-template-columns:1fr}}
 
     .media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .media-card{overflow:hidden;border-radius:22px;background:linear-gradient(145deg,#111720,#0b0f15);border:1px solid rgba(255,255,255,.08);transition:.2s}
@@ -242,6 +227,31 @@ body[data-theme="mono"]{--green:#e8edf2;--cyan:#b5c0cc;--red:#d4dbe2;--gold:#f4f
 body[data-theme="darkpink"]{--green:#ff6ccf;--cyan:#a87cff;--red:#ff617d;--gold:#ffd2f1}
 body[data-theme="ice"]{--green:#7fffd4;--cyan:#8dd9ff;--red:#8ab8ff;--gold:#ccfff2}
 body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c6de8a}
+
+/* Theme switcher: apply the selected palette to the whole interface */
+:root{--accent:#69e56f;--accent-soft:rgba(105,229,111,.16);--accent-border:rgba(105,229,111,.42)}
+body[data-theme="mint"]{--accent:#72f27d;--accent-soft:rgba(114,242,125,.16);--accent-border:rgba(114,242,125,.42)}
+body[data-theme="violet"]{--accent:#b98cff;--accent-soft:rgba(185,140,255,.16);--accent-border:rgba(185,140,255,.42)}
+body[data-theme="rose"]{--accent:#ff8fb1;--accent-soft:rgba(255,143,177,.16);--accent-border:rgba(255,143,177,.42)}
+body[data-theme="blue"]{--accent:#78a9ff;--accent-soft:rgba(120,169,255,.16);--accent-border:rgba(120,169,255,.42)}
+body[data-theme="sunset"]{--accent:#ffb86b;--accent-soft:rgba(255,184,107,.16);--accent-border:rgba(255,184,107,.42)}
+body[data-theme="mono"]{--accent:#e8edf2;--accent-soft:rgba(232,237,242,.16);--accent-border:rgba(232,237,242,.42)}
+body[data-theme="darkpink"]{--accent:#ff6ccf;--accent-soft:rgba(255,108,207,.16);--accent-border:rgba(255,108,207,.42)}
+body[data-theme="ice"]{--accent:#7fffd4;--accent-soft:rgba(127,255,212,.16);--accent-border:rgba(127,255,212,.42)}
+body[data-theme="forest"]{--accent:#76d66f;--accent-soft:rgba(118,214,111,.16);--accent-border:rgba(118,214,111,.42)}
+
+.logo span,h1 span,.status,.media-meta,.stat,.badge,
+h1 span{text-shadow:0 0 35px var(--accent-soft)}
+.dot{background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.btn:hover,.social:hover,.theme-item:hover{border-color:var(--accent-border)}
+.btn.primary,.leader-tab.active,.media-tab.active{background:var(--accent);border-color:var(--accent);color:#061008}
+.card:after{background:var(--accent)}
+.perks li:before{color:var(--accent)}
+.hero{background:radial-gradient(circle at 50% 25%,var(--accent-soft),transparent 38%),radial-gradient(circle at 15% 80%,rgba(50,130,255,.12),transparent 30%)}
+.media-card:hover{border-color:var(--accent-border)}
+.bg-art:after{background:linear-gradient(180deg,rgba(7,10,13,.94) 0%,rgba(7,10,13,.78) 35%,rgba(7,10,13,.90) 100%),radial-gradient(circle at 50% 20%,var(--accent-soft),transparent 42%)}
+.theme-open{border-color:var(--accent-border)}
+.theme-item.selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;background:var(--accent-soft)}
 </style>
 </head>
 <body>
@@ -262,10 +272,10 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
         <a href="#servers">Сервера</a>
         <a href="#creator">Создатель</a>
         <a href="#leaders">Лидеры</a>
-        <a href="donate.html">💎 Донат магазин</a>
         <a href="#media">Медийки</a>
         <a href="#recruitment">Набор</a>
         <a href="#news">Новости</a>
+        <a href="#donate">Донат</a>
         <a href="#contacts">Соцсети</a>
       </div>
     <a href="participants.html">🤝 Участники</a></nav>
@@ -313,6 +323,23 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
           <p>Сложный режим для тех, кто хочет настоящий вызов и риск.</p>
           <div class="ip"><span>PristalHARD.aternos.me</span><button class="copy" data-ip="PristalHARD.aternos.me">Копировать</button></div>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="donate">
+    <div class="container">
+      <div class="section-title">
+        <h2>Донат</h2>
+        <p>Поддержать проект и получить информацию о донате можно на нашем Discord-сервере.</p>
+      </div>
+      <div class="card" style="max-width:760px;margin:0 auto;text-align:center">
+        <div class="server-icon">💎</div>
+        <h3>Донат Pristal</h3>
+        <p>Нажми кнопку ниже — она сразу перенесёт тебя на Discord-сервер Pristal.</p>
+        <div class="buttons" style="justify-content:center">
+          <a class="btn primary" href="https://discord.gg/XfBJ4CpeQ" target="_blank" rel="noopener noreferrer">💎 Перейти в Discord</a>
+        </div>
       </div>
     </div>
   </section>
@@ -409,67 +436,6 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
       </div>
 
       <p class="leader-note">Сейчас таблицы заполнены демонстрационными данными. Для автоматического обновления нужен API/плагин статистики серверов.</p>
-    </div>
-  </section>
-
-  <section id="donate">
-    <div class="container">
-      <div class="section-title">
-        <h2>Донат-магазин</h2>
-        <p>Поддержи Pristal и получи дополнительные возможности.</p>
-      </div>
-
-      <div class="shop-banner">
-        💚 После выбора привилегии нажми кнопку оплаты — сайт перенесёт тебя на страницу оплаты СберБанка.
-      </div>
-
-      <div class="donate-grid">
-        <article class="donate-card">
-          <div class="tag">START</div>
-          <h3>Pristal VIP</h3>
-          <p>Хороший старт для игрока.</p>
-          <div class="price">99 ₽ <small>/ месяц</small></div>
-          <ul class="perks">
-            <li>VIP-префикс</li>
-            <li>Красивый цвет чата</li>
-            <li>Дополнительные команды</li>
-            <li>Бонус к игровому опыту</li>
-          </ul>
-          <a class="btn primary buy" href="https://www.sberbank.ru/ru/choise_bank?requisiteNumber=79380751380&bankCode=100000000111" target="_blank" rel="noopener">Оплатить VIP</a>
-        </article>
-
-        <article class="donate-card featured">
-          <div class="tag">POPULAR</div>
-          <h3>Pristal PREMIUM</h3>
-          <p>Больше возможностей и привилегий.</p>
-          <div class="price">199 ₽ <small>/ месяц</small></div>
-          <ul class="perks">
-            <li>Все возможности VIP</li>
-            <li>Премиум-префикс</li>
-            <li>Больше игровых бонусов</li>
-            <li>Приоритет при входе</li>
-            <li>Эксклюзивные косметические возможности</li>
-          </ul>
-          <a class="btn primary buy" href="https://www.sberbank.ru/ru/choise_bank?requisiteNumber=79380751380&bankCode=100000000111" target="_blank" rel="noopener">Оплатить PREMIUM</a>
-        </article>
-
-        <article class="donate-card">
-          <div class="tag">MAX</div>
-          <h3>Pristal ELITE</h3>
-          <p>Максимальный уровень поддержки.</p>
-          <div class="price">399 ₽ <small>/ месяц</small></div>
-          <ul class="perks">
-            <li>Все возможности PREMIUM</li>
-            <li>Уникальный Elite-префикс</li>
-            <li>Максимальные игровые бонусы</li>
-            <li>Расширенные команды</li>
-            <li>Особые косметические эффекты</li>
-          </ul>
-          <a class="btn primary buy" href="https://www.sberbank.ru/ru/choise_bank?requisiteNumber=79380751380&bankCode=100000000111" target="_blank" rel="noopener">Оплатить ELITE</a>
-        </article>
-      </div>
-
-      <p class="donate-note">Цены и состав привилегий можно изменить под реальные возможности серверов.</p>
     </div>
   </section>
 
@@ -644,7 +610,7 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
       <div class="news">
         <article class="card"><small>PRISTAL SPM</small><h3>Добро пожаловать</h3><p>Новый сезон и новые возможности уже ждут игроков.</p></article>
         <article class="card"><small>PRISTAL PVP</small><h3>Готовься к битве</h3><p>Проверь свои навыки и докажи, кто лучший на арене.</p></article>
-        <article class="card"><small>PRISTAL HARD</small><h3>Только для смелых</h3><p>Сложность повышается. Сможешь дойти до конца?</p></article>
+        <article class="card"><small>PRISTAL HARD</small><h3>Открыт 2 сезон хардкора</h3><p>2 сезон хардкора открыт! Сервер временно находится на техработах из-за DDoS-атак.</p></article>
       </div>
     </div>
   </section>
@@ -690,69 +656,6 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
     });
   });
 
-const REGISTER_API_URL = "";
-const regForm = document.getElementById("registerForm");
-if (regForm) {
-  regForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const nick = document.getElementById("minecraftNick").value.trim();
-    const password = document.getElementById("password").value;
-    const password2 = document.getElementById("password2").value;
-    const msg = document.getElementById("registerMessage");
-    msg.className = "auth-message";
-    if (password !== password2) {
-      msg.className = "auth-message err";
-      msg.textContent = "Пароли не совпадают.";
-      return;
-    }
-    if (password.length < 8) {
-      msg.className = "auth-message err";
-      msg.textContent = "Пароль должен содержать минимум 8 символов.";
-      return;
-    }
-    if (!REGISTER_API_URL) {
-      msg.className = "auth-message err";
-      msg.textContent = "API регистрации ещё не подключён.";
-      return;
-    }
-    try {
-      const response = await fetch(REGISTER_API_URL, {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({minecraft_nick:nick,password})
-      });
-      const data = await response.json().catch(()=>({}));
-      if (!response.ok) throw new Error(data.detail || "Ошибка регистрации.");
-      msg.className = "auth-message ok";
-      msg.textContent = "Аккаунт успешно создан.";
-      regForm.reset();
-    } catch (error) {
-      msg.className = "auth-message err";
-      msg.textContent = error.message || "Не удалось зарегистрироваться.";
-    }
-  });
-}
-
-const promoDemo = {
-  PRISTAL10: {discount: 10, uses: 0, maxUses: 100, reward: "+100 Pristal Coins"},
-  SKRENH20: {discount: 20, uses: 0, maxUses: 50, reward: "+1 Network Key"},
-  WELCOME: {discount: 5, uses: 0, maxUses: Infinity, reward: "+50 Pristal Coins"}
-};
-const promoBtn=document.getElementById("promoBtn");
-if(promoBtn){
-  promoBtn.addEventListener("click",()=>{
-    const input=document.getElementById("promoInput");
-    const msg=document.getElementById("promoMessage");
-    const code=input.value.trim().toUpperCase();
-    const p=promoDemo[code];
-    msg.className="auth-message";
-    if(!p){msg.className="auth-message err";msg.textContent="Промокод не найден.";return;}
-    if(p.uses>=p.maxUses){msg.className="auth-message err";msg.textContent="Лимит использований исчерпан.";return;}
-    msg.className="auth-message ok";
-    msg.textContent=`Промокод действителен: скидка ${p.discount}%. Награда: ${p.reward}.`;
-  });
-}
-
 const themePanel=document.getElementById("themePanel");
 const themeOpen=document.getElementById("themeOpen");
 if(themeOpen){
@@ -765,14 +668,18 @@ applyTheme(storedTheme,storedBg);
 function applyTheme(theme,bg){
   document.body.dataset.theme=theme;
   const grid=document.querySelector(".bg-art-grid");
-  if(!grid)return;
-  const cards=[...grid.querySelectorAll(".bg-art-card")];
+  const cards=grid ? [...grid.querySelectorAll(".bg-art-card")] : [];
   if(bg==="all"){
-    cards.forEach((c,i)=>c.style.display="block");
+    cards.forEach(c=>c.style.display="block");
   }else{
-    cards.forEach((c,i)=>c.style.display=(String(i+1)===String(bg)?"block":"none"));
-    cards.forEach((c,i)=>c.style.transform=(String(i+1)===String(bg)?"none":""));
+    cards.forEach((c,i)=>{
+      c.style.display=(String(i+1)===String(bg)?"block":"none");
+      c.style.transform=(String(i+1)===String(bg)?"none":"");
+    });
   }
+  document.querySelectorAll(".theme-item").forEach(item=>{
+    item.classList.toggle("selected",item.dataset.theme===theme && item.dataset.bg===bg);
+  });
   localStorage.setItem("pristalTheme",theme);
   localStorage.setItem("pristalBg",bg);
 }
@@ -789,93 +696,14 @@ document.addEventListener("click",(e)=>{
 });
 </script>
 
-<section id="register"><div class="wrap">
-  <div class="head">
-    <div><div class="eyebrow">09 / ACCOUNT</div><h2>Регистрация игрока</h2></div>
-    <p>Создай аккаунт Pristal по своему Minecraft-нику и отдельному паролю.</p>
-  </div>
-  <div class="auth-wrap">
-    <article class="auth-card">
-      <h3>Создать аккаунт</h3>
-      <p class="muted">Ник должен совпадать с тем, под которым ты играешь на сервере.</p>
-      <form class="auth-form" id="registerForm">
-        <div><label for="minecraftNick">Ник на сервере</label>
-          <input id="minecraftNick" maxlength="16" minlength="3" pattern="[A-Za-zА-Яа-яЁё0-9_]+" required placeholder="Например: Skrenh_01"></div>
-        <div><label for="password">Пароль</label>
-          <input id="password" type="password" minlength="8" maxlength="72" required placeholder="Минимум 8 символов"></div>
-        <div><label for="password2">Повторить пароль</label>
-          <input id="password2" type="password" minlength="8" maxlength="72" required placeholder="Повторите пароль"></div>
-        <button class="btn primary" type="submit">Зарегистрироваться →</button>
-        <div class="auth-message" id="registerMessage"></div>
-      </form>
-    </article>
-    <aside class="card">
-      <div class="eyebrow">SECURITY</div>
-      <h3>Важно</h3>
-      <p class="muted">GitHub Pages только показывает форму. Реальная регистрация должна обрабатываться твоим API.</p>
-      <ul class="muted">
-        <li>1 Minecraft-ник = 1 аккаунт.</li>
-        <li>Не используй пароль от Discord или почты.</li>
-        <li>Храни пароли на сервере только как Argon2id/bcrypt hash.</li>
-      </ul>
-      <a class="btn ghost" href="https://discord.gg/jGNsNMfrD" target="_blank" rel="noopener">Помощь в Discord →</a>
-    </aside>
-  </div>
-</div></section>
-
-<section id="promocodes"><div class="wrap">
-  <div class="head">
-    <div><div class="eyebrow">10 / PROMO</div><h2>Промокоды SMP</h2></div>
-    <p>Отдельный раздел для скидок на проходку SMP. Здесь игрок вводит промокод и сразу видит размер скидки и награду.</p>
-  </div>
-
-  <div class="promo-box">
-    <article class="promo-card">
-      <div class="eyebrow">🎟️ DISCOUNT CODE</div>
-      <h3>Активировать промокод</h3>
-      <p class="muted">Введи код, который получил от Pristal или медийки.</p>
-      <div class="promo-row">
-        <input class="promo-input" id="promoInput" maxlength="24" placeholder="Например: PRISTAL10">
-        <button class="btn primary" id="promoBtn">Проверить</button>
-      </div>
-      <div class="auth-message" id="promoMessage"></div>
-      <div class="promo-admin-note">
-        Для реальной работы промокоды должны храниться в API/базе. На GitHub Pages ниже показан только интерфейс и демонстрационная конфигурация.
-      </div>
-    </article>
-
-    <aside class="promo-card">
-      <div class="eyebrow">📋 ACTIVE CODES</div>
-      <h3>Текущие промокоды</h3>
-      <div class="promo-list">
-        <div class="promo-item">
-          <div class="promo-head"><span class="promo-code">PRISTAL10</span><b>10% OFF</b></div>
-          <div class="promo-meta">Использований: 0 / 100</div>
-          <div class="promo-reward">🎁 +100 Pristal Coins</div>
-        </div>
-        <div class="promo-item">
-          <div class="promo-head"><span class="promo-code">SKRENH20</span><b>20% OFF</b></div>
-          <div class="promo-meta">Использований: 0 / 50</div>
-          <div class="promo-reward">🎁 +1 Network Key</div>
-        </div>
-        <div class="promo-item">
-          <div class="promo-head"><span class="promo-code">WELCOME</span><b>5% OFF</b></div>
-          <div class="promo-meta">Использований: 0 / ∞</div>
-          <div class="promo-reward">🎁 +50 Pristal Coins</div>
-        </div>
-      </div>
-    </aside>
-  </div>
-</div></section>
-
 <div class="theme-toggle">
   <button class="theme-open" id="themeOpen">🎨 Стиль сайта</button>
   <div class="theme-panel" id="themePanel">
     <div class="theme-title">Выбери стиль</div>
     <div class="theme-grid">
       <button class="theme-item" data-theme="mint" data-bg="1"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg1.jpg')"></span><span><b>Mint Anime</b><small>Мятный · мягкий</small></span></button>
-      <button class="theme-item" data-theme="violet" data-bg="2"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg2.webp.jpg')"></span><span><b>Violet Dream</b><small>Фиолетовый · dreamy</small></span></button>
-      <button class="theme-item" data-theme="rose" data-bg="3"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg3.webp.jpg')"></span><span><b>Rose Bloom</b><small>Розовый · pastel</small></span></button>
+      <button class="theme-item" data-theme="violet" data-bg="2"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg2.jpg')"></span><span><b>Violet Dream</b><small>Фиолетовый · dreamy</small></span></button>
+      <button class="theme-item" data-theme="rose" data-bg="3"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg3.jpg')"></span><span><b>Rose Bloom</b><small>Розовый · pastel</small></span></button>
       <button class="theme-item" data-theme="blue" data-bg="4"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg4.jpg')"></span><span><b>Blue Frost</b><small>Синий · холодный</small></span></button>
       <button class="theme-item" data-theme="sunset" data-bg="5"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg5.png')"></span><span><b>Sunset Pop</b><small>Тёплый · яркий</small></span></button>
       <button class="theme-item" data-theme="mono" data-bg="6"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg6.png')"></span><span><b>Monochrome</b><small>Чёрно-белый</small></span></button>
