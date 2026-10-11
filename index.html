@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pristal — Minecraft Network</title>
-  <meta name="description" content="Pristal — сеть Minecraft серверов: SPM, PvP и Hard.">
+  <title>Pristal — Minecraft Network | Играй по-своему</title>
+  <meta name="description" content="Pristal — Minecraft-сеть: SMP, PvP и HARD. Выбирай режим, копируй IP и присоединяйся к сообществу.">
   <meta name="theme-color" content="#69e56f">
   <meta name="robots" content="index,follow">
   <style>
@@ -62,6 +62,11 @@
     .dot{width:8px;height:8px;border-radius:50%;background:#69e56f;box-shadow:0 0 12px #69e56f}
     .ip{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 13px;
       border-radius:10px;background:#070a0f;color:#dce2e9;font-family:monospace;font-size:13px}
+    .network-address{max-width:720px;margin:0 auto 26px;padding:25px;text-align:center;border-color:rgba(105,229,111,.35);background:linear-gradient(135deg,rgba(105,229,111,.12),rgba(11,15,21,.96));box-shadow:0 16px 42px rgba(0,0,0,.22)}
+    .network-address h3{font-size:21px;margin-bottom:14px;color:#e9fff0}
+    .network-address .ip{max-width:560px;margin:0 auto;border:1px solid rgba(105,229,111,.16)}
+    .network-address p{color:#8993a1;margin:13px 0 0;font-size:14px}
+    @media(max-width:700px){.network-address{padding:18px}.network-address .ip{justify-content:center}}
     .copy{border:0;background:#1c2530;color:#fff;border-radius:8px;padding:7px 10px;cursor:pointer}
     .creator{display:grid;grid-template-columns:1fr 1.5fr;gap:30px;align-items:center}
     .creator-box{padding:38px;border-radius:26px;background:linear-gradient(145deg,#101720,#0b0f14);
@@ -242,7 +247,27 @@ body[data-theme="mono"]{--green:#e8edf2;--cyan:#b5c0cc;--red:#d4dbe2;--gold:#f4f
 body[data-theme="darkpink"]{--green:#ff6ccf;--cyan:#a87cff;--red:#ff617d;--gold:#ffd2f1}
 body[data-theme="ice"]{--green:#7fffd4;--cyan:#8dd9ff;--red:#8ab8ff;--gold:#ccfff2}
 body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c6de8a}
-.offline-message{text-align:center;padding:40px;font-size:20px}.offline-message p{color:#ccc}</style>
+</style>
+
+<style id="pristal-polish">
+:root{scroll-padding-top:90px} body{overflow-x:hidden} ::selection{background:#9cffb5;color:#101511}
+header{position:sticky;top:0;z-index:100;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+nav a,.btn,.copy,.leader-tab,.media-tab,.theme-open,.theme-item{transition:transform .22s ease,box-shadow .22s ease,background .22s ease,border-color .22s ease}
+nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform:translateY(-2px)}
+.card,.creator,.shop-banner,.promo-card,.auth-card,.leader-panel{border:1px solid rgba(190,255,208,.15);box-shadow:0 14px 40px rgba(0,0,0,.16);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.card:hover,.promo-card:hover{transform:translateY(-5px);border-color:rgba(156,255,181,.45);box-shadow:0 20px 48px rgba(0,0,0,.26)}
+.hero h1{text-shadow:0 0 34px rgba(105,229,111,.24)}
+.hero .container{position:relative}.hero .container:after{content:"✦  ✧  ✦";display:block;margin:25px auto 0;letter-spacing:1.3rem;color:var(--accent,#69e56f);opacity:.72;animation:floatGlow 3s ease-in-out infinite}
+@keyframes floatGlow{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-5px);opacity:1}}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:none}
+#pristalToast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);z-index:9999;padding:12px 18px;border:1px solid rgba(156,255,181,.35);border-radius:999px;background:rgba(15,24,19,.94);color:#d9ffe2;box-shadow:0 10px 36px #0006;opacity:0;pointer-events:none;transition:.25s;font-weight:700;max-width:calc(100vw - 28px);text-align:center}
+#pristalToast.show{opacity:1;transform:translate(-50%,0)}
+#pristalTop{position:fixed;right:20px;bottom:22px;z-index:90;width:46px;height:46px;border:1px solid rgba(156,255,181,.35);border-radius:15px;background:rgba(18,28,22,.9);color:#c9ffd5;font-size:20px;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(8px);transition:.25s;backdrop-filter:blur(12px)}
+#pristalTop.visible{opacity:1;pointer-events:auto;transform:none} .ip{gap:8px;flex-wrap:wrap}.ip span{overflow-wrap:anywhere}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+@media(max-width:700px){header{position:relative}.hero{padding-top:58px}.hero .container:after{letter-spacing:.7rem}#pristalTop{right:12px;bottom:12px}}
+</style>
+
 </head>
 <body>
 <div class="bg-art" aria-hidden="true"><div class="bg-art-grid"><div class="bg-art-card" style="background-image:url('../assets/backgrounds/bg1.jpg')"></div>
@@ -261,7 +286,7 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
       <div class="navlinks">
         <a href="#servers">Сервера</a>
         <a href="#creator">Создатель</a>
-        <a href="#leaders">Лидеры</a>
+        
         <a href="donate.html">💎 Донат магазин</a>
         <a href="#media">Медийки</a>
         <a href="#recruitment">Набор</a>
@@ -291,27 +316,29 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
         <h2>Наши серверы</h2>
         <p>Три разных мира — один Pristal.</p>
       </div>
+      <div class="network-address card">
+        <h3>🌐 IP Pristal</h3>
+        <div class="ip"><span>pristal-lobbu.play-mc.fun</span><button class="copy" data-ip="pristal-lobbu.play-mc.fun" type="button">Копировать IP</button></div>
+        <p>Один адрес для подключения к сети Pristal. Выбери режим ниже и присоединяйся к игре.</p>
+      </div>
       <div class="servers">
         <article class="card">
           <div class="server-icon">⛏️</div>
-          <div class="status"><span class="dot"></span> Онлайн</div>
+          <div class="status"><span class="dot"></span> Подключение вручную</div>
           <h3>Pristal SPM</h3>
           <p>Основное направление сети с собственными механиками и атмосферой.</p>
-          <div class="ip"><span>PristalSMP.aternos.me:54368</span><button class="copy" data-ip="PristalSMP.aternos.me:54368">Копировать</button></div>
         </article>
         <article class="card">
           <div class="server-icon">⚔️</div>
-          <div class="status"><span class="dot"></span> Онлайн</div>
+          <div class="status"><span class="dot"></span> Подключение вручную</div>
           <h3>Pristal PvP</h3>
           <p>Сражения, арены и напряжённые PvP-битвы с другими игроками.</p>
-          <div class="ip"><span>PristalPVP.aternos.me:46992</span><button class="copy" data-ip="PristalPVP.aternos.me:46992">Копировать</button></div>
         </article>
         <article class="card">
           <div class="server-icon">☠️</div>
-          <div class="status"><span class="dot"></span> Онлайн</div>
+          <div class="status"><span class="dot"></span> Подключение вручную</div>
           <h3>Pristal Hard</h3>
           <p>Сложный режим для тех, кто хочет настоящий вызов и риск.</p>
-          <div class="ip"><span>PristalHARD.aternos.me</span><button class="copy" data-ip="PristalHARD.aternos.me">Копировать</button></div>
         </article>
       </div>
     </div>
@@ -349,58 +376,6 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
   </section>
 
 
-
-  <section id="leaders">
-    <div class="container">
-      <div class="section-title">
-        <h2>Таблица лидеров</h2>
-        <p>Лучшие игроки каждого режима Pristal.</p>
-      </div>
-
-      <div class="leader-tabs">
-        <button class="leader-tab active" data-panel="spm">⛏️ Pristal SPM</button>
-        <button class="leader-tab" data-panel="pvp">⚔️ Pristal PvP</button>
-        <button class="leader-tab" data-panel="hard">☠️ Pristal Hard</button>
-      </div>
-
-      <div class="leader-panel active" id="leader-spm">
-        <div class="leader-table-wrap">
-          <div class="offline-message">
-            <h3>💎 Pristal SMP</h3>
-            <p>Сервер отключён.</p>
-            <p>Статистика временно недоступна.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="leader-panel" id="leader-pvp">
-        <div class="leader-table-wrap">
-          <div class="offline-message">
-            <h3>⚔️ Pristal PvP</h3>
-            <p>Сервер отключён.</p>
-            <p>Статистика временно недоступна.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="leader-panel" id="leader-hard">
-        <div class="leader-table-wrap">
-          <table class="leader-table">
-            <thead><tr><th>#</th><th>Игрок</th><th>Жизни</th><th>Дни выживания</th></tr></thead>
-            <tbody>
-              <tr><td class="place gold">1</td><td class="player">Hardcore_1</td><td>0</td><td class="stat">0</td></tr>
-              <tr><td class="place silver">2</td><td class="player">Hardcore_2</td><td>0</td><td class="stat">0</td></tr>
-              <tr><td class="place bronze">3</td><td class="player">Hardcore_3</td><td>0</td><td class="stat">0</td></tr>
-              <tr><td class="place">4</td><td>Survivor_4</td><td>0</td><td class="stat">0</td></tr>
-              <tr><td class="place">5</td><td>Survivor_5</td><td>0</td><td class="stat">0</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <p class="leader-note">Сейчас таблицы заполнены демонстрационными данными. Для автоматического обновления нужен API/плагин статистики серверов.</p>
-    </div>
-  </section>
 
   <section id="donate">
     <div class="container">
@@ -680,49 +655,6 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
     });
   });
 
-const REGISTER_API_URL = "";
-const regForm = document.getElementById("registerForm");
-if (regForm) {
-  regForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const nick = document.getElementById("minecraftNick").value.trim();
-    const password = document.getElementById("password").value;
-    const password2 = document.getElementById("password2").value;
-    const msg = document.getElementById("registerMessage");
-    msg.className = "auth-message";
-    if (password !== password2) {
-      msg.className = "auth-message err";
-      msg.textContent = "Пароли не совпадают.";
-      return;
-    }
-    if (password.length < 8) {
-      msg.className = "auth-message err";
-      msg.textContent = "Пароль должен содержать минимум 8 символов.";
-      return;
-    }
-    if (!REGISTER_API_URL) {
-      msg.className = "auth-message err";
-      msg.textContent = "API регистрации ещё не подключён.";
-      return;
-    }
-    try {
-      const response = await fetch(REGISTER_API_URL, {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({minecraft_nick:nick,password})
-      });
-      const data = await response.json().catch(()=>({}));
-      if (!response.ok) throw new Error(data.detail || "Ошибка регистрации.");
-      msg.className = "auth-message ok";
-      msg.textContent = "Аккаунт успешно создан.";
-      regForm.reset();
-    } catch (error) {
-      msg.className = "auth-message err";
-      msg.textContent = error.message || "Не удалось зарегистрироваться.";
-    }
-  });
-}
-
 const promoDemo = {
   PRISTAL10: {discount: 10, uses: 0, maxUses: 100, reward: "+100 Pristal Coins"},
   SKRENH20: {discount: 20, uses: 0, maxUses: 50, reward: "+1 Network Key"},
@@ -779,39 +711,7 @@ document.addEventListener("click",(e)=>{
 });
 </script>
 
-<section id="register"><div class="wrap">
-  <div class="head">
-    <div><div class="eyebrow">09 / ACCOUNT</div><h2>Регистрация игрока</h2></div>
-    <p>Создай аккаунт Pristal по своему Minecraft-нику и отдельному паролю.</p>
-  </div>
-  <div class="auth-wrap">
-    <article class="auth-card">
-      <h3>Создать аккаунт</h3>
-      <p class="muted">Ник должен совпадать с тем, под которым ты играешь на сервере.</p>
-      <form class="auth-form" id="registerForm">
-        <div><label for="minecraftNick">Ник на сервере</label>
-          <input id="minecraftNick" maxlength="16" minlength="3" pattern="[A-Za-zА-Яа-яЁё0-9_]+" required placeholder="Например: Skrenh_01"></div>
-        <div><label for="password">Пароль</label>
-          <input id="password" type="password" minlength="8" maxlength="72" required placeholder="Минимум 8 символов"></div>
-        <div><label for="password2">Повторить пароль</label>
-          <input id="password2" type="password" minlength="8" maxlength="72" required placeholder="Повторите пароль"></div>
-        <button class="btn primary" type="submit">Зарегистрироваться →</button>
-        <div class="auth-message" id="registerMessage"></div>
-      </form>
-    </article>
-    <aside class="card">
-      <div class="eyebrow">SECURITY</div>
-      <h3>Важно</h3>
-      <p class="muted">GitHub Pages только показывает форму. Реальная регистрация должна обрабатываться твоим API.</p>
-      <ul class="muted">
-        <li>1 Minecraft-ник = 1 аккаунт.</li>
-        <li>Не используй пароль от Discord или почты.</li>
-        <li>Храни пароли на сервере только как Argon2id/bcrypt hash.</li>
-      </ul>
-      <a class="btn ghost" href="https://discord.gg/jGNsNMfrD" target="_blank" rel="noopener">Помощь в Discord →</a>
-    </aside>
-  </div>
-</div></section>
+
 
 <section id="promocodes"><div class="wrap">
   <div class="head">
@@ -882,5 +782,21 @@ document.addEventListener("click",(e)=>{
 <div id="participants-list"></div>
 </section>
 <script>fetch("participants.json").then(r=>r.json()).then(d=>{document.getElementById("participants-list").innerHTML=d.map(p=>`<div class="card"><img src="https://minotar.net/avatar/${p.nick}/64"><b>${p.nick}</b><br>${p.help}</div>`).join("")})</script>
+
+<script id="pristal-interactions">
+(()=>{
+ const toast=document.createElement('div');toast.id='pristalToast';toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');document.body.appendChild(toast);
+ let toastTimer;window.pristalToast=(message)=>{toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2100)};
+ // Reveal cards as the visitor scrolls down.
+ const targets=document.querySelectorAll('main section:not(.hero) .card, main section:not(.hero) .creator, main section:not(.hero) .shop-banner, main section:not(.hero) .promo-card, #participants .card');
+ if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('reveal','visible');observer.unobserve(entry.target)}}),{threshold:.08});targets.forEach(el=>{el.classList.add('reveal');observer.observe(el)})}else targets.forEach(el=>el.classList.add('visible'));
+ const top=document.createElement('button');top.id='pristalTop';top.type='button';top.title='Наверх';top.setAttribute('aria-label','Наверх');top.textContent='↑';document.body.appendChild(top);top.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+ const onScroll=()=>top.classList.toggle('visible',window.scrollY>420);window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+ // All server copy buttons use the same public address and show a friendly toast.
+ document.querySelectorAll('[data-ip]').forEach(btn=>{btn.dataset.ip='pristal-lobbu.play-mc.fun';const span=btn.parentElement?.querySelector('span');if(span)span.textContent='pristal-lobbu.play-mc.fun';});
+ document.querySelectorAll('.copy').forEach(btn=>{btn.addEventListener('click',()=>{if(window.pristalToast)setTimeout(()=>window.pristalToast('IP сервера: pristal-lobbu.play-mc.fun'),0)})});
+})();
+</script>
+
 </body>
 </html>
