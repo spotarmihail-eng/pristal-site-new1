@@ -10,3 +10,6 @@ PRISTAL — GITHUB PAGES
 
 Сайт статический и не содержит секретов.
 Discord Bot/API/база НЕ должны размещаться в GitHub Pages.
+
+
+Discord-новости: автоматическая синхронизация включена в pages.yml и выполняется каждые 10 минут. Для неё нужен GitHub Actions secret DISCORD_BOT_TOKEN; см. README.txt.

@@ -1,0 +1,7 @@
+{
+  "status": "not_configured",
+  "channel_id": "1486375854006206494",
+  "guild_id": null,
+  "messages": [],
+  "message": "Discord feed не подключён: добавьте секрет DISCORD_BOT_TOKEN в GitHub Actions."
+}
