@@ -132,17 +132,6 @@
 @media(max-width:900px){
 }
 
-.promo-box{display:grid;grid-template-columns:1fr .9fr;gap:16px}
-.promo-card{padding:28px;border:1px solid rgba(168,85,247,.18);border-radius:23px;background:linear-gradient(145deg,rgba(168,85,247,.08),#0b1015)}
-.promo-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.promo-input{flex:1;min-width:180px;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:#070c10;color:#fff;text-transform:uppercase}
-.promo-list{display:grid;gap:10px}
-.promo-item{padding:15px;border:1px solid var(--line);border-radius:14px;background:#0b1015}
-.promo-head{display:flex;justify-content:space-between;gap:12px}.promo-code{font-family:ui-monospace,monospace;font-weight:1000;color:var(--green)}
-.promo-meta{font-size:12px;color:var(--muted);margin-top:5px}
-.promo-reward{margin-top:8px;color:#e9ddff}.promo-admin-note{margin-top:14px;color:#7e8a97;font-size:12px}
-@media(max-width:900px){.promo-box{grid-template-columns:1fr}}
-
 .bg-art{
   position:fixed;
   inset:0;
@@ -233,6 +222,7 @@ body[data-theme="forest"]{--green:#76d66f;--cyan:#8acb8a;--red:#e97c76;--gold:#c
     .discord-news-status{margin:8px 0 18px;color:var(--muted);font-size:13px;min-height:18px}
     .discord-news-status.error{color:#ff9c9c}.discord-news-status.success{color:#d8b4fe}
     .news .discord-news-card{display:flex;flex-direction:column;gap:10px;min-height:205px;overflow:hidden;overflow-wrap:anywhere}
+     .news .anarchy-announcement{border-color:rgba(168,85,247,.65);background:linear-gradient(145deg,rgba(124,58,237,.22),rgba(15,12,26,.95));box-shadow:0 12px 40px rgba(88,28,135,.18)} .anarchy-announcement h3{font-size:19px;color:#e9d5ff;line-height:1.35;margin:2px 0}.anarchy-announcement .anarchy-badge{display:inline-flex;align-self:flex-start;border:1px solid rgba(192,132,252,.38);background:rgba(168,85,247,.16);color:#e9d5ff;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;letter-spacing:.04em}
     .discord-news-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px}
     .discord-news-author{color:#9cb7ff;font-weight:800}.discord-news-content{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6;color:#e2e8f0;font-size:14px}
     .discord-news-attachments{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}.discord-news-attachments a{font-size:12px;color:#aebeff;text-decoration:none;padding:7px 10px;border-radius:9px;background:rgba(114,137,218,.12);border:1px solid rgba(114,137,218,.2)}
@@ -591,26 +581,6 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
     });
   });
 
-const promoDemo = {
-  PRISTAL10: {discount: 10, uses: 0, maxUses: 100, reward: "+100 Pristal Coins"},
-  SKRENH20: {discount: 20, uses: 0, maxUses: 50, reward: "+1 Network Key"},
-  WELCOME: {discount: 5, uses: 0, maxUses: Infinity, reward: "+50 Pristal Coins"}
-};
-const promoBtn=document.getElementById("promoBtn");
-if(promoBtn){
-  promoBtn.addEventListener("click",()=>{
-    const input=document.getElementById("promoInput");
-    const msg=document.getElementById("promoMessage");
-    const code=input.value.trim().toUpperCase();
-    const p=promoDemo[code];
-    msg.className="auth-message";
-    if(!p){msg.className="auth-message err";msg.textContent="Промокод не найден.";return;}
-    if(p.uses>=p.maxUses){msg.className="auth-message err";msg.textContent="Лимит использований исчерпан.";return;}
-    msg.className="auth-message ok";
-    msg.textContent=`Промокод действителен: скидка ${p.discount}%. Награда: ${p.reward}.`;
-  });
-}
-
 const themePanel=document.getElementById("themePanel");
 const themeOpen=document.getElementById("themeOpen");
 if(themeOpen){
@@ -646,54 +616,6 @@ document.addEventListener("click",(e)=>{
   }
 });
 </script>
-
-
-
-<section id="promocodes"><div class="wrap">
-  <div class="head">
-    <div><div class="eyebrow">10 / PROMO</div><h2>Промокоды SMP</h2></div>
-    <p>Отдельный раздел для скидок на проходку SMP. Здесь игрок вводит промокод и сразу видит размер скидки и награду.</p>
-  </div>
-
-  <div class="promo-box">
-    <article class="promo-card">
-      <div class="eyebrow">🎟️ DISCOUNT CODE</div>
-      <h3>Активировать промокод</h3>
-      <p class="muted">Введи код, который получил от Pristal или медийки.</p>
-      <div class="promo-row">
-        <input class="promo-input" id="promoInput" maxlength="24" placeholder="Например: PRISTAL10">
-        <button class="btn primary" id="promoBtn">Проверить</button>
-      </div>
-      <div class="auth-message" id="promoMessage"></div>
-      <div class="promo-admin-note">
-        Для реальной работы промокоды должны храниться в API/базе. На GitHub Pages ниже показан только интерфейс и демонстрационная конфигурация.
-      </div>
-    </article>
-
-    <aside class="promo-card">
-      <div class="eyebrow">📋 ACTIVE CODES</div>
-      <h3>Текущие промокоды</h3>
-      <div class="promo-list">
-        <div class="promo-item">
-          <div class="promo-head"><span class="promo-code">PRISTAL10</span><b>10% OFF</b></div>
-          <div class="promo-meta">Использований: 0 / 100</div>
-          <div class="promo-reward">🎁 +100 Pristal Coins</div>
-        </div>
-        <div class="promo-item">
-          <div class="promo-head"><span class="promo-code">SKRENH20</span><b>20% OFF</b></div>
-          <div class="promo-meta">Использований: 0 / 50</div>
-          <div class="promo-reward">🎁 +1 Network Key</div>
-        </div>
-        <div class="promo-item">
-          <div class="promo-head"><span class="promo-code">WELCOME</span><b>5% OFF</b></div>
-          <div class="promo-meta">Использований: 0 / ∞</div>
-          <div class="promo-reward">🎁 +50 Pristal Coins</div>
-        </div>
-      </div>
-    </aside>
-  </div>
-</div></section>
-
 <div class="theme-toggle">
   <button class="theme-open" id="themeOpen">🎨 Стиль сайта</button>
   <div class="theme-panel" id="themePanel">
@@ -746,12 +668,24 @@ document.addEventListener("click",(e)=>{
   const setStatus=(message,kind="")=>{status.textContent=message;status.className="discord-news-status"+(kind?" "+kind:"");};
   const formatDate=(value)=>{try{return new Intl.DateTimeFormat("ru-RU",{dateStyle:"medium",timeStyle:"short"}).format(new Date(value));}catch{return "";}};
   const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node;};
+  const addAnarchyAnnouncement=()=>{
+    const card=el("article","card discord-news-card anarchy-announcement");
+    const meta=el("div","discord-news-meta");
+    meta.append(el("span","discord-news-author","PRISTAL · АНОНС"));
+    meta.append(el("time","","Скоро"));
+    card.append(meta);
+    card.append(el("span","anarchy-badge","⚔️ СКОРО ОТКРЫТИЕ"));
+    card.append(el("h3","","Скоро откроется анархия Pristal!"));
+    card.append(el("p","discord-news-content","Готовься к новым приключениям на анархии Pristal. Точную дату открытия объявим отдельно — следи за новостями проекта."));
+    list.append(card);
+  };
   try{
     const response=await fetch("./discord-news.json?ts="+Date.now(),{cache:"no-store"});
     if(!response.ok) throw new Error("Новости ещё не опубликованы");
     const data=await response.json();
     if(data.guild_id && channelLink){channelLink.href=`https://discord.com/channels/${encodeURIComponent(data.guild_id)}/${CHANNEL_ID}`;channelLink.textContent="Открыть канал новостей";}
     list.replaceChildren();
+    addAnarchyAnnouncement();
     if(data.status!=="ready"){
       setStatus(data.message || "Канал Discord пока не подключён. Настройте секрет DISCORD_BOT_TOKEN в GitHub.","error");
       list.append(el("article","card discord-news-card","Чтобы новости автоматически появлялись здесь, добавьте Discord-бота с правами просмотра канала и чтения истории сообщений, затем сохраните его токен в GitHub Secrets как DISCORD_BOT_TOKEN."));
@@ -786,6 +720,7 @@ document.addEventListener("click",(e)=>{
     }
   }catch(error){
     list.replaceChildren();
+    addAnarchyAnnouncement();
     setStatus("Не удалось загрузить канал новостей. Проверь настройки GitHub Actions.","error");
     list.append(el("article","card discord-news-card","Лента новостей загружается из файла, который обновляет GitHub Actions. Проверь, что в репозитории задан секрет DISCORD_BOT_TOKEN и бот имеет доступ к каналу."));
   }
