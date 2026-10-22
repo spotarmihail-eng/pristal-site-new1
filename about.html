@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>О нас — Pristal</title>
+<meta name="description" content="История Pristal: как всё начиналось, почему сервер закрылся и как он возрождается. Комикс-обращение Мистера Скренча к игрокам.">
+<meta name="theme-color" content="#a855f7">
+<meta property="og:title" content="О нас — Pristal">
+<meta property="og:description" content="История Pristal в комиксе: от первого сезона до возрождения.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23160923'/%3E%3Cpath d='M32 10l6 16 16 6-16 6-6 16-6-16-16-6 16-6z' fill='%23a855f7'/%3E%3C/svg%3E">
+<style>
+:root{--accent:#a855f7;--muted:#9aa3b2}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:#070a0f;color:#f5f7fb;line-height:1.55;overflow-x:hidden}
+img{display:block;width:100%;height:auto}
+button{font-family:inherit}
+.bg{position:fixed;inset:0;z-index:-1;background:center/cover;opacity:.22}
+.wrap{width:min(1120px,92%);margin:auto}
+header{position:sticky;top:0;z-index:50;background:rgba(7,10,15,.82);backdrop-filter:blur(16px);border-bottom:1px solid #ffffff14}
+.nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:24px;font-weight:900;letter-spacing:.08em;text-decoration:none;color:inherit}.logo span{color:var(--accent)}
+nav{display:flex;align-items:center;gap:6px}
+nav a{padding:9px 12px;border-radius:10px;color:#b9c0ca;text-decoration:none;font-size:14px;font-weight:700;white-space:nowrap}
+nav a:hover,nav a.on{color:#fff;background:#ffffff12}
+nav a.dc{background:#5865f2;color:#fff}
+section{padding:64px 0}
+.title{text-align:center;margin-bottom:32px}.title h2{font-size:clamp(30px,5vw,42px);letter-spacing:-.04em}.title p{color:var(--muted);margin-top:6px}
+.card{background:linear-gradient(145deg,#111720ee,#0b0f15ee);border:1px solid #ffffff14;border-radius:22px;padding:24px;backdrop-filter:blur(6px)}
+.btn{padding:12px 18px;border-radius:12px;border:1px solid #ffffff1f;background:#111721;color:#fff;font-weight:800;font-size:14px;cursor:pointer;text-decoration:none;display:inline-block;transition:.2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#160923}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding:60px 0 30px}
+.badge{display:inline-flex;padding:8px 14px;border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);background:color-mix(in srgb,var(--accent) 10%,transparent);border-radius:999px;color:color-mix(in srgb,var(--accent) 70%,#fff);font-size:13px;font-weight:700;margin-bottom:20px}
+h1{font-size:clamp(54px,10vw,104px);line-height:.92;letter-spacing:-.06em}h1 span{color:var(--accent);text-shadow:0 0 35px color-mix(in srgb,var(--accent) 30%,transparent)}
+.lead{margin:24px 0 8px;max-width:600px;color:#c3cad6;font-size:18px;border-left:3px solid var(--accent);padding-left:16px;font-style:italic}
+.note{color:var(--muted);font-size:13px;margin-bottom:24px}
+.hero-img{border:0;background:none;padding:0;cursor:zoom-in;justify-self:center;max-width:380px;width:100%;border-radius:22px;overflow:hidden;box-shadow:0 30px 80px #000a,0 0 0 1px #ffffff1a;transform:rotate(2deg);transition:.35s}
+.hero-img:hover{transform:rotate(0) scale(1.02)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:center}
+.stat b{display:block;font-size:48px;line-height:1.1;color:var(--accent);letter-spacing:-.04em}.stat span{color:#aeb7c3;font-size:14px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
+.tab{border:1px solid #ffffff17;background:#10161f;color:#aeb7c3;padding:10px 16px;border-radius:11px;cursor:pointer;font-weight:800;font-size:14px;transition:.2s}
+.tab.on{background:var(--accent);border-color:var(--accent);color:#160923}
+.viewer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;align-items:center}
+.shot{position:relative;border:0;padding:0;cursor:zoom-in;border-radius:18px;overflow:hidden;background:#05070b;display:grid;place-items:center;min-height:240px}
+.shot img{max-height:560px;object-fit:contain;width:auto;max-width:100%;margin:auto}
+.zoom{position:absolute;right:10px;bottom:10px;background:#000a;border-radius:10px;padding:6px 10px;font-size:13px;color:#fff}
+.text small{color:var(--accent);font-weight:900;letter-spacing:.1em;font-size:12px}
+.text h3{font-size:clamp(24px,4vw,32px);margin:6px 0 12px;letter-spacing:-.03em}
+.text p{color:#c8ced7;font-size:17px}
+.ctl{display:flex;align-items:center;gap:14px;margin-top:22px}.ctl span{color:var(--muted);font-weight:800;min-width:54px;text-align:center}
+.fade{animation:in .45s ease}@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.thumbs{position:relative;display:flex;gap:8px;overflow-x:auto;padding:14px 2px 6px}
+.thumbs button{flex:0 0 64px;height:64px;border-radius:12px;overflow:hidden;border:2px solid transparent;opacity:.55;padding:0;background:#000;cursor:pointer;transition:.2s}
+.thumbs button.on{border-color:var(--accent);opacity:1}.thumbs img{width:100%;height:100%;object-fit:cover}
+.bar{height:4px;border-radius:4px;background:#ffffff14;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .4s}
+.tl{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 12px}
+.node{flex:1 0 170px;text-align:left;padding:16px;border-radius:16px;border:1px solid #ffffff14;background:#0d1219;color:#fff;cursor:pointer;transition:.2s}
+.node small{display:block;color:var(--accent);font-weight:900;font-size:12px;letter-spacing:.08em}.node b{font-size:17px}
+.node:hover,.node.on{border-color:var(--accent);transform:translateY(-3px)}
+.tldetail{margin-top:10px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.tldetail p{color:#c8ced7;flex:1 1 320px}
+.wants{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.want{position:relative;padding:22px 12px;border-radius:18px;border:1px solid #ffffff14;background:#0d1219;color:#fff;cursor:pointer;font-weight:800;font-size:15px;transition:.2s}
+.want i{display:block;font-style:normal;font-size:38px;margin-bottom:8px}
+.want:hover{transform:translateY(-3px)}.want.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,#0d1219)}
+.want.on:after{content:"✓";position:absolute;top:10px;right:12px;color:var(--accent);font-size:18px}
+.center{text-align:center}.sub{color:var(--muted);margin-top:14px;min-height:24px}
+.checks{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.check{padding:12px 20px;border-radius:14px;border:1px dashed #ffffff30;background:#0d1219;color:#aeb7c3;cursor:pointer;font-weight:800;transition:.2s}
+.check.on{border-style:solid;border-color:var(--accent);color:#fff}.check.on:before{content:"✓ ";color:var(--accent)}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.gal button{border:0;padding:0;border-radius:14px;overflow:hidden;aspect-ratio:1;cursor:zoom-in;background:#000;transition:.2s}
+.gal img{width:100%;height:100%;object-fit:cover}.gal button:hover{transform:scale(1.04)}
+.ip{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px 0;font-family:monospace;font-size:16px}
+.ip code{padding:12px 16px;border-radius:10px;background:#070a0f;border:1px solid #ffffff14}
+.lb{position:fixed;inset:0;z-index:100;background:#000d;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:18px}
+.lb.open{display:flex}.lb img{max-width:min(94vw,1100px);max-height:80vh;width:auto;object-fit:contain;border-radius:12px;animation:in .3s}
+.lb button{position:fixed;border:0;background:#ffffff1f;color:#fff;width:46px;height:46px;border-radius:14px;font-size:22px;cursor:pointer}
+.lb button:hover{background:var(--accent);color:#160923}
+#lbX{top:16px;right:16px}#lbP{left:14px;top:50%}#lbN{right:14px;top:50%}#lbCap{color:#c8ced7;font-size:14px;text-align:center}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);z-index:120;padding:12px 18px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:999px;background:rgba(15,18,26,.95);color:#fff;opacity:0;pointer-events:none;transition:.25s;font-weight:700;max-width:calc(100vw - 28px);text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+footer{border-top:1px solid #ffffff14;padding:30px 0;color:#7f8997;text-align:center}footer a{color:var(--accent);text-decoration:none}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}.rv.in{opacity:1;transform:none}
+@media(max-width:800px){.hero,.viewer{grid-template-columns:1fr}.hero{padding-top:36px}.hero-img{max-width:300px}.stats{grid-template-columns:1fr}.wants{grid-template-columns:repeat(2,1fr)}.lb img{max-height:70vh}#lbP,#lbN{top:auto;bottom:14px}}
+@media(max-width:560px){nav a.hs{display:none}nav a{padding:8px 10px;font-size:13px}.logo{font-size:20px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+.parts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding-top:26px}
+.pt{border:1px solid #ffffff17;background:#10161f;color:#aeb7c3;padding:11px 18px;border-radius:12px;cursor:pointer;font-weight:800;font-size:14px;transition:.2s}
+.pt.on{background:var(--accent);border-color:var(--accent);color:#160923}
+.hero-img.wide{max-width:560px;transform:rotate(-1.5deg)}.hero-img.wide:hover{transform:rotate(0) scale(1.02)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.sim{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center}
+.hearts{display:flex;gap:6px;align-items:center;font-size:36px;min-height:48px}.hearts em{font-style:normal;font-size:15px;font-weight:800;color:#c8ced7;margin-left:10px}
+.sim-msg{margin:10px 0 18px;color:#c8ced7;min-height:48px}
+.ach{list-style:none;margin-top:18px;display:grid;gap:6px}
+.ach li{padding:9px 12px;border-radius:10px;border:1px dashed #ffffff26;color:#6f7885;font-size:14px;transition:.3s}
+.ach li.on{border-style:solid;border-color:var(--accent);color:#fff;background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.sb{padding:18px 20px;border-radius:16px;background:#05070bf0;border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);font-family:ui-monospace,monospace;transition:.3s}
+.sb b{font-size:20px;color:var(--accent)}.sb small{margin-left:8px;color:#8a93a1}.sb p{margin-top:7px;font-size:14px;color:#c8ced7}.sb i{font-style:normal;color:#fff;font-weight:800}
+.sb.off{opacity:.12;filter:blur(2px)}
+@media(max-width:800px){.sim{grid-template-columns:1fr}}
+[hidden]{display:none!important}
+.peak-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.peak-top b{font-size:56px;line-height:1;color:var(--accent);letter-spacing:-.04em}.peak-top span{color:#aeb7c3}
+.slots{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
+.slots i{aspect-ratio:1;border-radius:8px;background:#ffffff0d;border:1px solid #ffffff10;transition:.25s}
+.slots i.on{background:var(--accent);border-color:var(--accent);box-shadow:0 0 14px color-mix(in srgb,var(--accent) 50%,transparent);transform:scale(1.04)}
+.finder{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px;padding:16px}
+.finder input{flex:1 1 220px;min-width:0;padding:13px 16px;border-radius:12px;border:1px solid #ffffff1f;background:#070a0f;color:#fff;font:inherit;font-size:15px}
+.finder input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid #ffffff17;background:#10161f;color:#aeb7c3;padding:10px 14px;border-radius:999px;cursor:pointer;font-weight:800;font-size:13px}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#160923}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px;margin-top:14px}
+.pcard{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;border:1px solid #ffffff14;background:#0d1219;color:#fff;cursor:pointer;text-align:left;font-weight:800;font-size:14px;transition:.2s;min-width:0}
+.pcard:hover{transform:translateY(-2px);border-color:var(--accent)}
+.pcard.fav{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,#0d1219)}
+.pcard.hit{animation:hit 1.4s}@keyframes hit{0%,60%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
+.pcard .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pcard .st{font-size:15px;opacity:.2}.pcard.fav .st{opacity:1}
+.av{position:relative;flex:0 0 38px;height:38px;border-radius:10px;display:grid;place-items:center;font-weight:900;color:#fff;overflow:hidden}
+.av img{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;opacity:0;transition:.3s}.av.ok img{opacity:1}
+</style>
+</head>
+<body>
+<div class="bg" id="bg" aria-hidden="true"></div>
+<header><div class="wrap nav">
+  <a class="logo" href="./">PRI<span>STAL</span></a>
+  <nav><a href="./">Главная</a><a class="on" href="about.html">О нас</a><a class="hs" href="participants.html">Участники</a><a class="dc" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">Discord</a></nav>
+</div></header>
+
+<main>
+<div class="wrap parts" id="parts"><button class="pt on" type="button" data-p="0">Часть 1 · Pristal</button><button class="pt" type="button" data-p="1">Часть 2 · PristalHard, 2 сезон</button></div>
+<section class="wrap hero">
+  <div>
+    <span class="badge" id="hBadge">📖 ИСТОРИЯ PRISTAL</span>
+    <h1>О <span>нас</span></h1>
+    <p class="lead" id="lead">«Дорогой друг, прочитай, пожалуйста, мотивационную речь на первый сезон SMP-сервера и скорое открытие 2 сезона хардкора — от меня, с небольшими объяснениями. Спасибо!»</p>
+    <p class="note" id="note">Мертвый не имеет отношения к информации о сервере.</p>
+    <div class="btns">
+      <button class="btn primary" id="playBtn" type="button">▶ Смотреть историю</button>
+      <a class="btn" href="#story">Листать самому</a>
+      <button class="btn" id="fullBtn" type="button" data-open="12">🖼 Комикс целиком</button>
+      <button class="btn" id="playersBtn" type="button">👥 Игроки сезона</button>
+    </div>
+  </div>
+  <button class="hero-img" type="button" data-open="0" aria-label="Открыть обращение крупно"><img src="assets/comic/c1.jpg" alt="Обращение Мистера Скренча ко всем игрокам сервера"></button>
+</section>
+
+<section class="wrap rv"><div class="stats">
+  <div class="card stat"><b class="cnt" data-to="12">12</b><span>месяцев длился 1 сезон<br>(март 2025 → март 2026)</span></div>
+  <div class="card stat"><b class="cnt" data-to="6">6</b><span>месяцев сервер лежал в тишине</span></div>
+  <div class="card stat"><b class="cnt" data-to="2025">2025</b><span>год, когда всё началось</span></div>
+</div></section>
+
+<section id="story" class="wrap rv">
+  <div class="title"><h2 id="stTitle">История Pristal</h2><p>Листай главы стрелками или кнопками. Нажми на картинку — она увеличится.</p></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="card viewer" id="viewer">
+    <button class="shot" id="shot" type="button" aria-label="Увеличить картинку"><img id="shotImg" alt=""><span class="zoom">🔍 увеличить</span></button>
+    <div class="text"><small id="chap"></small><h3 id="h"></h3><p id="p"></p>
+      <div class="ctl"><button class="btn" id="prev" type="button" aria-label="Назад">←</button><span id="count"></span><button class="btn primary" id="next" type="button" aria-label="Дальше">→</button></div>
+    </div>
+  </div>
+  <div class="thumbs" id="thumbs"></div><div class="bar"><i id="bar"></i></div>
+</section>
+
+<section class="wrap rv">
+  <div class="title"><h2 id="tlTitle">Путь Pristal</h2><p>Нажимай на этапы, чтобы узнать подробности.</p></div>
+  <div class="tl" id="tl"></div>
+  <div class="card tldetail"><p id="tlText"></p><button class="btn primary" id="tlGo" type="button">Смотреть в комиксе →</button></div>
+</section>
+
+<section class="wrap rv center">
+  <div class="title"><h2 id="wTitle">Что нас ждёт?</h2><p id="wSub">Отметь то, что интересно тебе. Выбор запомнится в твоём браузере.</p></div>
+  <div class="wants" id="wants"></div>
+  <p class="sub" id="wantCount"></p>
+</section>
+
+<section class="wrap rv center">
+  <div class="title"><h2 id="cTitle">Мы готовились долго</h2><p id="cSub">Нажимай на пункты, чтобы отметить, что уже сделано.</p></div>
+  <div class="checks" id="checks"></div>
+  <p class="sub" id="ready"></p>
+</section>
+
+<section id="lives" class="wrap rv" hidden>
+  <div class="title"><h2>Попробуй: пять жизней</h2><p>Нажимай «Погибнуть» и смотри, как меняются жизни, достижения и табло сервера.</p></div>
+  <div class="card sim">
+    <div>
+      <div class="hearts" id="hearts"></div>
+      <p class="sim-msg" id="simMsg"></p>
+      <div class="btns"><button class="btn primary" id="dieBtn" type="button">💀 Погибнуть</button><button class="btn" id="resetBtn" type="button">↺ Заново</button><button class="btn" id="sbBtn" type="button">/sb — скрыть</button></div>
+      <ul class="ach" id="ach"></ul>
+    </div>
+    <div class="sb" id="sb"><b>PristalHard</b><small>HARD SMP</small>
+      <p>👥 Онлайн: <i>42</i></p><p>📈 TPS: <i>20.0</i></p><p>📶 Пинг: <i>42ms</i></p><p>🎖 Ранг: <i>Игрок</i></p><p>⚔️ Убийств: <i>5</i></p><p>💀 Смертей: <i id="sbDeaths">0</i></p><p>❤️ Жизни: <i id="sbLives">5/5</i></p>
+    </div>
+  </div>
+</section>
+
+<section id="players" class="wrap rv">
+  <div class="title"><h2 id="pTitle">Игроки второго сезона</h2><p id="pSub">Максимальный онлайн — 50 человек одновременно. Найди свой ник и отметь знакомых!</p></div>
+  <div class="card" id="peakCard">
+    <div class="peak-top"><div><b id="peakN">0</b> <span id="peakOf">/ 50 человек онлайн одновременно</span></div>
+      <div class="btns"><button class="btn primary" id="peakBtn" type="button">▶ Показать пик онлайна</button><button class="btn" id="peakReset" type="button" aria-label="Сбросить">↺</button></div></div>
+    <div class="slots" id="slots"></div>
+  </div>
+  <div class="card finder">
+    <input id="pSearch" type="search" placeholder="Введи свой ник…" autocomplete="off" aria-label="Поиск ника">
+    <div class="chips"><button class="chip on" type="button" data-f="all">Все</button><button class="chip" type="button" data-f="nobots">Без ботов</button><button class="chip" type="button" data-f="fav">⭐ Друзья</button></div>
+    <div class="btns"><button class="btn" id="pRandom" type="button">🎲 Случайный</button><button class="btn" id="pShuffle" type="button">🔀 Перемешать</button><button class="btn" id="pAZ" type="button">А→Я</button></div>
+  </div>
+  <p class="sub center" id="pCount"></p>
+  <div class="pgrid" id="pGrid"></div>
+</section>
+
+<section class="wrap rv">
+  <div class="title"><h2>Весь комикс</h2><p>Нажми на любую панель, чтобы рассмотреть её крупно.</p></div>
+  <div class="gal" id="gal"></div>
+</section>
+
+<section class="wrap rv">
+  <div class="card center">
+    <h2 style="font-size:clamp(26px,4vw,36px);letter-spacing:-.03em">Заходи на Pristal</h2>
+    <div class="ip"><code>pristal-lobbu.play-mc.fun</code><button class="btn primary" type="button" data-ip="pristal-lobbu.play-mc.fun">Копировать IP</button></div>
+    <div class="btns" style="justify-content:center">
+      <a class="btn" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">💬 Discord</a>
+      <a class="btn" href="https://t.me/pristalservers" target="_blank" rel="noopener">✈ Telegram</a>
+      <a class="btn" href="https://youtube.com/@pristalyt" target="_blank" rel="noopener">▶ YouTube</a>
+      <a class="btn" href="./">← На главную</a>
+    </div>
+    <p class="note" style="margin:18px 0 0">С уважением, Мистер Скренч. Один из создателей проекта Pristal!</p>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">© 2026 Pristal Network · <a href="./">Главная</a> · <a href="participants.html">Участники</a></div></footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр комикса">
+  <button id="lbX" type="button" aria-label="Закрыть">✕</button><button id="lbP" type="button" aria-label="Назад">←</button><button id="lbN" type="button" aria-label="Дальше">→</button>
+  <img id="lbImg" alt=""><div id="lbCap"></div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+// Theme and background follow the choice made on the main page
+const A={mint:'#72f27d',violet:'#a855f7',rose:'#ff8fb1',blue:'#78a9ff',sunset:'#ffb86b',mono:'#e8edf2',darkpink:'#ff6ccf',ice:'#7fffd4',forest:'#76d66f'};
+let th='violet',bgn='all';try{th=localStorage.getItem('pristalTheme')||th;bgn=localStorage.getItem('pristalBg')||bgn}catch(e){}
+document.documentElement.style.setProperty('--accent',A[th]||A.violet);
+$('#bg').style.backgroundImage='url(assets/backgrounds/bg'+(/^[1-8]$/.test(bgn)?bgn:'2')+'.jpg)';
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2200)};
+
+const IM1=[['c1','Обращение Мистера Скренча к игрокам'],['c2','1. История сервера'],['c3','Сильное комьюнити'],['c4a','И начались проблемы…'],['c4b','После закрытия сервера'],['c5','2. Возрождение из мертвых'],['c6','ПвП пока не откроется'],['c7','3. Новая эпоха'],['c8','4. Что впереди?'],['c9','Пожелание игроку'],['c10','5. Ну а если серьёзно…'],['c11','С уважением, Мистер Скренч'],['full','Комикс целиком']];
+const CH1=['История сервера','Возрождение из мертвых','Новая эпоха','Что впереди','Ну а если серьёзно'],FIRST1=[0,4,6,7,8];
+// slide i shows panel IM[i+1]; fields: chapter, heading, text
+const S1=[
+[0,'С чего всё началось','У Pristal довольно большая и насыщенная история, и начинается она ещё в 2025 году. Я, Карлик (главные создатели) и Мертвый решили создать ванильный сервер по Майнкрафту. ПвП-ванила была, ПвП был, но у нас там были большие проблемы. А до этого я создал хардкор-сервер, и мы там познакомились!'],
+[0,'Сильное комьюнити','У нас было сильное комьюнити и приемлемое количество людей, даже контент-мейкеры были! Сервер просуществовал недолго: с марта по следующий март — целый год — и был 1 сезон. Рекорд онлайна — 35 игроков одновременно.'],
+[0,'И начались проблемы…','Мы хотели сменить Атернос на платный хостинг, а закончилось всё так же спонтанно, как и началось… Как показала практика, хостить на Атерносе было не такой уж хорошей идеей.'],
+[0,'После закрытия','После закрытия сервера я пытался оживить один проект, но у меня не получалось, и я писал в этот Дискорд-сервер о своих планах.'],
+[1,'Полгода в тишине','Но вот прошёл год. Полгода сервер считался закрытым из-за того, что я, оставшийся на проекте, был занят другими проектами. Полгода он лежал в своей ложе умирающего — и спустя полгода вдохнул глоток свежего воздуха снова. И я попытаюсь дать вам незабываемые ощущения от игры на SMP и хардкоре.'],
+[1,'А как же ПвП?','С сожалением: ПвП-сервер не откроется в ближайшее время. Но у нас есть другие планы…'],
+[2,'Сюжет · SMP · хардкор','В связи с нынешними проблемами в мире у меня зародилась мысль возродить сервер из мёртвых и вернуть людям Pristal. Сделать, возможно, первый сюжетный сервер на Атерносе — майнкрафт-сервер с сюжетом и хардкор-сервер выживания!'],
+[3,'Что впереди?','Дорогой игрок, впереди нас ждёт много чего на этом сервере: ивенты, невероятные проекты, красивые здания, магазины на спавне, фарм алмазной руды и прочее. Отметь ниже, что тебе интереснее всего!'],
+[4,'Пожелание','Хочу пожелать тебе хорошего, качественного и действительно незабываемого времяпрепровождения на этом проекте! Пускай все твои задумки станут реальными, и ты получишь удовольствие от всех плюсов Майнкрафта и, конечно же, от SMP-сервера с сюжетом! Надеюсь, тебе понравится здесь!'],
+[4,'Ну а если серьёзно…','Мы реально старались и готовились очень долго — от Дискорд-сервера до майн-сервера, хостинга, правил, модов и так далее. Надеюсь, вам реально зайдёт этот экспириенс. Ниже можно отметить, что уже готово!'],
+[4,'С уважением, Мистер Скренч','Один из создателей проекта Pristal!']];
+let IM,CH,FIRST,S,TL,W,C,PT;
+const src=i=>'assets/comic/'+IM[i][0]+'.jpg';
+
+// Story viewer
+let cur=0,timer=null;const lb=$('#lb'),play=$('#playBtn'),thumbs=$('#thumbs');
+function buildViewer(){$('#tabs').replaceChildren();thumbs.replaceChildren();CH.forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.className='tab';b.textContent=(i+1)+'. '+c;b.onclick=()=>{stop();go(FIRST[i])};$('#tabs').append(b)});
+S.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Слайд '+(i+1));const im=new Image();im.src=src(i+1);im.alt='';im.loading='lazy';b.append(im);b.onclick=()=>{stop();go(i)};thumbs.append(b)})}
+function go(i){
+  cur=(i+S.length)%S.length;const s=S[cur];
+  $('#shotImg').src=src(cur+1);$('#shotImg').alt=IM[cur+1][1];
+  $('#chap').textContent='ГЛАВА '+(s[0]+1)+' · '+CH[s[0]].toUpperCase();$('#h').textContent=s[1];$('#p').textContent=s[2];
+  $('#count').textContent=(cur+1)+' / '+S.length;$('#bar').style.width=((cur+1)/S.length*100)+'%';
+  $$('.tab').forEach((t,k)=>t.classList.toggle('on',k===s[0]));$$('#thumbs button').forEach((t,k)=>t.classList.toggle('on',k===cur));
+  const v=$('#viewer');v.classList.remove('fade');void v.offsetWidth;v.classList.add('fade');
+  const on=thumbs.querySelector('.on');if(on)thumbs.scrollTo({left:on.offsetLeft-thumbs.clientWidth/2+32,behavior:'smooth'});
+}
+function stop(){if(timer){clearInterval(timer);timer=null}play.textContent='▶ Смотреть историю'}
+function start(){stop();timer=setInterval(()=>{if(!lb.classList.contains('open'))go(cur+1)},7000);play.textContent='⏸ Пауза'}
+play.onclick=()=>{if(timer)stop();else{$('#story').scrollIntoView({behavior:'smooth'});go(0);start()}};
+$('#prev').onclick=()=>{stop();go(cur-1)};$('#next').onclick=()=>{stop();go(cur+1)};
+let x0=0;const vw=$('#viewer');
+vw.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+vw.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>55){stop();go(cur+(d<0?1:-1))}},{passive:true});
+
+// Lightbox
+let li=0;
+function show(i){li=(i+IM.length)%IM.length;$('#lbImg').src=src(li);$('#lbImg').alt=IM[li][1];$('#lbCap').textContent=IM[li][1]+' · '+(li+1)+' / '+IM.length}
+function openLb(i){stop();show(i);lb.classList.add('open');document.body.style.overflow='hidden'}
+function closeLb(){lb.classList.remove('open');document.body.style.overflow=''}
+$('#lbX').onclick=closeLb;$('#lbP').onclick=()=>show(li-1);$('#lbN').onclick=()=>show(li+1);
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
+$('#shot').onclick=()=>openLb(cur+1);
+$$('[data-open]').forEach(b=>b.onclick=()=>openLb(+b.dataset.open));
+let inView=false;new IntersectionObserver(e=>{inView=e[0].isIntersecting}).observe($('#story'));
+addEventListener('keydown',e=>{
+  if(lb.classList.contains('open')){if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')show(li-1);if(e.key==='ArrowRight')show(li+1);return}
+  if(inView){if(e.key==='ArrowLeft'){stop();go(cur-1)}if(e.key==='ArrowRight'){stop();go(cur+1)}}
+});
+
+// Timeline
+const TL1=[['2025','Идея','Мистер Скренч, Карлик и Мертвый решают создать ванильный сервер по Майнкрафту. До этого Скренч создал хардкор-сервер — там все и познакомились.',0],
+['МАРТ 2025','Старт 1 сезона','Сильное комьюнити, приемлемое количество людей и даже контент-мейкеры.',1],
+['МАРТ 2026','Конец 1 сезона','Начались проблемы с хостингом на Атерносе, и всё закончилось так же спонтанно, как началось.',2],
+['ПОЛГОДА','Тишина','Сервер считался закрытым: автор был занят другими проектами.',4],
+['СЕЙЧАС','Возрождение','Pristal возвращается: SMP с сюжетом и хардкор выживания. ПвП откроется позже.',6]];
+let tlI=0;
+function buildTl(){$('#tl').replaceChildren();TL.forEach((n,i)=>{const b=document.createElement('button');b.type='button';b.className='node';const s=document.createElement('small');s.textContent=n[0];const t=document.createElement('b');t.textContent=n[1];b.append(s,t);b.onclick=()=>pickTl(i);$('#tl').append(b)});pickTl(0)}
+function pickTl(i){tlI=i;$$('.node').forEach((n,k)=>n.classList.toggle('on',k===i));$('#tlText').textContent=TL[i][2]}
+$('#tlGo').onclick=()=>{stop();go(TL[tlI][3]);$('#story').scrollIntoView({behavior:'smooth'})};
+
+// "What awaits" picks (saved locally)
+const W1=[['🎉','Ивенты'],['🏗️','Невероятные проекты'],['🏰','Красивые здания'],['🛒','Магазины на спавне'],['💎','Фарм алмазной руды'],['✨','И многое другое']];
+let fav=[],WK='pristalWants';
+const wc=()=>{$('#wantCount').textContent=fav.length?PT.wantMsg+fav.length+' из '+W.length+(fav.length===W.length?PT.wantAll:''):'Пока ничего не выбрано'};
+function buildWants(){$('#wants').replaceChildren();try{fav=JSON.parse(localStorage.getItem(WK))||[]}catch(e){fav=[]}W.forEach((w,i)=>{const b=document.createElement('button');b.type='button';b.className='want'+(fav.includes(i)?' on':'');const e=document.createElement('i');e.textContent=w[0];b.append(e,w[1]);
+  b.onclick=()=>{fav=fav.includes(i)?fav.filter(x=>x!==i):[...fav,i];b.classList.toggle('on');wc();try{localStorage.setItem(WK,JSON.stringify(fav))}catch(e){}};$('#wants').append(b)});wc()}
+
+// Checklist
+const C1=['Discord','Сервер','Хостинг','Правила','Моды','и т.д.'];
+function buildChecks(){$('#checks').replaceChildren();$('#ready').textContent='';C.forEach(c=>{const b=document.createElement('button');b.type='button';b.className='check';b.textContent=c;
+  b.onclick=()=>{b.classList.toggle('on');const all=$$('.check.on').length===C.length;$('#ready').textContent=all?PT.ready+' 🚀':'';if(all)toast(PT.ready)};$('#checks').append(b)})}
+
+// Gallery
+function buildGal(){$('#gal').replaceChildren();IM.slice(0,-1).forEach((m,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',m[1]);const im=new Image();im.src=src(i);im.alt=m[1];im.loading='lazy';b.append(im);b.onclick=()=>openLb(i);$('#gal').append(b)})}
+
+// Parts: data for part 1 (above) and part 2 (PristalHard, season 2)
+const T1={badge:$('#hBadge').textContent,lead:$('#lead').textContent,note:$('#note').textContent,stTitle:$('#stTitle').textContent,tlTitle:$('#tlTitle').textContent,wTitle:$('#wTitle').textContent,wSub:$('#wSub').textContent,cTitle:$('#cTitle').textContent,cSub:$('#cSub').textContent,
+  wk:'pristalWants',wantMsg:'Тебя заинтересовало: ',wantAll:' — тебе точно понравится здесь! 🎉',ready:'Всё готово — заходи на сервер!',
+  stats:[[12,'месяцев длился 1 сезон (март 2025 → март 2026)'],[35,'игроков онлайн одновременно — рекорд 1 сезона'],[6,'месяцев сервер лежал в тишине']],
+  peak:35,cols:7,peakWord:'игроков',sn:'первого',fk:'pristalFriends1',pTitle:'Игроки первого сезона',pSub:'Это участники развития Pristal: они помогали проекту, и все играли ещё на первом сезоне. Максимальный онлайн — 35 игроков одновременно. Найди свой ник и отметь знакомых!'};
+const IM2=[['h1','PristalHard: история второго сезона'],['h2','1. Открытие сезона'],['h3','2. За кулисами'],['h4','3. Первые обновления'],['h5','4. Обновление 1.5'],['h6','5. Обновление 1.6'],['h7','6. Пять жизней: одна судьба'],['h8','Система достижений'],['h9','7. Не всё работало идеально'],['h10','8. Последние дни сезона'],['h11','9. 20 сентября 2026, 20:00'],['h12','10. Что осталось после второго сезона'],['h13','Второй сезон завершён'],['h14','История продолжается…'],['hfull','Комикс целиком']];
+const CH2=['Открытие сезона','Обновления','Пять жизней','Не всё идеально','Финал'],FIRST2=[0,2,5,7,9];
+const S2=[
+[0,'Открытие сезона','17 августа 2026 года, 15:00 — PristalHard снова ожил. Сервер открыл свои двери, и игроки отправились навстречу новому сезону: кто-то строил планы на огромные базы, кто-то мечтал о лучших ресурсах, а кто-то просто хотел посмотреть, что приготовил для него этот мир.'],
+[0,'За кулисами','Команда Pristal не собиралась оставлять сервер прежним: впереди были новые механики, изменения и эксперименты. Пока игроки исследовали мир, за кулисами настраивались плагины, проверялись механики и исправлялись ошибки. Работа продолжалась.'],
+[1,'Первые обновления','28 августа в Discord появился отдельный раздел для обновлений PristalHard. Хотелось, чтобы участники видели не только готовый результат, но и сам процесс развития проекта.'],
+[1,'Обновление 1.5 · 30 августа','Главная задача — защита сервера: античит получил улучшения, проверки доработаны, уязвимости устранены. А ещё появилась новая механика — варение алкоголя: собирай ингредиенты, экспериментируй с рецептами, торгуй или используй напитки на событиях.'],
+[1,'Обновление 1.6 · 30 августа','Старый Scoreboard уступил место новой информационной панели: онлайн, TPS, пинг, ранг, убийства, смерти и система жизней — всё прямо во время игры. Мешает обзору? Команда /sb скрывает панель и возвращает её обратно.'],
+[2,'Пять жизней: одна судьба','9 сентября 2026 года появилась система, которая изменила правила игры: каждый игрок начинает выживание с пятью жизнями. Погиб — осталось четыре, затем три, две, одна. Пятая смерть окончательна: игрока переводят в Spectator. Шестой попытки не будет. Попробуй сам — симулятор ниже!'],
+[2,'Система достижений','За каждую утраченную жизнь — отдельное достижение: первая, вторая, третья, четвёртая и последняя. Оставшиеся жизни видны в TAB и на Scoreboard, так что каждая потеря ощущается по-настоящему.'],
+[3,'Не всё работало идеально','11 сентября команда сообщила об обновлении Advancement — системы достижений Minecraft. Достижения, связанные с плагинами, временно не работали. О проблемах просили писать в Discord, администрации или в поддержку.'],
+[3,'Последние дни сезона','Игроки строили базы, исследовали мир и пробовали новые механики, а команда продолжала работать над сервером. Не всё удалось реализовать сразу, но даже в последние дни PristalHard продолжал меняться.'],
+[4,'20 сентября · 20:00','Второй сезон PristalHard завершился. Мир, полный планов, опасностей и новых возможностей, достиг финальной точки. Сезон не был идеальным — но он был настоящим.'],
+[4,'Что осталось','Новые возможности, улучшения, исправления и невероятные истории игроков. Кто-то запомнит постройки, кто-то — друзей и опасные походы, а кто-то — момент, когда на экране вместо пяти сердец осталось одно. А рекорд онлайна за сезон — 50 человек одновременно.'],
+[4,'Пять жизней. Пять попыток. Одна судьба','Второй сезон завершён, но он навсегда останется частью истории Pristal. Спасибо, что были с нами! Главное, что показал этот сезон: даже когда остаётся всего одна жизнь, история ещё не закончена.'],
+[4,'История продолжается…','Впереди новые сезоны, новые идеи, новые механики и новые приключения. Мы продолжим работать, чтобы Pristal становился лучше — ведь это не просто сервер, а сообщество, которое создаёт свою историю вместе. С уважением, команда проекта Pristal.']];
+const TL2=[['17 АВГУСТА','Открытие сезона','15:00 — PristalHard снова открыл свои двери.',0],['28 АВГУСТА','Раздел в Discord','Появился раздел обновлений PristalHard, чтобы игроки видели процесс разработки.',2],['30 АВГУСТА','Обновления 1.5 и 1.6','Античит, варение алкоголя и новый Scoreboard с командой /sb.',3],['9 СЕНТЯБРЯ','Пять жизней','Пять жизней у каждого игрока, достижения за потери и Spectator после пятой смерти.',5],['11 СЕНТЯБРЯ','Advancement','Обновление достижений: связанные с плагинами временно не работали.',7],['20 СЕНТЯБРЯ','Финал сезона','20:00 — второй сезон PristalHard завершился.',9]];
+const W2=[['🏗️','Постройки'],['🧭','Приключения'],['🛒','Торговля'],['⚔️','Бои'],['❤️','Пять жизней'],['🤝','Друзья']];
+const C2=['Плагины','Механики','Исправления','Стабильность'];
+const T2={badge:'🔥 PRISTALHARD · 2 СЕЗОН',lead:'«Это была не просто игра. Это была история…» Пять жизней. Одна судьба.',note:'17.08.2026 15:00 — 20.09.2026 20:00 · Второй сезон PristalHard',
+  stTitle:'История второго сезона',tlTitle:'Календарь сезона',wTitle:'Что ты запомнишь?',wSub:'Отметь то, что запомнится тебе. Выбор сохранится в твоём браузере.',cTitle:'Работа за кулисами',cSub:'Нажимай на пункты, чтобы отметить, над чем работала команда.',
+  wk:'pristalWants2',peak:50,cols:10,peakWord:'человек',sn:'второго',fk:'pristalFriends',pTitle:'Игроки второго сезона',pSub:'Максимальный онлайн — 50 человек одновременно. Найди свой ник и отметь знакомых!',wantMsg:'Ты запомнишь: ',wantAll:' — вот это был сезон! 🔥',ready:'Всё проверено — работа продолжается!',
+  stats:[[34,'дня длился второй сезон (17 августа → 20 сентября 2026)'],[50,'человек онлайн одновременно — рекорд сезона'],[5,'жизней было у каждого игрока']]};
+const PARTS=[{IM:IM1,CH:CH1,FIRST:FIRST1,S:S1,TL:TL1,W:W1,C:C1,T:T1},{IM:IM2,CH:CH2,FIRST:FIRST2,S:S2,TL:TL2,W:W2,C:C2,T:T2}];
+
+// Five lives simulator
+const ACH=['«1-я жизнь потеряна»','«2-я жизнь потеряна»','«3-я жизнь потеряна»','«4-я жизнь потеряна»','«Последняя жизнь потеряна»'];
+const STEP=['5/5 — начало. Думай. Решай. Выживай.','4/5 — после 1 смерти','3/5 — после 2 смертей','2/5 — после 3 смертей','1/5 — после 4 смертей. Следующая ошибка — последняя!','0/5 — выбывание (Spectator). Шестой попытки не будет.'];
+let deaths=0;
+ACH.forEach(a=>{const li=document.createElement('li');li.textContent=a;$('#ach').append(li)});
+function renderSim(){
+  const l=5-deaths,hs=$('#hearts');
+  hs.replaceChildren(...[0,1,2,3,4].map(i=>{const s=document.createElement('span');s.textContent=i<l?'❤️':'🖤';return s}));
+  if(!l){const e=document.createElement('em');e.textContent='💀 Spectator';hs.append(e)}
+  $('#simMsg').textContent=STEP[deaths];$$('#ach li').forEach((li,i)=>li.classList.toggle('on',i<deaths));
+  $('#sbDeaths').textContent=deaths;$('#sbLives').textContent=l+'/5';$('#dieBtn').disabled=!l;
+}
+$('#dieBtn').onclick=()=>{if(deaths<5){deaths++;renderSim();toast(deaths<5?'Жизнь потеряна. Осталось: '+(5-deaths):'Последняя жизнь потеряна — ты в Spectator')}};
+$('#resetBtn').onclick=()=>{deaths=0;renderSim()};
+$('#sbBtn').onclick=()=>{const off=$('#sb').classList.toggle('off');$('#sbBtn').textContent=off?'/sb — показать':'/sb — скрыть';toast(off?'Scoreboard скрыт':'Scoreboard снова виден')};
+renderSim();
+
+// Players of season 2 (merged from the player list and the whitelist)
+const PL2=[...new Map(('Afflowyer AFK_Bot AFK_Bot123 Agent13 Azara_A BINOCLAYMOM DemonRPG Erik39 fedrru fhwraztj fodrif Fomanax frenku152 gg_loxzxc goEq goffyahh Grehen iisus424 kajf707 korol Kwar1ks List2424 List2424mono Misha MOPSJOP5 MrByLka52 MrSkrenh mtn_dew Neo_Death833 petya611 POM1D0R41K porebr1k Preferred Pristalhard refi sasasiti shadowyline Skrenh skyhnwolker stepa342po TaHkucT_WoT tikikkikk Timkaaaa96 Watermegatema3 wemmbu Zipovec ZXC4707 ZXC_ASDEWFD '
+ +'infectionss Kashimire ForestGuarber Franku152 plonete4 fen3but YRIK228 PixelMest yura_shpurafgjhj Umni_ ghttgggy Greensilver7799 huylo Gilkipro motalka PixPley Batai_Olega FireMaks2280 observer derect_123231 plyw_bonnie yura_shpurafgjh').split(' ').map(n=>[n.toLowerCase(),n])).values()].sort((a,b)=>a.toLowerCase().localeCompare(b.toLowerCase()));
+const isBot=n=>/^AFK_Bot/i.test(n),isTeam=n=>/^(mrskrenh|skrenh)$/i.test(n),hue=n=>{let x=0;for(const c of n)x=(x*31+c.charCodeAt(0))%360;return x};
+const PL1=[...new Map(["Admin", "Agent13", "Airu", "Anu49", "Ayano01", "Bado68", "Basuyo", "Biebu", "Buta", "CARLIK", "daku28", "DemonRPG", "dode", "eshize", "garakin", "GARUR4", "ннннн", "hogubi37", "Jia", "Kizepo", "Kusohe23", "makate", "matwei201303", "Mitezo", "Moguu", "moreto", "MrSkrenh", "noari", "nojo21", "okoyu", "oni", "phronya", "Pihete37", "Pijono", "pisu44", "pogi88", "Popao", "PriyaMehra", "Rapaya", "Reba", "Rega27", "roshi", "sajini", "schedase", "schuba79", "Schuhi64", "SHIKIMORO_YT", "shiramo", "Sidorovich2011", "Soba", "Suhischu", "tebo", "tobega93", "Topuki", "waku", "Warhark100", "Yotomi", "SecB_"].map(n=>[n.toLowerCase(),n])).values()].sort((a,b)=>a.toLowerCase().localeCompare(b.toLowerCase()));
+const PLS=[PL1,PL2];
+let PL=PL2,pf='all',order=PL.slice(),pfav=[],FK='pristalFriends',PEAK=50;
+function renderPlayers(){
+  const q=$('#pSearch').value.trim().toLowerCase(),g=$('#pGrid');
+  const list=order.filter(n=>(!q||n.toLowerCase().includes(q))&&(pf==='all'||(pf==='nobots'&&!isBot(n))||(pf==='fav'&&pfav.includes(n))));
+  g.replaceChildren();
+  list.forEach(n=>{
+    const b=document.createElement('button');b.type='button';b.className='pcard'+(pfav.includes(n)?' fav':'');b.dataset.n=n;
+    const av=document.createElement('span');av.className='av';av.style.background='hsl('+hue(n)+' 45% 32%)';av.textContent=n[0].toUpperCase();
+    const im=document.createElement('img');im.alt='';im.loading='lazy';im.src='https://minotar.net/avatar/'+encodeURIComponent(n)+'/48';im.onload=()=>av.classList.add('ok');av.append(im);
+    const t=document.createElement('span');t.className='nm';t.textContent=(isTeam(n)?'👑 ':isBot(n)?'🤖 ':'')+n;
+    const st=document.createElement('span');st.className='st';st.textContent='⭐';
+    b.append(av,t,st);
+    b.onclick=()=>{pfav=pfav.includes(n)?pfav.filter(x=>x!==n):[...pfav,n];try{localStorage.setItem(FK,JSON.stringify(pfav))}catch(e){}pf==='fav'?renderPlayers():(b.classList.toggle('fav'),pMsg(list.length,q))};
+    g.append(b)});
+  pMsg(list.length,q);
+}
+function pMsg(len,q){
+  const ex=PL.find(n=>n.toLowerCase()===q);
+  $('#pCount').textContent=q?(ex?'🎉 '+ex+', ты был в числе игроков '+PT.sn+' сезона!':len?'Найдено: '+len:'Такого ника нет в списке — но Pristal ждёт тебя в следующем сезоне!'):'Показано '+len+' из '+PL.length+' · ⭐ в друзьях: '+pfav.length;
+}
+$$('.chip').forEach(c=>c.onclick=()=>{pf=c.dataset.f;$$('.chip').forEach(x=>x.classList.toggle('on',x===c));renderPlayers()});
+$('#pSearch').oninput=renderPlayers;
+$('#pShuffle').onclick=()=>{order=[...PL].sort(()=>Math.random()-.5);renderPlayers()};
+$('#pAZ').onclick=()=>{order=PL.slice();renderPlayers()};
+$('#pRandom').onclick=()=>{pf='all';$$('.chip').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'));$('#pSearch').value='';renderPlayers();
+  const cs=$$('.pcard'),c=cs[Math.floor(Math.random()*cs.length)];c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.add('hit');toast('Случайный игрок: '+c.dataset.n)};
+renderPlayers();
+
+// Peak online: 50 players at once
+function buildSlots(){const s=$('#slots');s.replaceChildren();s.style.gridTemplateColumns='repeat('+PT.cols+',1fr)';for(let i=0;i<PEAK;i++)s.append(document.createElement('i'))}
+let pk=0,pt=null,peaked=false;
+function peakReset(){clearInterval(pt);pt=null;pk=0;$$('#slots i').forEach(i=>i.classList.remove('on'));$('#peakN').textContent='0'}
+function peakRun(){
+  peakReset();peaked=true;const el=$$('#slots i');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.forEach(i=>i.classList.add('on'));pk=PEAK;$('#peakN').textContent=PEAK;return}
+  pt=setInterval(()=>{el[pk].classList.add('on');pk++;$('#peakN').textContent=pk;if(pk>=PEAK){clearInterval(pt);pt=null;toast('Пик онлайна: '+PEAK+' '+PT.peakWord+' одновременно!')}},55);
+}
+$('#peakBtn').onclick=peakRun;$('#peakReset').onclick=peakReset;
+$('#playersBtn').onclick=()=>$('#players').scrollIntoView({behavior:'smooth'});
+new IntersectionObserver(es=>{if(es[0].isIntersecting&&!peaked)peakRun()},{threshold:.35}).observe($('#peakCard'));
+
+function setPlayers(n){
+  PL=PLS[n];order=PL.slice();pf='all';FK=PT.fk;PEAK=PT.peak;
+  try{pfav=JSON.parse(localStorage.getItem(FK))||[]}catch(e){pfav=[]}
+  $$('.chip').forEach(x=>x.classList.toggle('on',x.dataset.f==='all'));$('#pSearch').value='';
+  $('#pTitle').textContent=PT.pTitle;$('#pSub').textContent=PT.pSub;$('#peakOf').textContent='/ '+PEAK+' '+PT.peakWord+' онлайн одновременно';
+  buildSlots();peakReset();peaked=false;renderPlayers();
+  const r=$('#peakCard').getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)peakRun();
+}
+
+// Part switcher
+function setPart(n){
+  stop();const d=PARTS[n];[IM,CH,FIRST,S,TL,W,C]=[d.IM,d.CH,d.FIRST,d.S,d.TL,d.W,d.C];PT=d.T;WK=PT.wk;
+  $$('.pt').forEach((b,k)=>b.classList.toggle('on',k===n));
+  $('#hBadge').textContent=PT.badge;$('#lead').textContent=PT.lead;$('#note').textContent=PT.note;
+  const hi=document.querySelector('.hero-img'),hm=hi.querySelector('img');hi.classList.toggle('wide',n===1);hm.src=src(0);hm.alt=IM[0][1];
+  $('#fullBtn').dataset.open=IM.length-1;
+  $('#stTitle').textContent=PT.stTitle;$('#tlTitle').textContent=PT.tlTitle;$('#wTitle').textContent=PT.wTitle;$('#wSub').textContent=PT.wSub;$('#cTitle').textContent=PT.cTitle;$('#cSub').textContent=PT.cSub;
+  $$('.stat').forEach((s,i)=>{const c=s.querySelector('.cnt');c.dataset.to=PT.stats[i][0];c.textContent=PT.stats[i][0];s.querySelector('span').textContent=PT.stats[i][1]});
+  $('#lives').hidden=n!==1;setPlayers(n);
+  buildViewer();buildTl();buildWants();buildChecks();buildGal();go(0);
+}
+$$('.pt').forEach(b=>b.onclick=()=>{setPart(+b.dataset.p);try{history.replaceState(null,'',+b.dataset.p?'#season2':location.pathname)}catch(e){}});
+setPart(location.hash==='#season2'?1:0);
+
+// Copy IP, counters, reveal
+$$('[data-ip]').forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText(b.dataset.ip);toast('IP скопирован: '+b.dataset.ip)}catch(e){toast('IP: '+b.dataset.ip)}});
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);const el=e.target,to=+el.dataset.to,t0=performance.now();
+    const tick=n=>{const k=Math.min((n-t0)/1200,1);el.textContent=Math.round(+el.dataset.to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(tick)};requestAnimationFrame(tick)}),{threshold:.6});
+  $$('.cnt').forEach(c=>{c.textContent='0';io.observe(c)});
+  const rv=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');rv.unobserve(e.target)}}),{threshold:.08});
+  $$('.rv').forEach(r=>rv.observe(r));
+}else $$('.rv').forEach(r=>r.classList.add('in'));
+})();
+</script>
+</body>
+</html>

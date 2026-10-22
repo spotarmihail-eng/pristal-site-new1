@@ -7,6 +7,11 @@
   <meta name="description" content="Pristal — Minecraft-сеть: SMP, PvP и HARD. Выбирай режим, копируй IP и присоединяйся к сообществу.">
   <meta name="theme-color" content="#a855f7">
   <meta name="robots" content="index,follow">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23160923'/%3E%3Cpath d='M32 10l6 16 16 6-16 6-6 16-6-16-16-6 16-6z' fill='%23a855f7'/%3E%3C/svg%3E">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Pristal — Minecraft Network">
+  <meta property="og:description" content="Pristal — Minecraft-сеть: SMP, PvP и HARD. Выбирай режим, копируй IP и присоединяйся к сообществу.">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
@@ -251,16 +256,67 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
 @media(max-width:700px){header{position:relative}.hero{padding-top:58px}.hero .container:after{letter-spacing:.7rem}#pristalTop{right:12px;bottom:12px}}
 </style>
 
+
+<style id="pristal-finish-css">
+:root{--accent:#a855f7;--muted:#8993a1}
+body[data-theme="mint"]{--accent:#72f27d}body[data-theme="violet"]{--accent:#a855f7}
+body[data-theme="rose"]{--accent:#ff8fb1}body[data-theme="blue"]{--accent:#78a9ff}
+body[data-theme="sunset"]{--accent:#ffb86b}body[data-theme="mono"]{--accent:#e8edf2}
+body[data-theme="darkpink"]{--accent:#ff6ccf}body[data-theme="ice"]{--accent:#7fffd4}
+body[data-theme="forest"]{--accent:#76d66f}
+.logo span,h1 span,.creator h2 span,.media-meta,.news .card small,.recruit-info strong,.recruit-list li:before,.discord-news-open,.discord-news-content a{color:var(--accent)}
+h1 span{text-shadow:0 0 35px color-mix(in srgb,var(--accent) 30%,transparent)}
+.btn.primary,.media-tab.active,.leader-tab.active{background:var(--accent);border-color:var(--accent);color:#160923}
+.avatar,.creator-mini-avatar{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 55%,#000))}
+.dot{background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.status,.badge{color:color-mix(in srgb,var(--accent) 70%,#fff)}
+.badge{border-color:color-mix(in srgb,var(--accent) 35%,transparent);background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.card:after{background:var(--accent)}
+.btn:hover,.social:hover,.card:hover,.recruit-card:hover,.media-card:hover,.theme-item.active{border-color:var(--accent)}
+.network-address{border-color:color-mix(in srgb,var(--accent) 35%,transparent);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 12%,transparent),rgba(11,15,21,.96))}
+.hero{background:radial-gradient(circle at 50% 25%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 38%),radial-gradient(circle at 15% 80%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 30%)}
+.news .anarchy-announcement{border-color:color-mix(in srgb,var(--accent) 65%,transparent);background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 20%,transparent),rgba(15,12,26,.95))}
+#pristalToast,body #pristalTop{border-color:color-mix(in srgb,var(--accent) 45%,transparent);color:#fff}
+body #pristalTop{right:18px;bottom:76px}
+.discord-news-content a{text-decoration:underline;overflow-wrap:anywhere}
+.bg-art-grid.single{display:block;inset:0;transform:none;opacity:.34;filter:none}
+.bg-art-grid.single .bg-art-card{width:100%;height:100%;min-height:100vh;border:0;border-radius:0;box-shadow:none;transform:none}
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.person{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 12px;text-align:center}
+.person img{width:56px;height:56px;border-radius:14px;image-rendering:pixelated;background:#21132e;border:1px solid rgba(255,255,255,.1)}
+.person b{font-size:14px;overflow-wrap:anywhere}
+.people-empty{grid-column:1/-1;text-align:center;color:var(--muted)}
+.nav-toggle{display:none;width:44px;height:44px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(13,18,25,.88);color:#fff;font-size:20px;cursor:pointer}
+@media(max-width:800px){
+  header{position:sticky;top:0}
+  .nav-toggle{display:block}
+  .navlinks{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;padding:6px 4% 12px;background:rgba(7,10,15,.97);border-bottom:1px solid rgba(255,255,255,.08)}
+  .navlinks.open{display:flex}
+  .navlinks a{padding:13px 4px;font-size:16px;border-bottom:1px solid rgba(255,255,255,.06)}
+}
+</style>
+
+<style id="pristal-discord-css">
+.auth{display:flex;align-items:center}
+.discord-login{border:0;border-radius:12px;padding:10px 15px;background:#5865f2;color:#fff;font-family:inherit;font-size:14px;font-weight:800;line-height:1;white-space:nowrap;cursor:pointer;transition:transform .22s,background .22s}
+.discord-login:hover{background:#4752c4;transform:translateY(-2px)}
+.auth-chip{display:flex;align-items:center;gap:9px;padding:5px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(13,18,25,.88);font-size:14px;font-weight:800}
+.auth-chip img{width:30px;height:30px;border-radius:9px;background:#21132e}
+.auth-chip span{max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.auth-out{border:0;border-radius:9px;padding:7px 10px;background:#1c2530;color:#c8ced7;font-family:inherit;font-size:12px;cursor:pointer}
+.auth-out:hover{background:#2a3544;color:#fff}
+@media(max-width:800px){.auth{margin-left:auto;margin-right:10px}.auth-chip span{display:none}.discord-login{padding:10px 12px;font-size:13px}}
+</style>
 </head>
 <body>
-<div class="bg-art" aria-hidden="true"><div class="bg-art-grid"><div class="bg-art-card" style="background-image:url('../assets/backgrounds/bg1.jpg')"></div>
-<div class="bg-art-card" style="background-image:url('../assets/backgrounds/bg2.jpg')"></div>
-<div class="bg-art-card" style="background-image:url('../assets/backgrounds/bg3.jpg')"></div>
-<div class="bg-art-card" style="background-image:url('../assets/backgrounds/bg4.jpg')"></div>
-<div class="bg-art-card" style="background-image:url('../assets/backgrounds/bg5.png')"></div>
-<div class="bg-art-card" style="background-image:url('../assets/backgrounds/bg6.png')"></div>
-<div class="bg-art-card" style="background-image:url('../assets/backgrounds/bg7.png')"></div>
-<div class="bg-art-card" style="background-image:url('../assets/backgrounds/bg8.png')"></div></div></div>
+<div class="bg-art" aria-hidden="true"><div class="bg-art-grid"><div class="bg-art-card" style="background-image:url('assets/backgrounds/bg1.jpg')"></div>
+<div class="bg-art-card" style="background-image:url('assets/backgrounds/bg2.jpg')"></div>
+<div class="bg-art-card" style="background-image:url('assets/backgrounds/bg3.jpg')"></div>
+<div class="bg-art-card" style="background-image:url('assets/backgrounds/bg4.jpg')"></div>
+<div class="bg-art-card" style="background-image:url('assets/backgrounds/bg5.jpg')"></div>
+<div class="bg-art-card" style="background-image:url('assets/backgrounds/bg6.jpg')"></div>
+<div class="bg-art-card" style="background-image:url('assets/backgrounds/bg7.jpg')"></div>
+<div class="bg-art-card" style="background-image:url('assets/backgrounds/bg8.jpg')"></div></div></div>
 
 <header>
   <div class="container">
@@ -268,13 +324,16 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
       <a class="logo" href="#">PRI<span>STAL</span></a>
       <div class="navlinks">
         <a href="#servers">Сервера</a>
+        <a href="about.html">О нас</a>
         <a href="#creator">Создатель</a>
         <a href="#media">Медийки</a>
         <a href="#recruitment">Набор</a>
         <a href="#news">Новости</a>
+        <a href="#participants">Участники</a>
         <a href="#contacts">Соцсети</a>
       </div>
-    <a href="participants.html">🤝 Участники</a></nav>
+      <div class="auth" id="authBox"></div>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Меню" aria-expanded="false">☰</button></nav>
   </div>
 </header>
 
@@ -306,7 +365,7 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
         <article class="card">
           <div class="server-icon">⛏️</div>
           <div class="status"><span class="dot"></span> Подключение вручную</div>
-          <h3>Pristal SPM</h3>
+          <h3>Pristal SMP</h3>
           <p>Основное направление сети с собственными механиками и атмосферой.</p>
         </article>
         <article class="card">
@@ -344,12 +403,9 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
             <p>Следи за новостями, обновлениями и общайся с игроками сети.</p>
           </div>
           <div class="socials" id="contacts">
-            <a class="social discord" href="https://discord.gg/jGNsNMfrD" target="_blank" rel="noopener">💬 Discord проекта</a>
-            <!-- ЗАМЕНИ href ниже на официальные ссылки Pristal -->
-            <a class="social telegram" href="https://t.me/skrenh" target="_blank" rel="noopener">✈ Telegram</a>
-            <a class="social discord" href="https://discord.gg/c7qHuGQPX" target="_blank" rel="noopener">◉ Discord</a>
-            <a class="social youtube" href="https://youtube.com/@skrenh" target="_blank" rel="noopener">▶ YouTube</a>
-            <a class="social twitch" href="https://www.twitch.tv/skrenhtv" target="_blank" rel="noopener">◉ Twitch</a>
+            <a class="social discord" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">💬 Discord проекта</a>
+            <a class="social telegram" href="https://t.me/pristalservers" target="_blank" rel="noopener">✈ Telegram канал</a>
+            <a class="social youtube" href="https://youtube.com/@pristalyt" target="_blank" rel="noopener">▶ YouTube канал</a>
           </div>
         </div>
       </div>
@@ -447,7 +503,7 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
             <li>Знание правил проекта</li>
             <li>Готовность помогать игрокам</li>
           </ul>
-          <a class="btn primary recruit-apply" href="https://discord.gg/jGNsNMfrD" target="_blank" rel="noopener">Подать заявку</a>
+          <a class="btn primary recruit-apply" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">Подать заявку</a>
         </article>
 
         <article class="recruit-card">
@@ -459,7 +515,7 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
             <li>Умение работать в команде</li>
             <li>Портфолио приветствуется</li>
           </ul>
-          <a class="btn primary recruit-apply" href="https://discord.gg/jGNsNMfrD" target="_blank" rel="noopener">Подать заявку</a>
+          <a class="btn primary recruit-apply" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">Подать заявку</a>
         </article>
 
         <article class="recruit-card">
@@ -471,7 +527,7 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
             <li>Регулярный контент</li>
             <li>Желание развивать проект</li>
           </ul>
-          <a class="btn primary recruit-apply" href="https://discord.gg/jGNsNMfrD" target="_blank" rel="noopener">Подать заявку</a>
+          <a class="btn primary recruit-apply" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">Подать заявку</a>
         </article>
 
         <article class="recruit-card">
@@ -483,7 +539,7 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
             <li>Умение искать и исправлять ошибки</li>
             <li>Ответственность</li>
           </ul>
-          <a class="btn primary recruit-apply" href="https://discord.gg/jGNsNMfrD" target="_blank" rel="noopener">Подать заявку</a>
+          <a class="btn primary recruit-apply" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">Подать заявку</a>
         </article>
 
         <article class="recruit-card">
@@ -495,7 +551,7 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
             <li>Грамотность</li>
             <li>Доброжелательность</li>
           </ul>
-          <a class="btn primary recruit-apply" href="https://discord.gg/jGNsNMfrD" target="_blank" rel="noopener">Подать заявку</a>
+          <a class="btn primary recruit-apply" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">Подать заявку</a>
         </article>
 
         <article class="recruit-card">
@@ -507,7 +563,7 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
             <li>Расскажи о своих навыках</li>
             <li>Предложи направление</li>
           </ul>
-          <a class="btn primary recruit-apply" href="https://discord.gg/jGNsNMfrD" target="_blank" rel="noopener">Связаться с командой</a>
+          <a class="btn primary recruit-apply" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">Связаться с командой</a>
         </article>
       </div>
 
@@ -529,7 +585,7 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
           <span class="discord-news-pulse" aria-hidden="true"></span>
           <span><strong>Discord · Новости Pristal</strong><small>Канал ID: 1486375854006206494</small></span>
         </div>
-        <a class="btn primary" id="discordNewsChannelLink" href="https://discord.gg/jGNsNMfrD" target="_blank" rel="noopener">Открыть Discord</a>
+        <a class="btn primary" id="discordNewsChannelLink" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">Открыть Discord</a>
       </div>
       <div id="discordNewsStatus" class="discord-news-status" role="status" aria-live="polite">Загружаем новости из Discord…</div>
       <div class="news" id="discordNewsList">
@@ -537,6 +593,17 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
         <article class="card news-loading"><div class="news-skeleton"></div><div class="news-skeleton short"></div><div class="news-skeleton"></div></article>
         <article class="card news-loading"><div class="news-skeleton"></div><div class="news-skeleton short"></div><div class="news-skeleton"></div></article>
       </div>
+    </div>
+  </section>
+
+  <section id="participants">
+    <div class="container">
+      <div class="section-title">
+        <h2>Участники развития Pristal</h2>
+        <p>Спасибо всем, кто помогал проекту.</p>
+      </div>
+      <div class="people" id="peopleList"><div class="card people-empty">Загружаем участников…</div></div>
+      <div style="text-align:center;margin-top:24px"><a class="btn primary" id="peopleAll" href="participants.html">Все участники →</a></div>
     </div>
   </section>
 </main>
@@ -549,9 +616,8 @@ nav a:hover,.btn:hover,.copy:hover,.theme-open:hover,.theme-item:hover{transform
 </footer>
 
 <script>
-
-
-  document.querySelectorAll(".media-tab").forEach(tab=>{
+document.addEventListener("DOMContentLoaded",()=>{
+document.querySelectorAll(".media-tab").forEach(tab=>{
     tab.addEventListener("click",()=>{
       document.querySelectorAll(".media-tab").forEach(t=>t.classList.remove("active"));
       tab.classList.add("active");
@@ -586,23 +652,21 @@ const themeOpen=document.getElementById("themeOpen");
 if(themeOpen){
   themeOpen.addEventListener("click",()=>themePanel.classList.toggle("open"));
 }
-const savedTheme=localStorage.getItem("pristalTheme"); const storedTheme=(!savedTheme||savedTheme==="mint")?"violet":savedTheme;
-const storedBg=localStorage.getItem("pristalBg")||"all";
+const safeGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const storedTheme=safeGet("pristalTheme")||"violet";
+const storedBg=safeGet("pristalBg")||"all";
 applyTheme(storedTheme,storedBg);
 
 function applyTheme(theme,bg){
   document.body.dataset.theme=theme;
   const grid=document.querySelector(".bg-art-grid");
-  if(!grid)return;
-  const cards=[...grid.querySelectorAll(".bg-art-card")];
-  if(bg==="all"){
-    cards.forEach((c,i)=>c.style.display="block");
-  }else{
-    cards.forEach((c,i)=>c.style.display=(String(i+1)===String(bg)?"block":"none"));
-    cards.forEach((c,i)=>c.style.transform=(String(i+1)===String(bg)?"none":""));
+  if(grid){
+    const single=bg!=="all";
+    grid.classList.toggle("single",single);
+    grid.querySelectorAll(".bg-art-card").forEach((c,i)=>{c.style.display=(!single||String(i+1)===String(bg))?"block":"none";c.style.transform="";});
   }
-  localStorage.setItem("pristalTheme",theme);
-  localStorage.setItem("pristalBg",bg);
+  document.querySelectorAll(".theme-item").forEach(b=>b.classList.toggle("active",b.dataset.theme===theme));
+  try{localStorage.setItem("pristalTheme",theme);localStorage.setItem("pristalBg",bg);}catch(e){}
 }
 document.querySelectorAll(".theme-item").forEach(item=>{
   item.addEventListener("click",()=>{
@@ -615,6 +679,7 @@ document.addEventListener("click",(e)=>{
     themePanel.classList.remove("open");
   }
 });
+});
 </script>
 <div class="theme-toggle">
   <button class="theme-open" id="themeOpen">🎨 Стиль сайта</button>
@@ -622,24 +687,17 @@ document.addEventListener("click",(e)=>{
     <div class="theme-title">Выбери стиль</div>
     <div class="theme-grid">
       <button class="theme-item" data-theme="mint" data-bg="1"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg1.jpg')"></span><span><b>Mint Anime</b><small>Мятный · мягкий</small></span></button>
-      <button class="theme-item" data-theme="violet" data-bg="2"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg2.webp.jpg')"></span><span><b>Violet Dream</b><small>Фиолетовый · dreamy</small></span></button>
-      <button class="theme-item" data-theme="rose" data-bg="3"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg3.webp.jpg')"></span><span><b>Rose Bloom</b><small>Розовый · pastel</small></span></button>
+      <button class="theme-item" data-theme="violet" data-bg="2"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg2.jpg')"></span><span><b>Violet Dream</b><small>Фиолетовый · dreamy</small></span></button>
+      <button class="theme-item" data-theme="rose" data-bg="3"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg3.jpg')"></span><span><b>Rose Bloom</b><small>Розовый · pastel</small></span></button>
       <button class="theme-item" data-theme="blue" data-bg="4"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg4.jpg')"></span><span><b>Blue Frost</b><small>Синий · холодный</small></span></button>
-      <button class="theme-item" data-theme="sunset" data-bg="5"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg5.png')"></span><span><b>Sunset Pop</b><small>Тёплый · яркий</small></span></button>
-      <button class="theme-item" data-theme="mono" data-bg="6"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg6.png')"></span><span><b>Monochrome</b><small>Чёрно-белый</small></span></button>
-      <button class="theme-item" data-theme="darkpink" data-bg="7"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg7.png')"></span><span><b>Dark Pink</b><small>Тёмный · pink</small></span></button>
-      <button class="theme-item" data-theme="ice" data-bg="8"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg8.png')"></span><span><b>Ice Night</b><small>Лёд · neon</small></span></button>
+      <button class="theme-item" data-theme="sunset" data-bg="5"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg5.jpg')"></span><span><b>Sunset Pop</b><small>Тёплый · яркий</small></span></button>
+      <button class="theme-item" data-theme="mono" data-bg="6"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg6.jpg')"></span><span><b>Monochrome</b><small>Чёрно-белый</small></span></button>
+      <button class="theme-item" data-theme="darkpink" data-bg="7"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg7.jpg')"></span><span><b>Dark Pink</b><small>Тёмный · pink</small></span></button>
+      <button class="theme-item" data-theme="ice" data-bg="8"><span class="theme-swatch" style="background-image:url('assets/backgrounds/bg8.jpg')"></span><span><b>Ice Night</b><small>Лёд · neon</small></span></button>
       <button class="theme-item" data-theme="forest" data-bg="all"><span class="theme-swatch" style="background-image:linear-gradient(135deg,#234d34,#7fbf7c)"></span><span><b>Forest</b><small>Зелёный · natural</small></span></button>
     </div>
   </div>
 </div>
-
-<section id="participants" class="container" style="margin:70px auto;text-align:center">
-<h2>🤝 Участники развития Pristal</h2>
-<p>Спасибо всем, кто помогал проекту.</p>
-<div id="participants-list"></div>
-</section>
-<script>fetch("participants.json").then(r=>r.json()).then(d=>{document.getElementById("participants-list").innerHTML=d.map(p=>`<div class="card"><img src="https://minotar.net/avatar/${p.nick}/64"><b>${p.nick}</b><br>${p.help}</div>`).join("")})</script>
 
 <script id="pristal-interactions">
 (()=>{
@@ -668,6 +726,16 @@ document.addEventListener("click",(e)=>{
   const setStatus=(message,kind="")=>{status.textContent=message;status.className="discord-news-status"+(kind?" "+kind:"");};
   const formatDate=(value)=>{try{return new Intl.DateTimeFormat("ru-RU",{dateStyle:"medium",timeStyle:"short"}).format(new Date(value));}catch{return "";}};
   const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node;};
+  const pristalRich=(raw)=>{
+    const text=String(raw).replace(/<a?:\w+:\d+>/g,"").replace(/<@&\d+>/g,"@роль").replace(/<@!?\d+>/g,"@участник").replace(/<#\d+>/g,"#канал").replace(/<t:\d+(?::\w)?>/g,"");
+    const frag=document.createDocumentFragment();
+    text.split(/(\*\*[^*]+\*\*|https?:\/\/[^\s<>)]+)/g).forEach(part=>{
+      if(/^\*\*[^*]+\*\*$/.test(part)) frag.append(el("strong","",part.slice(2,-2)));
+      else if(/^https?:\/\//.test(part)){const a=el("a","",part);a.href=part;a.target="_blank";a.rel="noopener noreferrer";frag.append(a);}
+      else if(part) frag.append(document.createTextNode(part));
+    });
+    return frag;
+  };
   const addAnarchyAnnouncement=()=>{
     const card=el("article","card discord-news-card anarchy-announcement");
     const meta=el("div","discord-news-meta");
@@ -700,7 +768,7 @@ document.addEventListener("click",(e)=>{
       meta.append(el("span","discord-news-author",message.author||"Pristal"));
       meta.append(el("time","",formatDate(message.timestamp)));
       card.append(meta);
-      const content=el("div","discord-news-content",message.content||"");
+      const content=el("div","discord-news-content");content.append(pristalRich(message.content||""));
       if(content.textContent.trim()) card.append(content);
       if(Array.isArray(message.embeds)){
         for(const embed of message.embeds){
@@ -726,6 +794,87 @@ document.addEventListener("click",(e)=>{
   }
 })();
 
+</script>
+
+<script id="pristal-finish">
+(()=>{
+  const nav=document.querySelector('.navlinks'),btn=document.getElementById('navToggle');
+  if(nav&&btn){
+    const set=o=>{nav.classList.toggle('open',o);btn.setAttribute('aria-expanded',String(o));btn.textContent=o?'✕':'☰'};
+    btn.addEventListener('click',()=>set(!nav.classList.contains('open')));
+    nav.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
+  }
+  const box=document.getElementById('peopleList'),all=document.getElementById('peopleAll');
+  if(!box)return;
+  const fail=t=>{box.replaceChildren();const c=document.createElement('div');c.className='card people-empty';c.textContent=t;box.append(c)};
+  fetch('participants.json').then(r=>{if(!r.ok)throw new Error('load');return r.json()}).then(d=>{
+    if(!Array.isArray(d)||!d.length)return fail('Список участников пока пуст.');
+    box.replaceChildren();
+    d.slice(0,12).forEach(p=>{
+      const c=document.createElement('article');c.className='card person';
+      const img=new Image();img.loading='lazy';img.alt='';img.src='https://minotar.net/avatar/'+encodeURIComponent(p.nick)+'/64';
+      const b=document.createElement('b');b.textContent=p.nick;
+      c.append(img,b);box.append(c);
+    });
+    if(all&&d.length>12)all.textContent='Все участники ('+d.length+') →';
+  }).catch(()=>fail('Не удалось загрузить участников. Попробуйте обновить страницу.'));
+})();
+</script>
+
+<script id="pristal-discord-auth">
+(()=>{
+  // ВСТАВЬ СЮДА Application (Client) ID из Discord Developer Portal → OAuth2. Это не секрет.
+  const CLIENT_ID="";
+  const KEY="pristalUser",STATE_KEY="pristalOauthState";
+  const box=document.getElementById("authBox");
+  if(!box)return;
+  const redirect=location.origin+location.pathname.replace(/index\.html$/,"");
+  const say=m=>{if(window.pristalToast)window.pristalToast(m)};
+  const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}};
+  const save=u=>{try{u?localStorage.setItem(KEY,JSON.stringify(u)):localStorage.removeItem(KEY)}catch(e){}};
+  const avatarUrl=u=>/^[a-z0-9_]+$/i.test(u.avatar||"")
+    ?"https://cdn.discordapp.com/avatars/"+u.id+"/"+u.avatar+".png?size=64"
+    :"https://cdn.discordapp.com/embed/avatars/"+Number((BigInt(u.id)>>22n)%6n)+".png";
+  const login=()=>{
+    if(!CLIENT_ID){say("Вход через Discord ещё не настроен: нужен CLIENT_ID");return}
+    const state=crypto.randomUUID?crypto.randomUUID():String(Math.random()).slice(2)+Date.now();
+    try{sessionStorage.setItem(STATE_KEY,state)}catch(e){}
+    const p=new URLSearchParams({client_id:CLIENT_ID,response_type:"token",scope:"identify",redirect_uri:redirect,state});
+    location.href="https://discord.com/oauth2/authorize?"+p;
+  };
+  const render=()=>{
+    const u=load();box.replaceChildren();
+    if(u&&/^\d{5,25}$/.test(u.id)){
+      const chip=document.createElement("div");chip.className="auth-chip";
+      const img=new Image();img.alt="";img.src=avatarUrl(u);
+      const name=document.createElement("span");name.textContent=u.name||"Игрок";
+      const out=document.createElement("button");out.type="button";out.className="auth-out";out.textContent="Выйти";
+      out.addEventListener("click",()=>{save(null);render();say("Вы вышли из аккаунта")});
+      chip.append(img,name,out);box.append(chip);
+    }else{
+      const b=document.createElement("button");b.type="button";b.className="discord-login";b.textContent="Войти через Discord";
+      b.addEventListener("click",login);box.append(b);
+    }
+  };
+  const finish=async()=>{
+    const q=new URLSearchParams(location.hash.replace(/^#/,"")+"&"+location.search.replace(/^\?/,""));
+    if(!q.has("access_token")&&!q.has("error"))return;
+    let expected=null;
+    try{expected=sessionStorage.getItem(STATE_KEY);sessionStorage.removeItem(STATE_KEY)}catch(e){}
+    history.replaceState(null,"",location.pathname);
+    if(q.get("error")){say("Вход через Discord отменён");return}
+    if(!expected||q.get("state")!==expected){say("Не удалось подтвердить вход. Попробуйте ещё раз");return}
+    try{
+      const r=await fetch("https://discord.com/api/v10/users/@me",{headers:{Authorization:"Bearer "+q.get("access_token")}});
+      if(!r.ok)throw new Error(r.status);
+      const d=await r.json();
+      const name=d.global_name||d.username;
+      save({id:String(d.id),name,avatar:d.avatar||""});
+      render();say("Добро пожаловать, "+name+"!");
+    }catch(e){say("Не удалось войти через Discord")}
+  };
+  render();finish();
+})();
 </script>
 </body>
 </html>
