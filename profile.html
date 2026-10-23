@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Профиль — Pristal</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#a855f7">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23160923'/%3E%3Cpath d='M32 10l6 16 16 6-16 6-6 16-6-16-16-6 16-6z' fill='%23a855f7'/%3E%3C/svg%3E">
+<script src="config.js"></script>
+<style>
+:root{--accent:#a855f7;--muted:#9aa3b2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:#070a0f;color:#f5f7fb;line-height:1.55;overflow-x:hidden}
+img{display:block}button,input{font-family:inherit}[hidden]{display:none!important}
+.bg{position:fixed;inset:0;z-index:-1;background:center/cover;opacity:.22}
+.wrap{width:min(980px,92%);margin:auto}
+header{position:sticky;top:0;z-index:50;background:rgba(7,10,15,.82);backdrop-filter:blur(16px);border-bottom:1px solid #ffffff14}
+.nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:24px;font-weight:900;letter-spacing:.08em;text-decoration:none;color:inherit}.logo span{color:var(--accent)}
+nav{display:flex;align-items:center;gap:6px}
+nav a{padding:9px 12px;border-radius:10px;color:#b9c0ca;text-decoration:none;font-size:14px;font-weight:700;white-space:nowrap}
+nav a:hover,nav a.on{color:#fff;background:#ffffff12}nav a.dc{background:#5865f2;color:#fff}
+.me-chip{display:flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:12px;border:1px solid #ffffff1f;background:#0d1219;font-weight:800;font-size:14px;max-width:170px}
+.me-chip img{width:30px;height:30px;border-radius:9px;object-fit:cover;flex:none}.me-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+main{padding:44px 0 70px}
+.card{background:linear-gradient(145deg,#111720ee,#0b0f15ee);border:1px solid #ffffff14;border-radius:22px;padding:28px}
+.center{text-align:center}.center h1{font-size:28px;margin-bottom:8px}.center p{color:var(--muted);margin-bottom:18px}
+.prof{display:grid;grid-template-columns:200px 1fr;gap:30px;align-items:start}
+.big-av{width:200px;height:200px;border-radius:28px;object-fit:cover;background:#0d1219;border:2px solid color-mix(in srgb,var(--accent) 50%,transparent);box-shadow:0 20px 60px #0008}
+.prof h1{font-size:clamp(28px,5vw,40px);letter-spacing:-.03em;line-height:1.1;overflow-wrap:anywhere}
+.rows{margin:18px 0;display:grid;gap:10px}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:#0b0f15;border:1px solid #ffffff10}
+.row span{color:var(--muted);font-size:14px}.row b{overflow-wrap:anywhere;text-align:right}
+.pill{padding:5px 12px;border-radius:999px;font-size:13px;font-weight:800}
+.pill.on{background:#16a34a33;color:#6ee7a0;border:1px solid #16a34a88}.pill.off{background:#ffffff10;color:#c0c7d2;border:1px solid #ffffff1f}
+.hint{color:var(--muted);font-size:13px;margin:-4px 0 14px}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{padding:12px 18px;border-radius:12px;border:1px solid #ffffff1f;background:#111721;color:#fff;font-weight:800;font-size:14px;cursor:pointer;text-decoration:none;display:inline-block;transition:.2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#160923}
+.btn.danger{border-color:#ef444488;color:#fca5a5}.btn.danger:hover{background:#ef444422;border-color:#ef4444}
+.modal{position:fixed;inset:0;z-index:100;background:#000b;display:none;align-items:center;justify-content:center;padding:16px;overflow:auto}.modal.open{display:flex}
+.mbox{width:min(560px,100%);max-height:94vh;overflow:auto;background:#0d1219;border:1px solid #ffffff1f;border-radius:22px;padding:24px}
+.mbox h2{margin-bottom:6px;letter-spacing:-.02em}.sub{color:var(--muted);margin-bottom:10px;display:block}
+.mbox input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid #ffffff1f;background:#070a0f;color:#fff;font-size:16px;margin:6px 0}.mbox input:focus{outline:2px solid var(--accent)}
+.err{color:#fca5a5;min-height:22px;font-size:14px;margin-bottom:8px}
+.code{font-family:ui-monospace,monospace;font-size:clamp(30px,8vw,44px);font-weight:900;letter-spacing:.08em;color:var(--accent);text-align:center;padding:16px;border-radius:14px;background:#070a0f;border:1px dashed color-mix(in srgb,var(--accent) 60%,transparent);margin:10px 0;user-select:all}
+.cmd{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:12px;background:#070a0f;font-family:ui-monospace,monospace;overflow-wrap:anywhere}
+.steps{margin:12px 0 10px 20px;color:#c8ced7}.steps li{margin:4px 0}.cd{font-variant-numeric:tabular-nums;color:#fff}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:10px;margin:10px 0 14px}
+.gal button{aspect-ratio:1;border-radius:16px;overflow:hidden;border:3px solid transparent;padding:0;cursor:pointer;background:#000;transition:.2s}
+.gal button:hover{transform:translateY(-2px)}.gal button.on{border-color:var(--accent);box-shadow:0 0 18px color-mix(in srgb,var(--accent) 45%,transparent)}
+.gal img{width:100%;height:100%;object-fit:cover}
+.preview{display:flex;align-items:center;gap:16px;padding:14px;border-radius:16px;background:#0b0f15;margin:12px 0}.preview img{width:84px;height:84px;border-radius:20px;object-fit:cover}.preview b{font-size:20px;overflow-wrap:anywhere}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);z-index:120;padding:12px 18px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:999px;background:rgba(15,18,26,.95);color:#fff;opacity:0;pointer-events:none;transition:.25s;font-weight:700;max-width:calc(100vw - 28px);text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:700px){.prof{grid-template-columns:1fr;justify-items:center}.prof>div{width:100%;text-align:center}.big-av{width:150px;height:150px}.btns{justify-content:center}.row b{text-align:right}nav a.hs{display:none}nav a{padding:8px 9px;font-size:13px}.logo{font-size:20px}.me-chip{padding:4px}.me-chip span{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media(max-width:360px){.logo{font-size:17px;letter-spacing:.04em}nav{gap:2px}nav a{padding:8px 7px;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="bg" id="bg" aria-hidden="true"></div>
+<header><div class="wrap nav">
+  <a class="logo" href="./">PRI<span>STAL</span></a>
+  <nav><a class="hs" href="./">Главная</a><a href="about.html">О нас</a><a class="on" href="profile.html">Профиль</a><a class="hs" href="participants.html">Участники</a><span id="authBox"></span></nav>
+</div></header>
+<main class="wrap"><div id="view"></div></main>
+<div class="modal" id="m" role="dialog" aria-modal="true"><div class="mbox" id="mbox"></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const CFG=window.PRISTAL||{},API=(CFG.API||'').replace(/\/+$/,''),MC=CFG.MC_SERVER||'';
+const A={mint:'#72f27d',violet:'#a855f7',rose:'#ff8fb1',blue:'#78a9ff',sunset:'#ffb86b',mono:'#e8edf2',darkpink:'#ff6ccf',ice:'#7fffd4',forest:'#76d66f'};
+let th='violet',bgn='all';try{th=localStorage.getItem('pristalTheme')||th;bgn=localStorage.getItem('pristalBg')||bgn}catch(e){}
+document.documentElement.style.setProperty('--accent',A[th]||A.violet);
+$('#bg').style.backgroundImage='url(assets/backgrounds/bg'+(/^[1-8]$/.test(bgn)?bgn:'2')+'.jpg)';
+
+// tiny DOM helper: children are always text/nodes, never HTML
+const h=(t,a={},...c)=>{const e=document.createElement(t);for(const[k,v]of Object.entries(a)){if(k==='class')e.className=v;else if(k.startsWith('on'))e[k]=v;else e.setAttribute(k,v)}e.append(...c.flat().filter(x=>x!=null&&x!==false));return e};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2400)};
+const copy=async t=>{try{await navigator.clipboard.writeText(t);toast('Скопировано: '+t)}catch(e){toast(t)}};
+const S=()=>{try{return localStorage.getItem('pristalSession')}catch(e){return null}};
+const AVS=Array.from({length:16},(_,i)=>'a'+(i+1));
+let P=null,onClose=null;
+const avSrc=p=>/^a\d{1,2}$/.test(p.avatar||'')?'assets/avatars/'+p.avatar+'.webp'
+  :/^[a-z0-9_]+$/i.test(p.discordAvatar||'')?'https://cdn.discordapp.com/avatars/'+p.id+'/'+p.discordAvatar+'.png?size=256'
+  :'https://cdn.discordapp.com/embed/avatars/'+Number((BigInt(p.id)>>22n)%6n)+'.png';
+const syncUser=p=>{try{localStorage.setItem('pristalUser',JSON.stringify({id:p.id,name:p.nickname,avatar:p.discordAvatar||'',av:p.avatar||''}))}catch(e){}};
+
+async function api(path,method='GET',body){
+  const r=await fetch(API+path,{method,headers:{'Content-Type':'application/json',Authorization:'Bearer '+(S()||'')},body:body?JSON.stringify(body):undefined});
+  let d={};try{d=await r.json()}catch(e){}
+  if(r.status===401&&path!=='/api/auth/logout')logout(false);
+  if(!r.ok)throw Object.assign(new Error(d.message||'Ошибка '+r.status),{status:r.status});
+  return d;
+}
+async function logout(call){
+  if(call&&API&&S()){try{await api('/api/auth/logout','POST')}catch(e){}}
+  try{localStorage.removeItem('pristalSession');localStorage.removeItem('pristalUser')}catch(e){}
+  P=null;render();
+}
+
+// modal
+const M=$('#m');
+function openM(node,cb){onClose=cb||null;$('#mbox').replaceChildren(node);M.classList.add('open')}
+function closeM(){M.classList.remove('open');if(onClose){const f=onClose;onClose=null;f()}}
+M.addEventListener('click',e=>{if(e.target===M)closeM()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&M.classList.contains('open'))closeM()});
+
+const note=(title,text,...extra)=>h('div',{class:'card center'},h('h1',{},title),h('p',{},text),...extra);
+const row=(k,v)=>h('div',{class:'row'},h('span',{},k),h('b',{},v));
+
+function render(){
+  const v=$('#view'),chip=$('#authBox');chip.replaceChildren();
+  if(!API)return v.replaceChildren(note('Серверная часть профилей не подключена','Откройте файл config.js и укажите адрес API (инструкция — в README, раздел «Профили и привязка Minecraft»). Пока адрес не указан, привязку Minecraft подтвердить невозможно.'));
+  if(!S())return v.replaceChildren(note('Войдите через Discord','Профиль доступен после входа через Discord.',h('a',{class:'btn primary',href:'./?login=1'},'Войти через Discord')));
+  if(!P)return v.replaceChildren(note('Загрузка…','Получаем твой профиль.'));
+  chip.append(h('div',{class:'me-chip'},h('img',{src:avSrc(P),alt:''}),h('span',{},P.nickname)));
+  const linked=!!P.minecraft;
+  v.replaceChildren(h('div',{class:'card prof'},
+    h('img',{class:'big-av',src:avSrc(P),alt:'Аватарка'}),
+    h('div',{},
+      h('h1',{},P.nickname),
+      h('div',{class:'rows'},
+        row('Discord-аккаунт',P.discord),
+        row('Minecraft-никнейм',linked?P.minecraft.nick:'—'),
+        h('div',{class:'row'},h('span',{},'Статус привязки'),h('span',{class:'pill '+(linked?'on':'off')},linked?'Привязан':'Не привязан'))),
+      linked&&P.linkMode!=='plugin'?h('p',{class:'hint'},'Ник указан вручную и не подтверждён игровым сервером.'):null,
+      h('div',{class:'btns'},
+        linked?h('button',{class:'btn danger',onclick:unlinkModal},'Отвязать Minecraft'):h('button',{class:'btn primary',onclick:linkModal},'Привязать Minecraft'),
+        h('button',{class:'btn',onclick:editModal},'Изменить профиль'),
+        h('button',{class:'btn',onclick:()=>logout(true)},'Выйти')))));
+}
+
+function simpleLinkModal(){
+  const inp=h('input',{placeholder:'Например, Steve_123',maxlength:'16',autocomplete:'off',autocapitalize:'off',spellcheck:'false'}),err=h('p',{class:'err'});
+  const go=async()=>{err.textContent='';try{P=await api('/api/link/direct','POST',{nick:inp.value.trim()});syncUser(P);closeM();render();toast('Minecraft привязан: '+P.minecraft.nick)}catch(e){err.textContent=e.message}};
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+  openM(h('div',{},h('h2',{},'Привязать Minecraft'),
+    h('p',{class:'sub'},'Введи ник, под которым играешь на сервере. Подойдёт и пиратский аккаунт — лицензия не нужна. Ник сохраняется как указан и игровым сервером не проверяется. Один ник можно привязать только к одному аккаунту.'),
+    inp,err,h('div',{class:'btns'},h('button',{class:'btn primary',onclick:go},'Привязать'),h('button',{class:'btn',onclick:closeM},'Отмена'))));
+  setTimeout(()=>inp.focus(),50);
+}
+
+function linkModal(){
+  if(P.linkMode!=='plugin')return simpleLinkModal();
+  let poll=null,tick=null;const box=h('div');
+  const stop=()=>{clearInterval(poll);clearInterval(tick)};
+  function step1(msg=''){
+    stop();
+    const inp=h('input',{placeholder:'Например, Steve_123',maxlength:'16',autocomplete:'off',autocapitalize:'off',spellcheck:'false'}),err=h('p',{class:'err'},msg);
+    const go=async()=>{err.textContent='';try{step2(await api('/api/link/start','POST',{nick:inp.value.trim()}))}catch(e){err.textContent=e.message}};
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+    box.replaceChildren(h('h2',{},'Привязать Minecraft'),h('p',{class:'sub'},'Введи ник, под которым играешь на сервере. Лицензия Minecraft не нужна — ник подтверждается командой в игре.'),inp,err,
+      h('div',{class:'btns'},h('button',{class:'btn primary',onclick:go},'Получить код'),h('button',{class:'btn',onclick:closeM},'Отмена')));
+    setTimeout(()=>inp.focus(),50);
+  }
+  function step2(d){
+    stop();const left=h('b',{class:'cd'});
+    const upd=()=>{const s=Math.max(0,d.expiresAt-Math.floor(Date.now()/1000));left.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');if(!s)step1('Код истёк. Создай новый.')};
+    tick=setInterval(upd,1000);upd();
+    poll=setInterval(async()=>{try{const p=await api('/api/me');if(p.minecraft){P=p;syncUser(P);closeM();render();toast('Minecraft привязан: '+P.minecraft.nick)}}catch(e){}},3000);
+    box.replaceChildren(h('h2',{},'Подтверди ник '+d.nick),h('span',{class:'sub'},'Твой код (действует 5 минут):'),h('div',{class:'code'},d.code),
+      h('ol',{class:'steps'},h('li',{},'Зайди на сервер ',MC?h('b',{},MC):'',' под ником ',h('b',{},d.nick),'.'),h('li',{},'Выполни команду в игре:')),
+      h('div',{class:'cmd'},h('span',{},d.command),h('button',{class:'btn',onclick:()=>copy(d.command)},'Копировать')),
+      h('p',{class:'sub',style:'margin-top:12px'},'Осталось: ',left,'. Страница обновится сама, когда сервер подтвердит ник.'),
+      h('div',{class:'btns'},h('button',{class:'btn',onclick:async()=>{stop();try{await api('/api/link/cancel','POST')}catch(e){}closeM()}},'Отмена')));
+  }
+  openM(box,stop);step1();
+}
+
+function unlinkModal(){
+  const err=h('p',{class:'err'});
+  openM(h('div',{},h('h2',{},'Отвязать Minecraft?'),h('p',{class:'sub'},'Ник '+P.minecraft.nick+' будет отвязан от твоего профиля. Потом его можно привязать снова или привязать другой.'),err,
+    h('div',{class:'btns'},
+      h('button',{class:'btn danger',onclick:async()=>{try{await api('/api/link','DELETE',{confirm:true});P=await api('/api/me');closeM();render();toast('Minecraft отвязан')}catch(e){err.textContent=e.message}}},'Да, отвязать'),
+      h('button',{class:'btn',onclick:closeM},'Отмена'))));
+}
+
+function editModal(){
+  let nick=P.nickname,av=P.avatar||null;
+  const img=h('img',{alt:'',src:avSrc({...P,avatar:av})}),name=h('b',{},nick),err=h('p',{class:'err'}),inp=h('input',{value:nick,maxlength:'24',autocomplete:'off'}),gal=h('div',{class:'gal'});
+  inp.addEventListener('input',()=>{nick=inp.value;name.textContent=nick.trim()||'…'});
+  const mark=()=>{[...gal.children].forEach(b=>b.classList.toggle('on',b.dataset.a===(av||'')));img.src=avSrc({...P,avatar:av})};
+  [null,...AVS].forEach(a=>gal.append(h('button',{type:'button','data-a':a||'',title:a?'Аватарка':'Как в Discord','aria-label':a?'Аватарка '+a:'Как в Discord',onclick:()=>{av=a;mark()}},h('img',{src:a?'assets/avatars/'+a+'.webp':avSrc({...P,avatar:null}),alt:''}))));
+  mark();
+  const save=async()=>{err.textContent='';try{P=await api('/api/profile','PUT',{nickname:nick.trim(),avatar:av});syncUser(P);closeM();render();toast('Профиль сохранён')}catch(e){err.textContent=e.message}};
+  openM(h('div',{},h('h2',{},'Изменить профиль'),h('div',{class:'preview'},img,name),h('label',{class:'sub'},'Никнейм на сайте'),inp,h('span',{class:'sub',style:'margin-top:10px'},'Аватарка (первая — как в Discord)'),gal,err,
+    h('div',{class:'btns'},h('button',{class:'btn primary',onclick:save},'Сохранить'),h('button',{class:'btn',onclick:closeM},'Отмена'))));
+}
+
+render();
+if(API&&S())api('/api/me').then(p=>{P=p;syncUser(p);render()}).catch(e=>{if(e.status!==401)$('#view').replaceChildren(note('Сервер профилей недоступен','Попробуй обновить страницу чуть позже.'))});
+})();
+</script>
+</body>
+</html>

@@ -307,6 +307,8 @@ body #pristalTop{right:18px;bottom:76px}
 .auth-out:hover{background:#2a3544;color:#fff}
 @media(max-width:800px){.auth{margin-left:auto;margin-right:10px}.auth-chip span{display:none}.discord-login{padding:10px 12px;font-size:13px}}
 </style>
+<script src="config.js"></script>
+<style>[hidden]{display:none!important}</style>
 </head>
 <body>
 <div class="bg-art" aria-hidden="true"><div class="bg-art-grid"><div class="bg-art-card" style="background-image:url('assets/backgrounds/bg1.jpg')"></div>
@@ -330,6 +332,7 @@ body #pristalTop{right:18px;bottom:76px}
         <a href="#recruitment">Набор</a>
         <a href="#news">Новости</a>
         <a href="#participants">Участники</a>
+        <a href="profile.html" id="navProfile" hidden>Профиль</a>
         <a href="#contacts">Соцсети</a>
       </div>
       <div class="auth" id="authBox"></div>
@@ -832,9 +835,15 @@ document.addEventListener("click",(e)=>{
   const say=m=>{if(window.pristalToast)window.pristalToast(m)};
   const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}};
   const save=u=>{try{u?localStorage.setItem(KEY,JSON.stringify(u)):localStorage.removeItem(KEY)}catch(e){}};
-  const avatarUrl=u=>/^[a-z0-9_]+$/i.test(u.avatar||"")
+  const avatarUrl=u=>/^a\d{1,2}$/.test(u.av||"")?"assets/avatars/"+u.av+".webp":/^[a-z0-9_]+$/i.test(u.avatar||"")
     ?"https://cdn.discordapp.com/avatars/"+u.id+"/"+u.avatar+".png?size=64"
     :"https://cdn.discordapp.com/embed/avatars/"+Number((BigInt(u.id)>>22n)%6n)+".png";
+  const logout=()=>{
+    const API=((window.PRISTAL||{}).API||"").replace(/\/+$/,""),s=(()=>{try{return localStorage.getItem("pristalSession")}catch(e){return null}})();
+    if(API&&s)fetch(API+"/api/auth/logout",{method:"POST",headers:{Authorization:"Bearer "+s}}).catch(()=>{});
+    try{localStorage.removeItem("pristalSession")}catch(e){}
+    save(null);
+  };
   const login=()=>{
     if(!CLIENT_ID){say("Вход через Discord ещё не настроен: нужен CLIENT_ID");return}
     const state=crypto.randomUUID?crypto.randomUUID():String(Math.random()).slice(2)+Date.now();
@@ -843,13 +852,13 @@ document.addEventListener("click",(e)=>{
     location.href="https://discord.com/oauth2/authorize?"+p;
   };
   const render=()=>{
-    const u=load();box.replaceChildren();
+    const u=load();box.replaceChildren();const np=document.getElementById("navProfile");if(np)np.hidden=!(u&&/^\d{5,25}$/.test(u.id));
     if(u&&/^\d{5,25}$/.test(u.id)){
       const chip=document.createElement("div");chip.className="auth-chip";
       const img=new Image();img.alt="";img.src=avatarUrl(u);
       const name=document.createElement("span");name.textContent=u.name||"Игрок";
       const out=document.createElement("button");out.type="button";out.className="auth-out";out.textContent="Выйти";
-      out.addEventListener("click",()=>{save(null);render();say("Вы вышли из аккаунта")});
+      out.addEventListener("click",()=>{logout();render();say("Вы вышли из аккаунта")});
       chip.append(img,name,out);box.append(chip);
     }else{
       const b=document.createElement("button");b.type="button";b.className="discord-login";b.textContent="Войти через Discord";
@@ -865,6 +874,15 @@ document.addEventListener("click",(e)=>{
     if(q.get("error")){say("Вход через Discord отменён");return}
     if(!expected||q.get("state")!==expected){say("Не удалось подтвердить вход. Попробуйте ещё раз");return}
     try{
+      const API=((window.PRISTAL||{}).API||"").replace(/\/+$/,"");
+      if(API){
+        const r0=await fetch(API+"/api/auth/discord",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({access_token:q.get("access_token")})});
+        if(!r0.ok)throw new Error(r0.status);
+        const d0=await r0.json(),p=d0.profile;
+        try{localStorage.setItem("pristalSession",d0.token)}catch(e){}
+        save({id:p.id,name:p.nickname,avatar:p.discordAvatar||"",av:p.avatar||""});
+        render();say("Добро пожаловать, "+p.nickname+"!");return;
+      }
       const r=await fetch("https://discord.com/api/v10/users/@me",{headers:{Authorization:"Bearer "+q.get("access_token")}});
       if(!r.ok)throw new Error(r.status);
       const d=await r.json();
@@ -873,7 +891,7 @@ document.addEventListener("click",(e)=>{
       render();say("Добро пожаловать, "+name+"!");
     }catch(e){say("Не удалось войти через Discord")}
   };
-  render();finish();
+  render();finish();if(new URLSearchParams(location.search).get("login")==="1"&&!load())login();
 })();
 </script>
 </body>

@@ -124,13 +124,14 @@ footer{border-top:1px solid #ffffff14;padding:30px 0;color:#7f8997;text-align:ce
 .pcard .st{font-size:15px;opacity:.2}.pcard.fav .st{opacity:1}
 .av{position:relative;flex:0 0 38px;height:38px;border-radius:10px;display:grid;place-items:center;font-weight:900;color:#fff;overflow:hidden}
 .av img{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;opacity:0;transition:.3s}.av.ok img{opacity:1}
+@media(max-width:360px){.logo{font-size:17px;letter-spacing:.04em}nav{gap:2px}nav a{padding:8px 7px;font-size:12px}}
 </style>
 </head>
 <body>
 <div class="bg" id="bg" aria-hidden="true"></div>
 <header><div class="wrap nav">
   <a class="logo" href="./">PRI<span>STAL</span></a>
-  <nav><a href="./">Главная</a><a class="on" href="about.html">О нас</a><a class="hs" href="participants.html">Участники</a><a class="dc" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">Discord</a></nav>
+  <nav><a class="hs" href="./">Главная</a><a class="on" href="about.html">О нас</a><a id="navProfile" href="profile.html" hidden>Профиль</a><a class="hs" href="participants.html">Участники</a><a class="dc" href="https://discord.gg/AFW8sKsUG" target="_blank" rel="noopener">Discord</a></nav>
 </div></header>
 
 <main>
@@ -254,6 +255,7 @@ const A={mint:'#72f27d',violet:'#a855f7',rose:'#ff8fb1',blue:'#78a9ff',sunset:'#
 let th='violet',bgn='all';try{th=localStorage.getItem('pristalTheme')||th;bgn=localStorage.getItem('pristalBg')||bgn}catch(e){}
 document.documentElement.style.setProperty('--accent',A[th]||A.violet);
 $('#bg').style.backgroundImage='url(assets/backgrounds/bg'+(/^[1-8]$/.test(bgn)?bgn:'2')+'.jpg)';
+try{const u=JSON.parse(localStorage.getItem('pristalUser'));if(u&&u.id)$('#navProfile').hidden=false}catch(e){}
 const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2200)};
 
 const IM1=[['c1','Обращение Мистера Скренча к игрокам'],['c2','1. История сервера'],['c3','Сильное комьюнити'],['c4a','И начались проблемы…'],['c4b','После закрытия сервера'],['c5','2. Возрождение из мертвых'],['c6','ПвП пока не откроется'],['c7','3. Новая эпоха'],['c8','4. Что впереди?'],['c9','Пожелание игроку'],['c10','5. Ну а если серьёзно…'],['c11','С уважением, Мистер Скренч'],['full','Комикс целиком']];

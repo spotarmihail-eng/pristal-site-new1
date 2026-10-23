@@ -1,0 +1,19 @@
+name = "pristal-api"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+[vars]
+# "simple" — ник привязывается сразу, плагин не нужен (по умолчанию).
+# "plugin" — ник подтверждается командой /link в игре (нужен плагин и секрет PLUGIN_KEY).
+LINK_MODE = "simple"
+# Application ID вашего Discord-приложения (тот же, что CLIENT_ID на сайте)
+DISCORD_CLIENT_ID = "1562753680674136084"
+# Адрес сайта БЕЗ слэша на конце и без пути, например https://ник.github.io
+ALLOWED_ORIGIN = "https://ЗАМЕНИТЕ.github.io"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "pristal"
+database_id = "ВСТАВЬТЕ_ID_ИЗ_wrangler_d1_create"
+
+# Секрет плагина задаётся командой:  npx wrangler secret put PLUGIN_KEY

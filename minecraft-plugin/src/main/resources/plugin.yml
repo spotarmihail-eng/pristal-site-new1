@@ -1,0 +1,9 @@
+name: PristalLink
+version: 1.0.0
+main: ru.pristal.link.PristalLink
+api-version: '1.20'
+softdepend: [AuthMe]
+commands:
+  link:
+    description: Привязать Minecraft-ник к профилю на сайте Pristal
+    usage: /link <код>

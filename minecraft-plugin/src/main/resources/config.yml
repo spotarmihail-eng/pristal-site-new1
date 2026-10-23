@@ -1,0 +1,8 @@
+# Адрес API сайта (Cloudflare Worker), без слэша на конце
+api-url: "https://pristal-api.ВАШ-АККАУНТ.workers.dev"
+# Секретный ключ — ТОТ ЖЕ, что вы задали командой: npx wrangler secret put PLUGIN_KEY
+api-key: "CHANGE_ME"
+# Для пиратских серверов: разрешать /link только игрокам, прошедшим вход через AuthMe.
+# Без этого в offline-mode любой может зайти под чужим ником и привязать его.
+require-auth-plugin: true
+cooldown-seconds: 3
