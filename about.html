@@ -256,6 +256,7 @@ let th='violet',bgn='all';try{th=localStorage.getItem('pristalTheme')||th;bgn=lo
 document.documentElement.style.setProperty('--accent',A[th]||A.violet);
 $('#bg').style.backgroundImage='url(assets/backgrounds/bg'+(/^[1-8]$/.test(bgn)?bgn:'2')+'.jpg)';
 try{const u=JSON.parse(localStorage.getItem('pristalUser'));if(u&&u.id)$('#navProfile').hidden=false}catch(e){}
+try{localStorage.setItem('pristalSeen:about','1')}catch(e){}
 const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2200)};
 
 const IM1=[['c1','Обращение Мистера Скренча к игрокам'],['c2','1. История сервера'],['c3','Сильное комьюнити'],['c4a','И начались проблемы…'],['c4b','После закрытия сервера'],['c5','2. Возрождение из мертвых'],['c6','ПвП пока не откроется'],['c7','3. Новая эпоха'],['c8','4. Что впереди?'],['c9','Пожелание игроку'],['c10','5. Ну а если серьёзно…'],['c11','С уважением, Мистер Скренч'],['full','Комикс целиком']];
@@ -281,7 +282,7 @@ let cur=0,timer=null;const lb=$('#lb'),play=$('#playBtn'),thumbs=$('#thumbs');
 function buildViewer(){$('#tabs').replaceChildren();thumbs.replaceChildren();CH.forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.className='tab';b.textContent=(i+1)+'. '+c;b.onclick=()=>{stop();go(FIRST[i])};$('#tabs').append(b)});
 S.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Слайд '+(i+1));const im=new Image();im.src=src(i+1);im.alt='';im.loading='lazy';b.append(im);b.onclick=()=>{stop();go(i)};thumbs.append(b)})}
 function go(i){
-  cur=(i+S.length)%S.length;const s=S[cur];
+  cur=(i+S.length)%S.length;const s=S[cur];try{const k='pristalRead:'+PT.wk,a=JSON.parse(localStorage.getItem(k))||[];if(!a.includes(cur)){a.push(cur);localStorage.setItem(k,JSON.stringify(a))}}catch(e){}
   $('#shotImg').src=src(cur+1);$('#shotImg').alt=IM[cur+1][1];
   $('#chap').textContent='ГЛАВА '+(s[0]+1)+' · '+CH[s[0]].toUpperCase();$('#h').textContent=s[1];$('#p').textContent=s[2];
   $('#count').textContent=(cur+1)+' / '+S.length;$('#bar').style.width=((cur+1)/S.length*100)+'%';
@@ -333,7 +334,7 @@ function buildWants(){$('#wants').replaceChildren();try{fav=JSON.parse(localStor
 // Checklist
 const C1=['Discord','Сервер','Хостинг','Правила','Моды','и т.д.'];
 function buildChecks(){$('#checks').replaceChildren();$('#ready').textContent='';C.forEach(c=>{const b=document.createElement('button');b.type='button';b.className='check';b.textContent=c;
-  b.onclick=()=>{b.classList.toggle('on');const all=$$('.check.on').length===C.length;$('#ready').textContent=all?PT.ready+' 🚀':'';if(all)toast(PT.ready)};$('#checks').append(b)})}
+  b.onclick=()=>{b.classList.toggle('on');const all=$$('.check.on').length===C.length;$('#ready').textContent=all?PT.ready+' 🚀':'';if(all){try{localStorage.setItem('pristalChecked','1')}catch(e){}toast(PT.ready)}};$('#checks').append(b)})}
 
 // Gallery
 function buildGal(){$('#gal').replaceChildren();IM.slice(0,-1).forEach((m,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',m[1]);const im=new Image();im.src=src(i);im.alt=m[1];im.loading='lazy';b.append(im);b.onclick=()=>openLb(i);$('#gal').append(b)})}
@@ -380,7 +381,7 @@ function renderSim(){
   $('#simMsg').textContent=STEP[deaths];$$('#ach li').forEach((li,i)=>li.classList.toggle('on',i<deaths));
   $('#sbDeaths').textContent=deaths;$('#sbLives').textContent=l+'/5';$('#dieBtn').disabled=!l;
 }
-$('#dieBtn').onclick=()=>{if(deaths<5){deaths++;renderSim();toast(deaths<5?'Жизнь потеряна. Осталось: '+(5-deaths):'Последняя жизнь потеряна — ты в Spectator')}};
+$('#dieBtn').onclick=()=>{if(deaths<5){deaths++;renderSim();if(deaths===5){try{localStorage.setItem('pristalDeath','1')}catch(e){}}toast(deaths<5?'Жизнь потеряна. Осталось: '+(5-deaths):'Последняя жизнь потеряна — ты в Spectator')}};
 $('#resetBtn').onclick=()=>{deaths=0;renderSim()};
 $('#sbBtn').onclick=()=>{const off=$('#sb').classList.toggle('off');$('#sbBtn').textContent=off?'/sb — показать':'/sb — скрыть';toast(off?'Scoreboard скрыт':'Scoreboard снова виден')};
 renderSim();
@@ -425,8 +426,8 @@ let pk=0,pt=null,peaked=false;
 function peakReset(){clearInterval(pt);pt=null;pk=0;$$('#slots i').forEach(i=>i.classList.remove('on'));$('#peakN').textContent='0'}
 function peakRun(){
   peakReset();peaked=true;const el=$$('#slots i');
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.forEach(i=>i.classList.add('on'));pk=PEAK;$('#peakN').textContent=PEAK;return}
-  pt=setInterval(()=>{el[pk].classList.add('on');pk++;$('#peakN').textContent=pk;if(pk>=PEAK){clearInterval(pt);pt=null;toast('Пик онлайна: '+PEAK+' '+PT.peakWord+' одновременно!')}},55);
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.forEach(i=>i.classList.add('on'));pk=PEAK;$('#peakN').textContent=PEAK;try{localStorage.setItem('pristalPeak','1')}catch(e){}return}
+  pt=setInterval(()=>{el[pk].classList.add('on');pk++;$('#peakN').textContent=pk;if(pk>=PEAK){clearInterval(pt);pt=null;try{localStorage.setItem('pristalPeak','1')}catch(e){}toast('Пик онлайна: '+PEAK+' '+PT.peakWord+' одновременно!')}},55);
 }
 $('#peakBtn').onclick=peakRun;$('#peakReset').onclick=peakReset;
 $('#playersBtn').onclick=()=>$('#players').scrollIntoView({behavior:'smooth'});
