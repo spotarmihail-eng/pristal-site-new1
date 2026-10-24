@@ -56,7 +56,52 @@ main{padding:44px 0 70px}
 #toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);z-index:120;padding:12px 18px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:999px;background:rgba(15,18,26,.95);color:#fff;opacity:0;pointer-events:none;transition:.25s;font-weight:700;max-width:calc(100vw - 28px);text-align:center}
 #toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:700px){.prof{grid-template-columns:1fr;justify-items:center}.prof>div{width:100%;text-align:center}.big-av{width:150px;height:150px}.btns{justify-content:center}.row b{text-align:right}nav a.hs{display:none}nav a{padding:8px 9px;font-size:13px}.logo{font-size:20px}.me-chip{padding:4px}.me-chip span{display:none}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.prof2{transition:transform .15s ease-out;will-change:transform}
+.cover{height:170px;border-radius:24px 24px 0 0;position:relative;overflow:hidden;background:var(--cv,linear-gradient(135deg,#0b0f15,color-mix(in srgb,var(--accent) 65%,#0b0f15)))}
+.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,#0d1219)}
+.edit-cv{position:absolute;right:14px;top:14px;z-index:2;padding:8px 14px;background:#0009;backdrop-filter:blur(6px)}
+.hero{position:relative;padding:0 28px 26px;border-radius:0 0 24px 24px;background:linear-gradient(145deg,#111720,#0b0f15);border:1px solid #ffffff14;border-top:0}
+.hero-in{display:flex;gap:24px;align-items:flex-end;margin-top:-66px;flex-wrap:wrap;position:relative;z-index:2}
+.av-wrap{position:relative;width:148px;height:148px;flex:none}
+.ring{position:absolute;inset:-6px;border-radius:36px;background:linear-gradient(135deg,var(--accent),#ffffff66,var(--accent),#ffffff66,var(--accent));background-size:300% 300%;box-shadow:0 0 26px color-mix(in srgb,var(--accent) 45%,transparent);animation:shimmer 4s ease-in-out infinite alternate}
+@keyframes shimmer{from{background-position:0 0}to{background-position:100% 100%}}
+.av-wrap .big-av{position:relative;width:148px;height:148px;border-radius:30px;border:4px solid #0d1219;box-shadow:none}
+.who{flex:1;min-width:220px}.who h1{font-size:clamp(26px,5vw,38px);letter-spacing:-.03em;line-height:1.1;overflow-wrap:anywhere}
+.handle{color:var(--muted);margin:2px 0 10px}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{padding:5px 12px;border-radius:999px;font-size:13px;font-weight:800;background:color-mix(in srgb,var(--accent) 14%,transparent);border:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+.tabs{display:flex;gap:6px;margin:18px 0 14px;overflow-x:auto;padding-bottom:4px}
+.tab{border:1px solid #ffffff17;background:#10161f;color:#aeb7c3;padding:11px 18px;border-radius:12px;cursor:pointer;font-weight:800;font-size:14px;white-space:nowrap;transition:.2s}
+.tab:hover{color:#fff}.tab.on{background:var(--accent);border-color:var(--accent);color:#160923}
+.panel{animation:rise .35s ease}@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.grid2{display:grid;grid-template-columns:260px 1fr;gap:16px}
+.ringcard{display:grid;place-items:center;text-align:center;gap:12px}
+.pct{--p:0;width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--p)*1%),#ffffff14 0);display:grid;place-items:center;position:relative}
+.pct:before{content:"";position:absolute;inset:12px;border-radius:50%;background:#0d1219}.pct b{position:relative;font-size:34px}
+.steps2{display:grid;gap:8px}
+.step{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:#0b0f15;border:1px solid #ffffff10;cursor:pointer;text-align:left;color:#fff;font-size:15px;font-weight:700;width:100%;transition:.2s}
+.step:hover{border-color:var(--accent);transform:translateX(3px)}
+.step i{font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#ffffff14;flex:none;font-size:14px}
+.step.done{opacity:.8;cursor:default}.step.done i{background:var(--accent);color:#160923}.step.done:hover{transform:none;border-color:#ffffff10}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.tile{padding:16px;border-radius:16px;background:#0d1219;border:1px solid #ffffff10;text-align:center}.tile b{display:block;font-size:28px;color:var(--accent)}.tile span{color:var(--muted);font-size:13px}
+.mc{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:center}
+.skin{display:grid;place-items:center;min-height:230px;border-radius:20px;background:radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--accent) 25%,transparent),#0b0f15 70%)}
+.skin img{max-height:200px;width:auto;image-rendering:pixelated;filter:drop-shadow(0 12px 18px #000a);transition:.3s}.skin:hover img{transform:scale(1.06) rotate(-2deg)}
+.ph{font-size:80px;font-weight:900;color:var(--accent)}
+.bd{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.badge{padding:18px 12px;border-radius:18px;text-align:center;background:#0d1219;border:1px solid #ffffff10;color:#fff;cursor:pointer;transition:.25s}
+.badge i{font-style:normal;font-size:38px;display:block;margin-bottom:6px}.badge b{display:block}.badge small{color:var(--muted);font-size:12px}
+.badge.off{filter:grayscale(1);opacity:.5}
+.badge.on{border-color:color-mix(in srgb,var(--accent) 55%,transparent);background:color-mix(in srgb,var(--accent) 10%,#0d1219)}
+.badge.on:hover{transform:translateY(-4px) rotate(-1deg);box-shadow:0 12px 30px color-mix(in srgb,var(--accent) 25%,transparent)}
+.covers{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:12px 0 16px}
+.cv{height:70px;border-radius:14px;border:3px solid transparent;cursor:pointer;padding:0;transition:.2s}.cv:hover{transform:translateY(-2px)}.cv.on{border-color:#fff}
+.conf{position:fixed;pointer-events:none;z-index:200}
+.conf i{position:absolute;width:9px;height:9px;border-radius:2px;animation:pop 1.1s ease-out forwards}
+@keyframes pop{to{transform:translate(var(--dx),var(--dy)) rotate(var(--r));opacity:0}}
+@media(max-width:700px){.hero{padding:0 18px 22px}.hero-in{justify-content:center;text-align:center}.tags{justify-content:center}.grid2,.mc{grid-template-columns:1fr}.cover{height:130px}.tile b{font-size:22px}.mc .btns{justify-content:center}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media(max-width:360px){.logo{font-size:17px;letter-spacing:.04em}nav{gap:2px}nav a{padding:8px 7px;font-size:12px}}
 </style>
 </head>
@@ -86,10 +131,13 @@ const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clea
 const copy=async t=>{try{await navigator.clipboard.writeText(t);toast('Скопировано: '+t)}catch(e){toast(t)}};
 const S=()=>{try{return localStorage.getItem('pristalSession')}catch(e){return null}};
 const AVS=Array.from({length:16},(_,i)=>'a'+(i+1));
+const S1=new Set(["Admin", "Agent13", "Airu", "Anu49", "Ayano01", "Bado68", "Basuyo", "Biebu", "Buta", "CARLIK", "daku28", "DemonRPG", "dode", "eshize", "garakin", "GARUR4", "ннннн", "hogubi37", "Jia", "Kizepo", "Kusohe23", "makate", "matwei201303", "Mitezo", "Moguu", "moreto", "MrSkrenh", "noari", "nojo21", "okoyu", "oni", "phronya", "Pihete37", "Pijono", "pisu44", "pogi88", "Popao", "PriyaMehra", "Rapaya", "Reba", "Rega27", "roshi", "sajini", "schedase", "schuba79", "Schuhi64", "SHIKIMORO_YT", "shiramo", "Sidorovich2011", "Soba", "Suhischu", "tebo", "tobega93", "Topuki", "waku", "Warhark100", "Yotomi", "SecB_"].map(n=>n.toLowerCase()));
+const S2=new Set(["Afflowyer", "AFK_Bot", "AFK_Bot123", "Agent13", "Azara_A", "BINOCLAYMOM", "DemonRPG", "Erik39", "fedrru", "fhwraztj", "fodrif", "Fomanax", "frenku152", "gg_loxzxc", "goEq", "goffyahh", "Grehen", "iisus424", "kajf707", "korol", "Kwar1ks", "List2424", "List2424mono", "Misha", "MOPSJOP5", "MrByLka52", "MrSkrenh", "mtn_dew", "Neo_Death833", "petya611", "POM1D0R41K", "porebr1k", "Preferred", "Pristalhard", "refi", "sasasiti", "shadowyline", "Skrenh", "skyhnwolker", "stepa342po", "TaHkucT_WoT", "tikikkikk", "Timkaaaa96", "Watermegatema3", "wemmbu", "Zipovec", "ZXC4707", "ZXC_ASDEWFD", "infectionss", "Kashimire", "ForestGuarber", "Franku152", "plonete4", "fen3but", "YRIK228", "PixelMest", "yura_shpurafgjhj", "Umni_", "ghttgggy", "Greensilver7799", "huylo", "Gilkipro", "motalka", "PixPley", "Batai_Olega", "FireMaks2280", "observer", "derect_123231", "plyw_bonnie", "yura_shpurafgjh"].map(n=>n.toLowerCase()));
 let P=null,onClose=null;
 const avSrc=p=>/^a\d{1,2}$/.test(p.avatar||'')?'assets/avatars/'+p.avatar+'.webp'
   :/^[a-z0-9_]+$/i.test(p.discordAvatar||'')?'https://cdn.discordapp.com/avatars/'+p.id+'/'+p.discordAvatar+'.png?size=256'
   :'https://cdn.discordapp.com/embed/avatars/'+Number((BigInt(p.id)>>22n)%6n)+'.png';
+const fb=e=>{e.target.onerror=null;e.target.src='assets/avatars/a9.webp'}; // запасная аватарка, если Discord CDN недоступен
 const syncUser=p=>{try{localStorage.setItem('pristalUser',JSON.stringify({id:p.id,name:p.nickname,avatar:p.discordAvatar||'',av:p.avatar||''}))}catch(e){}};
 
 // ---- локальный режим (без сервера): данные лежат в localStorage этого браузера ----
@@ -140,30 +188,93 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&M.classList.contains('open')
 const note=(title,text,...extra)=>h('div',{class:'card center'},h('h1',{},title),h('p',{},text),...extra);
 const row=(k,v)=>h('div',{class:'row'},h('span',{},k),h('b',{},v));
 
+const COVERS=[['g1','linear-gradient(135deg,#2e1065,#a855f7)'],['g2','linear-gradient(135deg,#4c0519,#fb7185)'],['g3','linear-gradient(135deg,#083344,#22d3ee)'],['g4','linear-gradient(135deg,#14532d,#4ade80)'],['g5','linear-gradient(135deg,#7c2d12,#fb923c)'],['g6','linear-gradient(135deg,#1e1b4b,#38bdf8)'],
+  ...[1,2,3,4,5,6,7,8].map(n=>['b'+n,'linear-gradient(180deg,#0000,#0008),url(assets/backgrounds/bg'+n+'.jpg) center/cover'])];
+const getCover=()=>{try{const c=localStorage.getItem('pristalCover')||'';return COVERS.some(x=>x[0]===c)?c:''}catch(e){return ''}};
+const setCover=id=>{try{id?localStorage.setItem('pristalCover',id):localStorage.removeItem('pristalCover')}catch(e){}};
+const flag=k=>{try{return !!localStorage.getItem(k)}catch(e){return false}};
+const friends=()=>{let n=0;for(const k of['pristalFriends','pristalFriends1']){try{n+=(JSON.parse(localStorage.getItem(k))||[]).length}catch(e){}}return n};
+const reduced=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+let TAB='overview';
+
+function burst(){
+  if(reduced())return;
+  const c=h('div',{class:'conf'});c.style.left=innerWidth/2+'px';c.style.top=innerHeight/3+'px';document.body.append(c);
+  const cols=['#a855f7','#22d3ee','#fde047','#fb7185','#4ade80','#ffffff'];
+  for(let i=0;i<36;i++){const a=Math.random()*6.283,d=80+Math.random()*180,e=h('i');e.style.cssText='background:'+cols[i%6]+';--dx:'+Math.cos(a)*d+'px;--dy:'+(Math.sin(a)*d+60)+'px;--r:'+(Math.random()*720-360)+'deg';c.append(e)}
+  setTimeout(()=>c.remove(),1300);
+}
+function countUp(el,pct){
+  if(reduced()){el.style.setProperty('--p',pct);el.firstChild.textContent=pct+'%';return}
+  let t0=0;const f=n=>{t0=t0||n;const k=Math.min((n-t0)/900,1),e=1-Math.pow(1-k,3);el.style.setProperty('--p',pct*e);el.firstChild.textContent=Math.round(pct*e)+'%';if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f);
+}
+function skinImg(n){const im=h('img',{src:'https://minotar.net/armor/body/'+encodeURIComponent(n)+'/180.png',alt:'Скин '+n});im.onerror=()=>im.replaceWith(h('div',{class:'ph'},n[0].toUpperCase()));return im}
+
 function render(){
   const v=$('#view'),chip=$('#authBox');chip.replaceChildren();
   if(!(LOCAL?localUser():S()))return v.replaceChildren(note('Войдите через Discord','Профиль доступен после входа через Discord.',h('a',{class:'btn primary',href:'./?login=1'},'Войти через Discord')));
   if(!P)return v.replaceChildren(note('Загрузка…','Получаем твой профиль.'));
-  chip.append(h('div',{class:'me-chip'},h('img',{src:avSrc(P),alt:''}),h('span',{},P.nickname)));
-  const linked=!!P.minecraft;
-  v.replaceChildren(...(LOCAL?[h('p',{class:'hint'},'Локальный режим: профиль и привязка хранятся только в этом браузере — на других устройствах их не будет, а уникальность ников не проверяется. Подключить общий сервер можно позже (см. README).')]:[]),h('div',{class:'card prof'},
-    h('img',{class:'big-av',src:avSrc(P),alt:'Аватарка'}),
-    h('div',{},
-      h('h1',{},P.nickname),
-      h('div',{class:'rows'},
-        row('Discord-аккаунт',P.discord),
-        row('Minecraft-никнейм',linked?P.minecraft.nick:'—'),
+  chip.append(h('div',{class:'me-chip'},h('img',{src:avSrc(P),alt:'',onerror:fb}),h('span',{},P.nickname)));
+  const linked=!!P.minecraft,nick=linked?P.minecraft.nick:'',mc=nick.toLowerCase(),cv=getCover(),fr=friends();
+  const in1=linked&&S1.has(mc),in2=linked&&S2.has(mc);
+  const bd=[['🎮','На связи','Войти через Discord',true],['✏️','Своё имя','Сменить никнейм на сайте',flag('pristalRenamed')],['🎨','Со стилем','Выбрать аватарку из галереи',!!P.avatar],['🌈','Дизайнер','Выбрать обложку профиля',!!cv],
+    ['⛏️','Игрок','Привязать Minecraft-ник',linked],['🌱','Первый сезон','Привязать ник из списка игроков 1 сезона',in1],['🔥','Второй сезон','Привязать ник из списка игроков 2 сезона',in2],['⭐','Общительный','Отметить 3 и более игроков на странице «О нас»',fr>=3]];
+  const got=bd.filter(b=>b[3]).length;
+  const st=[['Войти через Discord',true],['Придумать своё имя',flag('pristalRenamed'),editModal],['Выбрать аватарку',!!P.avatar,editModal],['Привязать Minecraft',linked,linkModal],['Выбрать обложку',!!cv,()=>{TAB='style';render()}]];
+  const done=st.filter(s=>s[1]).length,pct=Math.round(done/st.length*100);
+
+  const cover=h('div',cv?{class:'cover',style:'--cv:'+COVERS.find(x=>x[0]===cv)[1]}:{class:'cover'},h('button',{class:'btn edit-cv',onclick:()=>{TAB='style';render()}},'🎨 Обложка'));
+  const hero=h('div',{class:'hero'},
+    h('div',{class:'hero-in'},
+      h('div',{class:'av-wrap'},h('div',{class:'ring'}),h('img',{class:'big-av',src:avSrc(P),alt:'Аватарка',onerror:fb})),
+      h('div',{class:'who'},h('h1',{},P.nickname),h('p',{class:'handle'},'@'+P.discord),
+        h('div',{class:'tags'},h('span',{class:'pill '+(linked?'on':'off')},linked?'Привязан':'Не привязан'),linked?h('span',{class:'tag'},'⛏ '+nick):null,in1?h('span',{class:'tag'},'🌱 1 сезон'):null,in2?h('span',{class:'tag'},'🔥 2 сезон'):null))),
+    h('div',{class:'btns',style:'margin-top:18px'},
+      linked?null:h('button',{class:'btn primary',onclick:linkModal},'Привязать Minecraft'),
+      h('button',{class:'btn'+(linked?' primary':''),onclick:editModal},'Изменить профиль'),
+      h('button',{class:'btn',onclick:()=>logout(true)},'Выйти')));
+  const wrap=h('div',{class:'prof2'},cover,hero);
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches&&!reduced()){
+    wrap.addEventListener('mousemove',e=>{const r=wrap.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;wrap.style.transform='perspective(1000px) rotateY('+x*4+'deg) rotateX('+(-y*3)+'deg)'});
+    wrap.addEventListener('mouseleave',()=>{wrap.style.transform=''});
+  }
+  const tabs=h('div',{class:'tabs'},...[['overview','🏠 Обзор'],['mc','⛏ Minecraft'],['badges','🏅 Значки'],['style','🎨 Оформление']].map(([k,t])=>h('button',{class:'tab'+(TAB===k?' on':''),onclick:()=>{TAB=k;render()}},t)));
+  let panel,pc=null;
+  if(TAB==='overview'){
+    pc=h('div',{class:'pct'},h('b',{},'0%'));
+    const tile=(a,b)=>h('div',{class:'tile'},h('b',{},String(a)),h('span',{},b));
+    panel=h('div',{class:'panel'},
+      h('div',{class:'grid2'},
+        h('div',{class:'card ringcard'},pc,h('div',{},h('b',{},'Профиль заполнен'),h('p',{class:'sub'},done+' из '+st.length+' шагов'))),
+        h('div',{class:'card'},h('h2',{style:'margin-bottom:12px'},'Что дальше?'),h('div',{class:'steps2'},...st.map(([t,d,f])=>h('button',{class:'step'+(d?' done':''),onclick:d?null:f},h('i',{},d?'✓':'•'),t))))),
+      h('div',{class:'tiles'},tile(got+'/'+bd.length,'значков'),tile(fr,'друзей ⭐'),tile(pct+'%','заполнено')),
+      h('div',{class:'card',style:'margin-top:16px'},h('div',{class:'rows'},row('Discord-аккаунт',P.discord),row('Minecraft-никнейм',linked?nick:'—'),
         h('div',{class:'row'},h('span',{},'Статус привязки'),h('span',{class:'pill '+(linked?'on':'off')},linked?'Привязан':'Не привязан'))),
-      linked&&P.linkMode!=='plugin'?h('p',{class:'hint'},'Ник указан вручную и не подтверждён игровым сервером.'):null,
-      h('div',{class:'btns'},
-        linked?h('button',{class:'btn danger',onclick:unlinkModal},'Отвязать Minecraft'):h('button',{class:'btn primary',onclick:linkModal},'Привязать Minecraft'),
-        h('button',{class:'btn',onclick:editModal},'Изменить профиль'),
-        h('button',{class:'btn',onclick:()=>logout(true)},'Выйти')))));
+        linked&&P.linkMode!=='plugin'?h('p',{class:'hint'},'Ник указан вручную и не подтверждён игровым сервером.'):null));
+  }else if(TAB==='mc'){
+    const sr=(l,y)=>h('div',{class:'row'},h('span',{},l),h('b',{},y?'есть в списке игроков ✓':'нет в списке'));
+    panel=h('div',{class:'panel card'},linked
+      ?h('div',{class:'mc'},h('div',{class:'skin'},skinImg(nick)),
+        h('div',{},h('h2',{},nick),h('p',{class:'sub'},'Привязан к профилю «'+P.nickname+'»'),
+          h('div',{class:'rows'},sr('🌱 Первый сезон',in1),sr('🔥 Второй сезон',in2)),
+          h('div',{class:'btns'},h('button',{class:'btn',onclick:()=>copy(nick)},'Копировать ник'),MC?h('button',{class:'btn',onclick:()=>copy(MC)},'Копировать IP сервера'):null,h('button',{class:'btn danger',onclick:unlinkModal},'Отвязать Minecraft'))))
+      :h('div',{class:'center'},h('h1',{},'Minecraft не привязан'),h('p',{},'Привяжи ник — появятся скин, значки сезонов и быстрые кнопки.'),h('button',{class:'btn primary',onclick:linkModal},'Привязать Minecraft')));
+  }else if(TAB==='badges'){
+    panel=h('div',{class:'panel'},h('p',{class:'sub'},'Получено '+got+' из '+bd.length+'. Нажми на значок, чтобы узнать, как его получить.'),
+      h('div',{class:'bd'},...bd.map(([ic,t,hint,on])=>h('button',{class:'badge '+(on?'on':'off'),onclick:()=>toast((on?'✓ ':'🔒 ')+t+': '+hint)},h('i',{},ic),h('b',{},t),h('small',{},on?'Получено':'Закрыто')))));
+  }else{
+    panel=h('div',{class:'panel card'},h('h2',{},'Обложка профиля'),h('p',{class:'sub'},'Выбор применяется сразу и хранится в этом браузере.'),
+      h('div',{class:'covers'},...COVERS.map(([id,css])=>h('button',{class:'cv'+(cv===id?' on':''),style:'background:'+css+';background-size:cover;background-position:center','aria-label':'Обложка',onclick:()=>{setCover(id);render();toast('Обложка применена')}}))),
+      h('div',{class:'btns'},h('button',{class:'btn',onclick:()=>{setCover(COVERS[Math.floor(Math.random()*COVERS.length)][0]);render();toast('Случайная обложка 🎲')}},'🎲 Случайная'),h('button',{class:'btn',onclick:()=>{setCover('');render()}},'Сбросить')),
+      h('p',{class:'sub',style:'margin-top:14px'},'Аватарку и никнейм меняются кнопкой «Изменить профиль».'));
+  }
+  v.replaceChildren(...(LOCAL?[h('p',{class:'hint'},'Локальный режим: профиль и привязка хранятся только в этом браузере — на других устройствах их не будет, а уникальность ников не проверяется. Подключить общий сервер можно позже (см. README).')]:[]),wrap,tabs,panel);
+  if(pc)countUp(pc,pct);
 }
 
 function simpleLinkModal(){
   const inp=h('input',{placeholder:'Например, Steve_123',maxlength:'16',autocomplete:'off',autocapitalize:'off',spellcheck:'false'}),err=h('p',{class:'err'});
-  const go=async()=>{err.textContent='';try{P=await api('/api/link/direct','POST',{nick:inp.value.trim()});syncUser(P);closeM();render();toast('Minecraft привязан: '+P.minecraft.nick)}catch(e){err.textContent=e.message}};
+  const go=async()=>{err.textContent='';try{P=await api('/api/link/direct','POST',{nick:inp.value.trim()});syncUser(P);closeM();render();(toast('Minecraft привязан: '+P.minecraft.nick),burst())}catch(e){err.textContent=e.message}};
   inp.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
   openM(h('div',{},h('h2',{},'Привязать Minecraft'),
     h('p',{class:'sub'},'Введи ник, под которым играешь на сервере. Подойдёт и пиратский аккаунт — лицензия не нужна. Ник сохраняется как указан и игровым сервером не проверяется.'+(LOCAL?' Данные хранятся только в этом браузере.':' Один ник можно привязать только к одному аккаунту.')),
@@ -188,7 +299,7 @@ function linkModal(){
     stop();const left=h('b',{class:'cd'});
     const upd=()=>{const s=Math.max(0,d.expiresAt-Math.floor(Date.now()/1000));left.textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');if(!s)step1('Код истёк. Создай новый.')};
     tick=setInterval(upd,1000);upd();
-    poll=setInterval(async()=>{try{const p=await api('/api/me');if(p.minecraft){P=p;syncUser(P);closeM();render();toast('Minecraft привязан: '+P.minecraft.nick)}}catch(e){}},3000);
+    poll=setInterval(async()=>{try{const p=await api('/api/me');if(p.minecraft){P=p;syncUser(P);closeM();render();(toast('Minecraft привязан: '+P.minecraft.nick),burst())}}catch(e){}},3000);
     box.replaceChildren(h('h2',{},'Подтверди ник '+d.nick),h('span',{class:'sub'},'Твой код (действует 5 минут):'),h('div',{class:'code'},d.code),
       h('ol',{class:'steps'},h('li',{},'Зайди на сервер ',MC?h('b',{},MC):'',' под ником ',h('b',{},d.nick),'.'),h('li',{},'Выполни команду в игре:')),
       h('div',{class:'cmd'},h('span',{},d.command),h('button',{class:'btn',onclick:()=>copy(d.command)},'Копировать')),
@@ -208,13 +319,13 @@ function unlinkModal(){
 
 function editModal(){
   let nick=P.nickname,av=P.avatar||null;
-  const img=h('img',{alt:'',src:avSrc({...P,avatar:av})}),name=h('b',{},nick),err=h('p',{class:'err'}),inp=h('input',{value:nick,maxlength:'24',autocomplete:'off'}),gal=h('div',{class:'gal'});
+  const img=h('img',{alt:'',src:avSrc({...P,avatar:av}),onerror:fb}),name=h('b',{},nick),err=h('p',{class:'err'}),inp=h('input',{value:nick,maxlength:'24',autocomplete:'off'}),gal=h('div',{class:'gal'});
   inp.addEventListener('input',()=>{nick=inp.value;name.textContent=nick.trim()||'…'});
   const mark=()=>{[...gal.children].forEach(b=>b.classList.toggle('on',b.dataset.a===(av||'')));img.src=avSrc({...P,avatar:av})};
-  [null,...AVS].forEach(a=>gal.append(h('button',{type:'button','data-a':a||'',title:a?'Аватарка':'Как в Discord','aria-label':a?'Аватарка '+a:'Как в Discord',onclick:()=>{av=a;mark()}},h('img',{src:a?'assets/avatars/'+a+'.webp':avSrc({...P,avatar:null}),alt:''}))));
+  [null,...AVS].forEach(a=>gal.append(h('button',{type:'button','data-a':a||'',title:a?'Аватарка':'Как в Discord','aria-label':a?'Аватарка '+a:'Как в Discord',onclick:()=>{av=a;mark()}},h('img',{src:a?'assets/avatars/'+a+'.webp':avSrc({...P,avatar:null}),alt:'',onerror:fb}))));
   mark();
-  const save=async()=>{err.textContent='';try{P=await api('/api/profile','PUT',{nickname:nick.trim(),avatar:av});syncUser(P);closeM();render();toast('Профиль сохранён')}catch(e){err.textContent=e.message}};
-  openM(h('div',{},h('h2',{},'Изменить профиль'),h('div',{class:'preview'},img,name),h('label',{class:'sub'},'Никнейм на сайте'),inp,h('span',{class:'sub',style:'margin-top:10px'},'Аватарка (первая — как в Discord)'),gal,err,
+  const save=async()=>{err.textContent='';const was=P.nickname;try{P=await api('/api/profile','PUT',{nickname:nick.trim(),avatar:av});if(P.nickname!==was){try{localStorage.setItem('pristalRenamed','1')}catch(e){}}syncUser(P);closeM();render();toast('Профиль сохранён');burst()}catch(e){err.textContent=e.message}};
+  openM(h('div',{},h('h2',{},'Изменить профиль'),h('div',{class:'preview'},img,name),h('label',{class:'sub'},'Никнейм на сайте'),inp,h('span',{class:'sub',style:'margin-top:10px'},'Аватарка (первая — как в Discord)'),gal,h('button',{class:'btn',type:'button',style:'margin-bottom:12px',onclick:()=>{av=AVS[Math.floor(Math.random()*AVS.length)];mark()}},'🎲 Случайная аватарка'),err,
     h('div',{class:'btns'},h('button',{class:'btn primary',onclick:save},'Сохранить'),h('button',{class:'btn',onclick:closeM},'Отмена'))));
 }
 
