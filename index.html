@@ -887,7 +887,9 @@ document.addEventListener("click",(e)=>{
       if(!r.ok)throw new Error(r.status);
       const d=await r.json();
       const name=d.global_name||d.username;
-      save({id:String(d.id),name,avatar:d.avatar||""});
+      let lp=null;try{lp=JSON.parse(localStorage.getItem("pristalLocal"))}catch(e){}
+      if(lp&&lp.id!==String(d.id))lp=null;
+      save({id:String(d.id),name:(lp&&lp.nickname)||name,avatar:d.avatar||"",av:(lp&&lp.av)||""});
       render();say("Добро пожаловать, "+name+"!");
     }catch(e){say("Не удалось войти через Discord")}
   };

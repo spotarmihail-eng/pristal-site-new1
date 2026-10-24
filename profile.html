@@ -74,6 +74,7 @@ main{padding:44px 0 70px}
 (()=>{
 const $=s=>document.querySelector(s);
 const CFG=window.PRISTAL||{},API=(CFG.API||'').replace(/\/+$/,''),MC=CFG.MC_SERVER||'';
+const LOCAL=!API; // без сервера профиль хранится в браузере
 const A={mint:'#72f27d',violet:'#a855f7',rose:'#ff8fb1',blue:'#78a9ff',sunset:'#ffb86b',mono:'#e8edf2',darkpink:'#ff6ccf',ice:'#7fffd4',forest:'#76d66f'};
 let th='violet',bgn='all';try{th=localStorage.getItem('pristalTheme')||th;bgn=localStorage.getItem('pristalBg')||bgn}catch(e){}
 document.documentElement.style.setProperty('--accent',A[th]||A.violet);
@@ -91,7 +92,32 @@ const avSrc=p=>/^a\d{1,2}$/.test(p.avatar||'')?'assets/avatars/'+p.avatar+'.webp
   :'https://cdn.discordapp.com/embed/avatars/'+Number((BigInt(p.id)>>22n)%6n)+'.png';
 const syncUser=p=>{try{localStorage.setItem('pristalUser',JSON.stringify({id:p.id,name:p.nickname,avatar:p.discordAvatar||'',av:p.avatar||''}))}catch(e){}};
 
+// ---- локальный режим (без сервера): данные лежат в localStorage этого браузера ----
+const localUser=()=>{try{const u=JSON.parse(localStorage.getItem('pristalUser'));return u&&/^\d{5,25}$/.test(u.id)?u:null}catch(e){return null}};
+const lget=u=>{let l=null;try{l=JSON.parse(localStorage.getItem('pristalLocal'))}catch(e){}return(!l||l.id!==u.id)?{id:u.id,discord:u.name}:l};
+const lset=l=>{try{localStorage.setItem('pristalLocal',JSON.stringify(l))}catch(e){}};
+const lprof=(u,l)=>({id:u.id,discord:l.discord,discordAvatar:u.avatar||null,nickname:l.nickname||l.discord||'Игрок',avatar:l.av||null,minecraft:l.mc?{nick:l.mc,linkedAt:l.at||0}:null,pending:null,linkMode:'local'});
+function localApi(path,method,b){
+  const u=localUser();if(!u)throw Object.assign(new Error('Войдите через Discord.'),{status:401});
+  const l=lget(u);
+  if(path==='/api/me')return lprof(u,l);
+  if(path==='/api/profile'){
+    const nn=String(b.nickname||'').trim();
+    if(!/^[\p{L}\p{N} _.\-]{2,24}$/u.test(nn))throw new Error('Никнейм: 2–24 символа — буквы, цифры, пробел, _ . -');
+    if(b.avatar&&!AVS.includes(b.avatar))throw new Error('Такой аватарки нет.');
+    l.nickname=nn;l.av=b.avatar||null;lset(l);return lprof(u,l);
+  }
+  if(path==='/api/link/direct'){
+    if(!/^[A-Za-z0-9_]{3,16}$/.test(b.nick||''))throw new Error('Ник: 3–16 символов — латиница, цифры и _');
+    if(l.mc)throw new Error('Сначала отвяжите текущий ник.');
+    l.mc=b.nick;l.at=Math.floor(Date.now()/1000);lset(l);return lprof(u,l);
+  }
+  if(path==='/api/link'&&method==='DELETE'){delete l.mc;lset(l);return{ok:true}}
+  return{ok:true};
+}
+
 async function api(path,method='GET',body){
+  if(LOCAL){try{return localApi(path,method,body||{})}catch(e){if(e.status===401)logout(false);throw e}}
   const r=await fetch(API+path,{method,headers:{'Content-Type':'application/json',Authorization:'Bearer '+(S()||'')},body:body?JSON.stringify(body):undefined});
   let d={};try{d=await r.json()}catch(e){}
   if(r.status===401&&path!=='/api/auth/logout')logout(false);
@@ -116,12 +142,11 @@ const row=(k,v)=>h('div',{class:'row'},h('span',{},k),h('b',{},v));
 
 function render(){
   const v=$('#view'),chip=$('#authBox');chip.replaceChildren();
-  if(!API)return v.replaceChildren(note('Серверная часть профилей не подключена','Откройте файл config.js и укажите адрес API (инструкция — в README, раздел «Профили и привязка Minecraft»). Пока адрес не указан, привязку Minecraft подтвердить невозможно.'));
-  if(!S())return v.replaceChildren(note('Войдите через Discord','Профиль доступен после входа через Discord.',h('a',{class:'btn primary',href:'./?login=1'},'Войти через Discord')));
+  if(!(LOCAL?localUser():S()))return v.replaceChildren(note('Войдите через Discord','Профиль доступен после входа через Discord.',h('a',{class:'btn primary',href:'./?login=1'},'Войти через Discord')));
   if(!P)return v.replaceChildren(note('Загрузка…','Получаем твой профиль.'));
   chip.append(h('div',{class:'me-chip'},h('img',{src:avSrc(P),alt:''}),h('span',{},P.nickname)));
   const linked=!!P.minecraft;
-  v.replaceChildren(h('div',{class:'card prof'},
+  v.replaceChildren(...(LOCAL?[h('p',{class:'hint'},'Локальный режим: профиль и привязка хранятся только в этом браузере — на других устройствах их не будет, а уникальность ников не проверяется. Подключить общий сервер можно позже (см. README).')]:[]),h('div',{class:'card prof'},
     h('img',{class:'big-av',src:avSrc(P),alt:'Аватарка'}),
     h('div',{},
       h('h1',{},P.nickname),
@@ -141,7 +166,7 @@ function simpleLinkModal(){
   const go=async()=>{err.textContent='';try{P=await api('/api/link/direct','POST',{nick:inp.value.trim()});syncUser(P);closeM();render();toast('Minecraft привязан: '+P.minecraft.nick)}catch(e){err.textContent=e.message}};
   inp.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
   openM(h('div',{},h('h2',{},'Привязать Minecraft'),
-    h('p',{class:'sub'},'Введи ник, под которым играешь на сервере. Подойдёт и пиратский аккаунт — лицензия не нужна. Ник сохраняется как указан и игровым сервером не проверяется. Один ник можно привязать только к одному аккаунту.'),
+    h('p',{class:'sub'},'Введи ник, под которым играешь на сервере. Подойдёт и пиратский аккаунт — лицензия не нужна. Ник сохраняется как указан и игровым сервером не проверяется.'+(LOCAL?' Данные хранятся только в этом браузере.':' Один ник можно привязать только к одному аккаунту.')),
     inp,err,h('div',{class:'btns'},h('button',{class:'btn primary',onclick:go},'Привязать'),h('button',{class:'btn',onclick:closeM},'Отмена'))));
   setTimeout(()=>inp.focus(),50);
 }
@@ -194,7 +219,7 @@ function editModal(){
 }
 
 render();
-if(API&&S())api('/api/me').then(p=>{P=p;syncUser(p);render()}).catch(e=>{if(e.status!==401)$('#view').replaceChildren(note('Сервер профилей недоступен','Попробуй обновить страницу чуть позже.'))});
+if(LOCAL?localUser():(API&&S()))api('/api/me').then(p=>{P=p;syncUser(p);render()}).catch(e=>{if(e.status!==401)$('#view').replaceChildren(note('Сервер профилей недоступен','Попробуй обновить страницу чуть позже.'))});
 })();
 </script>
 </body>
