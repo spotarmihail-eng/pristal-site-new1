@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#a855f7">
+<meta name="robots" content="noindex">
+<title>Закрытое тестирование анархии — Pristal</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0,rgba(168,85,247,.18),transparent 38%),#070a0f;color:#f5f7fb;font:16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:#d8b4fe}.wrap{width:min(760px,92%);margin:0 auto;padding:36px 0 70px}.logo{display:inline-block;color:#fff;text-decoration:none;font-size:22px;font-weight:950;letter-spacing:.08em}.logo span{color:#a855f7}
+.card{margin-top:24px;padding:clamp(20px,5vw,34px);border:1px solid rgba(216,180,254,.18);border-radius:22px;background:linear-gradient(145deg,rgba(17,23,32,.97),rgba(11,15,21,.97));box-shadow:0 20px 60px #0005}
+.eyebrow{color:#c4b5fd;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.title{font-size:clamp(28px,6vw,42px);line-height:1.08;letter-spacing:-.04em;margin:10px 0}.muted{color:#9aa4b2}.field{display:grid;gap:7px;margin:18px 0}.field label{font-weight:800;font-size:14px}.field input,.field textarea{width:100%;padding:13px 14px;border:1px solid #ffffff20;border-radius:12px;background:#070a0f;color:#fff;font:inherit}.field textarea{min-height:105px;resize:vertical}.field input:focus,.field textarea:focus{outline:2px solid #a855f7;border-color:#a855f7}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #ffffff20;border-radius:12px;padding:12px 17px;background:#141b25;color:#fff;text-decoration:none;font:inherit;font-weight:850;cursor:pointer}.btn.primary{background:#a855f7;border-color:#a855f7;color:#160923}.btn:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.status{padding:14px 16px;border:1px solid #ffffff18;border-radius:14px;background:#090e15;margin:16px 0}.status.pending{border-color:#a855f766;color:#e9d5ff}.status.approved{border-color:#22c55e66;color:#bbf7d0}.status.rejected{border-color:#ef444466;color:#fecaca}.status strong{display:block;font-size:18px;margin-bottom:3px}.note{font-size:13px;color:#8993a1;margin-top:16px}.user{display:flex;align-items:center;gap:10px;color:#cbd5e1;font-size:14px}.user img{width:32px;height:32px;border-radius:10px}.hidden{display:none!important}.back{display:inline-block;margin-top:18px;text-decoration:none;color:#aeb7c3}.back:hover{color:#fff}
+</style>
+</head>
+<body>
+<main class="wrap">
+<a class="logo" href="./">PRI<span>STAL</span></a>
+<section class="card">
+<div class="eyebrow">⚔️ Закрытое тестирование</div>
+<h1 class="title">Анархия Pristal</h1>
+<p class="muted">Подай заявку на участие в закрытом тестировании. Для отправки потребуется войти через Discord и разместить подготовленный текст в канале заявок нашего сервера.</p>
+<div id="loginBox" class="status">
+<strong>Сначала войди через Discord</strong>
+<p class="muted">Войди на главной странице Pristal, затем вернись сюда.</p>
+<a class="btn primary" href="./index.html?login=1">Войти через Discord</a>
+</div>
+<div id="applicationBox" class="hidden">
+<div class="user" id="userInfo"></div>
+<div class="field"><label for="mcNick">Твой Minecraft-ник</label><input id="mcNick" maxlength="16" autocomplete="off" placeholder="Например, Steve_123"></div>
+<div class="field"><label for="reason">Почему хочешь попасть на тестирование? (необязательно)</label><textarea id="reason" maxlength="500" placeholder="Коротко расскажи о себе и своём интересе к тестированию"></textarea></div>
+<div class="actions"><button class="btn primary" id="sendApplication" type="button">Скопировать заявку и открыть Discord</button><button class="btn" id="refreshStatus" type="button">Обновить статус</button></div>
+<p class="note">После копирования открой Discord, зайди в канал <b>#заявки-анархия</b> и отправь скопированный текст. Заявки публикуются в этом канале, поэтому не указывай пароли, личные контакты или другие секретные данные.</p>
+<div id="applicationStatus" class="status"><strong>Статус заявки</strong><span>Пока нет данных. Если ты уже отправил заявку, нажми «Обновить статус».</span></div>
+</div>
+<p class="note">Статусы публикуются на сайте в псевдонимизированном виде. Они не являются приватными секретами.</p>
+<a class="back" href="./">← Вернуться на Pristal</a>
+</section>
+</main>
+<script>
+(()=> {
+ const $=id=>document.getElementById(id);
+ let user=null;
+ try{user=JSON.parse(localStorage.getItem("pristalUser")||"null")}catch(e){}
+ const valid=user&&/^\d{5,25}$/.test(String(user.id));
+ if(valid){
+   $("loginBox").classList.add("hidden");$("applicationBox").classList.remove("hidden");
+   $("userInfo").textContent="Вошёл как "+(user.name||"Discord-пользователь");
+   if(user.avatar){const img=new Image();img.src="https://cdn.discordapp.com/avatars/"+user.id+"/"+user.avatar+".png?size=64";img.alt="";$("userInfo").prepend(img)}
+ }
+ const digest=async value=>{const bytes=new TextEncoder().encode(value);const hash=await crypto.subtle.digest("SHA-256",bytes);return [...new Uint8Array(hash)].map(x=>x.toString(16).padStart(2,"0")).join("")};
+ async function refresh(){
+   if(!valid)return;
+   const box=$("applicationStatus");box.className="status";box.innerHTML="<strong>Проверяем статус…</strong>";
+   try{
+     const key=await digest(String(user.id));
+     const response=await fetch("./anarchy-test-status.json?ts="+Date.now(),{cache:"no-store"});
+     if(!response.ok)throw new Error("status unavailable");
+     const data=await response.json();const entry=(data.applications||{})[key];
+     box.className="status";
+     if(!entry){box.innerHTML="<strong>Заявка не найдена</strong><span>Сначала отправь сообщение в Discord-канале заявок. После проверки GitHub Actions статус появится здесь.</span>";return}
+     if(entry.status==="approved"){
+       box.classList.add("approved");
+       box.innerHTML="<strong>Вам одобрено!</strong><span>Напишите с этим скриншотом или фото в дс Skrenh в личку.</span>";
+     }else if(entry.status==="rejected"){
+       box.classList.add("rejected");
+       box.innerHTML="<strong>Вам отказано</strong><span>Спасибо за интерес к закрытому тестированию Pristal.</span>";
+     }else{
+       box.classList.add("pending");
+       box.innerHTML="<strong>Заявка на рассмотрении</strong><span>Ожидай решения администратора. Проверка обновляется примерно раз в 5 минут.</span>";
+     }
+   }catch(e){box.innerHTML="<strong>Не удалось проверить статус</strong><span>Попробуй обновить страницу позже.</span>"}
+ }
+ $("refreshStatus")?.addEventListener("click",refresh);
+ $("sendApplication")?.addEventListener("click",async()=>{
+   const nick=$("mcNick").value.trim(),reason=$("reason").value.trim();
+   if(!/^[A-Za-z0-9_]{3,16}$/.test(nick)){alert("Введи корректный Minecraft-ник (3–16 символов: латиница, цифры и _).");return}
+   const message=["PRISTAL-ANARCHY-APP","Заявка на закрытое тестирование анархии Pristal","Minecraft-ник: "+nick,"Discord: "+(user.name||"пользователь"),"Почему хочу участвовать: "+(reason||"Не указано")].join("\n");
+   try{await navigator.clipboard.writeText(message)}catch(e){alert("Не удалось скопировать текст. Разреши доступ к буферу обмена и попробуй ещё раз.");return}
+   window.open("https://discord.gg/AFW8sKsUG","_blank","noopener");
+   alert("Заявка скопирована. В Discord открой канал #заявки-анархия и отправь сообщение.");
+ });
+ if(valid)refresh();
+})();
+</script>
+</body>
+</html>
