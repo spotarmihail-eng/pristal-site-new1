@@ -3,84 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090711">
-  <meta name="description" content="Закрытое тестирование режима Анархия Pristal. Подай заявку и ознакомься с правилами тестирования.">
+  <meta name="theme-color" content="#100707">
+  <meta name="description" content="Закрытое тестирование режима Анархия Pristal. Заявка, правила и важная информация для тестировщиков.">
   <title>Анархия — закрытое тестирование | Pristal</title>
   <style>
-    :root{color-scheme:dark;--bg:#090711;--panel:#13101e;--line:rgba(255,90,90,.20);--muted:#a69bb5;--accent:#ff3b3b;--accent2:#991b1b}
+    :root{color-scheme:dark;--bg:#0b0708;--panel:#160d0f;--panel2:#211012;--line:rgba(255,75,75,.2);--muted:#b9a4a6;--red:#ff4242;--red2:#b51220;--pale:#ffd5d5}
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
-    body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -10%,rgba(220,38,38,.22),transparent 45%),var(--bg);color:#f7f2ff;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+    body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -12%,rgba(190,20,35,.28),transparent 42%),radial-gradient(circle at 0% 45%,rgba(100,10,20,.12),transparent 30%),var(--bg);color:#fff5f5;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}
     a{color:inherit;text-decoration:none}
-    .wrap{width:min(980px,92%);margin:auto}
-    header{border-bottom:1px solid var(--line);background:rgba(9,7,17,.82);backdrop-filter:blur(16px)}
+    button{font:inherit}
+    .wrap{width:min(1040px,92%);margin:auto}
+    header{position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line);background:rgba(11,7,8,.88);backdrop-filter:blur(16px)}
     .nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{font-weight:950;font-size:22px;letter-spacing:.12em}.brand span{color:var(--accent)}
-    .back{font-size:13px;color:#d9b9b9;padding:9px 13px;border:1px solid var(--line);border-radius:10px}
-    .hero{text-align:center;padding:76px 0 34px}
-    .eyebrow{display:inline-flex;padding:6px 12px;border:1px solid rgba(255,70,70,.38);background:rgba(255,70,70,.10);border-radius:999px;color:#ffd0d0;font-size:12px;font-weight:800;letter-spacing:.08em}
-    h1{font-size:clamp(38px,7vw,68px);line-height:1.04;letter-spacing:-.055em;margin:18px 0 14px}
-    h1 span{color:var(--accent)}
-    .hero p{max-width:650px;margin:0 auto;color:var(--muted);font-size:16px}
-    .tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:30px 0 18px}
-    .tab{border:1px solid var(--line);background:#151120;color:#e0c0c0;padding:12px 20px;border-radius:12px;font-weight:800;cursor:pointer;font-size:14px;transition:.2s}
-    .tab:hover{border-color:rgba(255,70,70,.65)}
-    .tab.active{background:linear-gradient(135deg,#ff5555,#b91c1c);color:#190d27;border-color:transparent}
-    main{padding-bottom:70px}
-    .panel{display:none}.panel.active{display:block}
-    .card{background:linear-gradient(145deg,rgba(25,19,38,.96),rgba(14,12,22,.96));border:1px solid var(--line);border-radius:22px;padding:clamp(20px,4vw,34px);box-shadow:0 22px 70px rgba(0,0,0,.25)}
-    .card h2{font-size:25px;margin:0 0 8px}.sub{color:var(--muted);margin:0 0 22px}
-    .form-frame{width:100%;height:1100px;border:0;border-radius:12px;background:#fff}
-    .form-tip{font-size:13px;color:var(--muted);margin:12px 0 0}
-    .form-tip a{color:#ffb4b4;text-decoration:underline}
-    .rules{display:grid;gap:13px;counter-reset:rule}
-    .rule{counter-increment:rule;display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start;padding:17px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025);border-radius:14px}
-    .rule:before{content:counter(rule);display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:rgba(255,70,70,.16);color:#ffd0d0;font-weight:900}
-    .rule strong{display:block;margin-bottom:3px}.rule p{margin:0;color:#c2b8ce}
-    .notice{margin-top:18px;padding:17px 19px;border:1px solid rgba(248,113,113,.25);background:rgba(127,29,29,.12);border-radius:14px;color:#f2d5d5}
-    .notice strong{color:#ffb4b4}
-    footer{border-top:1px solid var(--line);padding:24px 0;color:#81768e;font-size:12px;text-align:center}
-    @media(max-width:600px){.nav{height:62px}.brand{font-size:19px}.hero{padding:55px 0 22px}.form-frame{height:1250px}.rule{grid-template-columns:36px 1fr;padding:14px}.rule:before{width:32px;height:32px}}
+    .brand{font-weight:1000;font-size:22px;letter-spacing:.16em}.brand span{color:var(--red)}
+    .back{font-size:13px;color:#e4c9ca;padding:9px 14px;border:1px solid var(--line);border-radius:11px;transition:.2s}
+    .back:hover{border-color:var(--red);background:rgba(255,60,60,.08)}
+    .hero{position:relative;text-align:center;padding:76px 0 34px;overflow:hidden}
+    .hero:before{content:"";position:absolute;z-index:-1;width:360px;height:360px;border-radius:50%;background:rgba(180,15,30,.13);filter:blur(80px);left:50%;top:0;transform:translateX(-50%)}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 13px;border:1px solid rgba(255,70,70,.38);background:rgba(255,55,55,.09);border-radius:999px;color:var(--pale);font-size:11px;font-weight:900;letter-spacing:.14em}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red)}
+    h1{font-size:clamp(42px,8vw,78px);line-height:.98;letter-spacing:-.065em;margin:23px 0 17px;font-weight:1000}
+    h1 span{display:block;color:var(--red);text-shadow:0 0 34px rgba(255,50,50,.22)}
+    .hero p{max-width:670px;margin:0 auto;color:var(--muted);font-size:16px}
+    .hero-note{display:inline-block;margin-top:22px;color:#f3c9c9;font-size:12px;letter-spacing:.04em}
+    .tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:32px 0 20px}
+    .tab{border:1px solid var(--line);background:#1a1012;color:#e8cdcf;padding:12px 20px;border-radius:12px;font-weight:850;cursor:pointer;font-size:14px;transition:transform .2s,border-color .2s,background .2s}
+    .tab:hover{transform:translateY(-2px);border-color:rgba(255,70,70,.7)}
+    .tab.active{background:linear-gradient(135deg,#ff5555,#b51220);color:#fff;border-color:transparent;box-shadow:0 8px 28px rgba(190,15,30,.22)}
+    main{padding-bottom:76px}
+    .panel{display:none}.panel.active{display:block;animation:appear .28s ease}
+    @keyframes appear{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+    .card{background:linear-gradient(145deg,rgba(31,17,20,.98),rgba(16,10,12,.98));border:1px solid var(--line);border-radius:23px;padding:clamp(20px,4vw,36px);box-shadow:0 24px 80px rgba(0,0,0,.32)}
+    .section-kicker{color:var(--red);font-size:11px;font-weight:950;letter-spacing:.16em;text-transform:uppercase;margin-bottom:7px}
+    .card h2{font-size:clamp(23px,4vw,30px);line-height:1.2;margin:0 0 8px;letter-spacing:-.03em}
+    .sub{color:var(--muted);margin:0 0 24px}
+    .form-frame{display:block;width:100%;height:1120px;border:0;border-radius:14px;background:#fff}
+    .form-tip{font-size:13px;color:var(--muted);margin:13px 0 0}
+    .form-tip a{color:#ffb8b8;text-decoration:underline;text-underline-offset:3px}
+    .info-strip{display:flex;gap:13px;align-items:flex-start;margin:0 0 22px;padding:15px 17px;border:1px solid rgba(255,75,75,.18);background:rgba(130,15,25,.12);border-radius:14px;color:#e9cacc;font-size:13px}
+    .info-strip b{color:#fff}
+    .info-icon{flex:0 0 25px;width:25px;height:25px;display:grid;place-items:center;border-radius:8px;background:rgba(255,65,65,.15);color:#ff8585;font-weight:950}
+    .rules{display:grid;gap:12px;counter-reset:rule}
+    .rule{counter-increment:rule;display:grid;grid-template-columns:43px 1fr;gap:14px;align-items:start;padding:18px;border:1px solid rgba(255,255,255,.07);background:linear-gradient(110deg,rgba(255,255,255,.035),rgba(255,255,255,.012));border-radius:15px;transition:border-color .2s,transform .2s}
+    .rule:hover{border-color:rgba(255,75,75,.3);transform:translateX(2px)}
+    .rule:before{content:counter(rule,decimal-leading-zero);display:grid;place-items:center;width:39px;height:39px;border-radius:12px;background:rgba(255,60,60,.13);border:1px solid rgba(255,70,70,.2);color:#ffb7b7;font-size:12px;font-weight:950}
+    .rule strong{display:block;margin:1px 0 4px;font-size:15px;color:#fff}
+    .rule p{margin:0;color:#c7b5b7;font-size:13px}
+    .subhead{font-size:18px;margin:29px 0 12px}
+    .report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+    .report-item{padding:15px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025);border-radius:13px}
+    .report-item b{display:block;color:#ffe4e4;font-size:13px;margin-bottom:4px}
+    .report-item span{display:block;color:#bdaeb0;font-size:12px}
+    .notice{margin-top:22px;padding:18px 20px;border:1px solid rgba(255,65,65,.34);background:linear-gradient(110deg,rgba(130,15,25,.23),rgba(80,8,15,.12));border-radius:15px;color:#f0d4d5;font-size:13px}
+    .notice strong{color:#ffaaaa}
+    footer{border-top:1px solid var(--line);padding:25px 0;color:#887779;font-size:12px;text-align:center}
+    footer span{color:#e95a60}
+    @media(max-width:620px){.nav{height:62px}.brand{font-size:19px}.hero{padding:58px 0 25px}.hero p{font-size:14px}.form-frame{height:1280px}.rule{grid-template-columns:36px 1fr;padding:14px;gap:11px}.rule:before{width:33px;height:33px}.report-grid{grid-template-columns:1fr}.back{font-size:12px;padding:8px 10px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
   </style>
 </head>
 <body>
   <header><div class="wrap nav"><a class="brand" href="./index.html">PRISTAL<span>.</span></a><a class="back" href="./index.html">← На основной сайт</a></div></header>
   <div class="wrap">
     <section class="hero">
-      <span class="eyebrow">ЗАКРЫТОЕ ТЕСТИРОВАНИЕ</span>
+      <span class="eyebrow"><i class="dot"></i> ЗАКРЫТОЕ ТЕСТИРОВАНИЕ</span>
       <h1>АНАРХИЯ <span>PRISTAL</span></h1>
-      <p>Хочешь одним из первых проверить новый режим? Ознакомься с правилами и отправь заявку на участие.</p>
+      <p>Стань частью закрытого тестирования: проверяй режим, находи ошибки и помогай сделать игровой процесс лучше. Перед подачей заявки внимательно прочитай правила.</p>
+      <div class="hero-note">ДОСТУП К ТЕСТИРОВАНИЮ — ТОЛЬКО ДЛЯ ОДОБРЕННЫХ УЧАСТНИКОВ</div>
       <div class="tabs" role="tablist" aria-label="Разделы тестирования">
-        <button class="tab active" id="tab-apply" role="tab" aria-selected="true" aria-controls="apply" data-target="apply">Подать заявку</button>
-        <button class="tab" id="tab-rules" role="tab" aria-selected="false" aria-controls="rules" data-target="rules">Правила тестирования</button>
+        <button class="tab active" id="tab-apply" role="tab" aria-selected="true" aria-controls="apply" data-target="apply">✦ Подать заявку</button>
+        <button class="tab" id="tab-rules" role="tab" aria-selected="false" aria-controls="rules" data-target="rules">⚑ Правила тестирования</button>
       </div>
     </section>
     <main>
       <section class="panel active" id="apply" role="tabpanel" aria-labelledby="tab-apply">
         <div class="card">
-          <h2>Заявка на тестирование</h2>
-          <p class="sub">Заполни форму внимательно. Ответы отправятся организатору тестирования.</p>
+          <div class="section-kicker">Участие в тестировании</div>
+          <h2>Заявка на закрытый доступ</h2>
+          <p class="sub">Заполни форму честно и внимательно. Отправка заявки не означает автоматическое получение доступа.</p>
+          <div class="info-strip"><span class="info-icon">!</span><div><b>Перед отправкой:</b> ознакомься с правилами во второй вкладке. Подавая заявку, ты подтверждаешь, что понимаешь требования конфиденциальности и обязуешься сообщать администрации обо всех найденных багах.</div></div>
           <iframe class="form-frame" src="https://docs.google.com/forms/d/e/1FAIpQLScpwAgo42vin4CqyjaKuh4nu9HuTnajvopfbKEV6nZ-SuZcEA/viewform?embedded=true" title="Форма заявки на закрытое тестирование Анархии Pristal" loading="lazy">Загрузка формы…</iframe>
-          <p class="form-tip">Если форма не отображается, <a href="https://docs.google.com/forms/d/e/1FAIpQLScpwAgo42vin4CqyjaKuh4nu9HuTnajvopfbKEV6nZ-SuZcEA/viewform" target="_blank" rel="noopener noreferrer">открой её отдельно</a>.</p>
+          <p class="form-tip">Если форма не отображается или не загружается, <a href="https://docs.google.com/forms/d/e/1FAIpQLScpwAgo42vin4CqyjaKuh4nu9HuTnajvopfbKEV6nZ-SuZcEA/viewform" target="_blank" rel="noopener noreferrer">открой её отдельно</a>.</p>
         </div>
       </section>
       <section class="panel" id="rules" role="tabpanel" aria-labelledby="tab-rules">
         <div class="card">
+          <div class="section-kicker">Обязательно к прочтению</div>
           <h2>Правила закрытого тестирования</h2>
-          <p class="sub">Отправляя заявку, будь готов соблюдать все правила.</p>
+          <p class="sub">Тестирование — это совместная работа над качеством режима. Каждый участник несёт ответственность за соблюдение этих правил.</p>
           <div class="rules">
-            <article class="rule"><div><strong>Сообщай обо всех багах</strong><p>Обо всех найденных багах, ошибках, недоработках и неисправностях необходимо сообщать администрации. Не скрывай найденные проблемы.</p></div></article>
-            <article class="rule"><div><strong>Соблюдай конфиденциальность</strong><p>Запрещено рассказывать посторонним о том, что происходит на тестировании, включая детали игрового процесса, изменения и внутреннюю информацию.</p></div></article>
-            <article class="rule"><div><strong>Не публикуй материалы</strong><p>Нельзя распространять скриншоты, видео, записи экрана, переписки и другие материалы тестирования без разрешения администрации.</p></div></article>
-            <article class="rule"><div><strong>Следуй указаниям администрации</strong><p>Выполняй просьбы и инструкции организаторов, участвуй в проверках и не мешай другим тестировщикам.</p></div></article>
-            <article class="rule"><div><strong>Относись к тестированию ответственно</strong><p>Тестирование проводится для поиска проблем и улучшения режима. Не используй найденные ошибки для получения преимущества или вреда проекту.</p></div></article>
+            <article class="rule"><div><strong>Сообщай обо всех найденных багах</strong><p>Нужно сообщать администрации о любых ошибках, недоработках, вылетах, проблемах с предметами, механиками, балансом и игровым процессом. Даже если ошибка кажется незначительной — не пропускай её и не рассчитывай, что кто-то сообщит вместо тебя.</p></div></article>
+            <article class="rule"><div><strong>Сохраняй полную конфиденциальность</strong><p>Запрещено рассказывать друзьям, игрокам и любым посторонним о том, что происходит на тестировании. Не раскрывай детали режима, новые функции, изменения, результаты проверок, планы и внутренние обсуждения.</p></div></article>
+            <article class="rule"><div><strong>Не распространяй материалы тестирования</strong><p>Без прямого разрешения администрации нельзя публиковать или пересылать скриншоты, видео, записи экрана, фотографии, переписки, файлы и любые другие материалы, связанные с тестированием.</p></div></article>
+            <article class="rule"><div><strong>Не используй баги ради преимущества</strong><p>Запрещено намеренно злоупотреблять найденными ошибками, получать с их помощью преимущество, портить игровой процесс другим или наносить вред проекту. Обнаружил проблему — прекрати её использовать и сообщи администрации.</p></div></article>
+            <article class="rule"><div><strong>Помогай проверять режим</strong><p>Проверяй выданные задания, повторяй действия для подтверждения ошибок и описывай результат. Если проблема не воспроизводится повторно, всё равно сообщи об этом и укажи, при каких условиях она возникла.</p></div></article>
+            <article class="rule"><div><strong>Уважай администрацию и других тестировщиков</strong><p>Следуй инструкциям организаторов, общайся спокойно, не мешай проверкам и не провоцируй конфликты. Если возник вопрос или проблема, обратись к администрации через указанный для тестирования способ связи.</p></div></article>
+            <article class="rule"><div><strong>Не передавай доступ другим людям</strong><p>Участие предназначено только для одобренного заявителя. Не передавай другим людям свои данные, приглашения или возможность зайти на тестирование от твоего имени.</p></div></article>
           </div>
-          <div class="notice"><strong>Важно:</strong> нарушение правил, особенно разглашение информации о тестировании или сокрытие багов, может привести к немедленному исключению из закрытого тестирования.</div>
+          <h3 class="subhead">Как правильно сообщить о баге</h3>
+          <div class="report-grid">
+            <div class="report-item"><b>1. Где найден баг?</b><span>Укажи место, режим, предмет или игровую ситуацию.</span></div>
+            <div class="report-item"><b>2. Как повторить?</b><span>Опиши действия по порядку, чтобы администрация могла проверить ошибку.</span></div>
+            <div class="report-item"><b>3. Что произошло?</b><span>Напиши, какой результат получился и что должно было произойти.</span></div>
+            <div class="report-item"><b>4. Дополнительные детали</b><span>Укажи примерное время и приложи материалы только в личный канал связи с администрацией, если это разрешено.</span></div>
+          </div>
+          <div class="notice"><strong>Важно:</strong> нарушение правил может привести к исключению из закрытого тестирования и потере доступа. Разглашение информации о тестировании, передача доступа другим людям и намеренное сокрытие багов считаются серьёзными нарушениями.</div>
         </div>
       </section>
     </main>
   </div>
-  <footer><div class="wrap">PRISTAL · Закрытое тестирование режима «Анархия»</div></footer>
+  <footer><div class="wrap">PRISTAL <span>◆</span> Закрытое тестирование режима «Анархия»</div></footer>
   <script>
     const tabs=[...document.querySelectorAll('.tab')];
     const panels=[...document.querySelectorAll('.panel')];
