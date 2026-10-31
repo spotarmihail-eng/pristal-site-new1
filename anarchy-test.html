@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090711">
+  <meta name="description" content="Закрытое тестирование режима Анархия Pristal. Подай заявку и ознакомься с правилами тестирования.">
+  <title>Анархия — закрытое тестирование | Pristal</title>
+  <style>
+    :root{color-scheme:dark;--bg:#090711;--panel:#13101e;--line:rgba(216,180,254,.16);--muted:#a69bb5;--accent:#b46aff;--accent2:#7c3aed}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -10%,rgba(124,58,237,.24),transparent 45%),var(--bg);color:#f7f2ff;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(980px,92%);margin:auto}
+    header{border-bottom:1px solid var(--line);background:rgba(9,7,17,.82);backdrop-filter:blur(16px)}
+    .nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{font-weight:950;font-size:22px;letter-spacing:.12em}.brand span{color:var(--accent)}
+    .back{font-size:13px;color:#c8b9d9;padding:9px 13px;border:1px solid var(--line);border-radius:10px}
+    .hero{text-align:center;padding:76px 0 34px}
+    .eyebrow{display:inline-flex;padding:6px 12px;border:1px solid rgba(180,106,255,.35);background:rgba(180,106,255,.09);border-radius:999px;color:#dfc2ff;font-size:12px;font-weight:800;letter-spacing:.08em}
+    h1{font-size:clamp(38px,7vw,68px);line-height:1.04;letter-spacing:-.055em;margin:18px 0 14px}
+    h1 span{color:var(--accent)}
+    .hero p{max-width:650px;margin:0 auto;color:var(--muted);font-size:16px}
+    .tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:30px 0 18px}
+    .tab{border:1px solid var(--line);background:#151120;color:#c9bdd8;padding:12px 20px;border-radius:12px;font-weight:800;cursor:pointer;font-size:14px;transition:.2s}
+    .tab:hover{border-color:rgba(180,106,255,.6)}
+    .tab.active{background:linear-gradient(135deg,#c084fc,#8b5cf6);color:#190d27;border-color:transparent}
+    main{padding-bottom:70px}
+    .panel{display:none}.panel.active{display:block}
+    .card{background:linear-gradient(145deg,rgba(25,19,38,.96),rgba(14,12,22,.96));border:1px solid var(--line);border-radius:22px;padding:clamp(20px,4vw,34px);box-shadow:0 22px 70px rgba(0,0,0,.25)}
+    .card h2{font-size:25px;margin:0 0 8px}.sub{color:var(--muted);margin:0 0 22px}
+    .form-frame{width:100%;height:1100px;border:0;border-radius:12px;background:#fff}
+    .form-tip{font-size:13px;color:var(--muted);margin:12px 0 0}
+    .form-tip a{color:#d8b4fe;text-decoration:underline}
+    .rules{display:grid;gap:13px;counter-reset:rule}
+    .rule{counter-increment:rule;display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start;padding:17px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025);border-radius:14px}
+    .rule:before{content:counter(rule);display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:rgba(180,106,255,.14);color:#dfc2ff;font-weight:900}
+    .rule strong{display:block;margin-bottom:3px}.rule p{margin:0;color:#c2b8ce}
+    .notice{margin-top:18px;padding:17px 19px;border:1px solid rgba(248,113,113,.25);background:rgba(127,29,29,.12);border-radius:14px;color:#f2d5d5}
+    .notice strong{color:#ffb4b4}
+    footer{border-top:1px solid var(--line);padding:24px 0;color:#81768e;font-size:12px;text-align:center}
+    @media(max-width:600px){.nav{height:62px}.brand{font-size:19px}.hero{padding:55px 0 22px}.form-frame{height:1250px}.rule{grid-template-columns:36px 1fr;padding:14px}.rule:before{width:32px;height:32px}}
+  </style>
+</head>
+<body>
+  <header><div class="wrap nav"><a class="brand" href="./index.html">PRISTAL<span>.</span></a><a class="back" href="./index.html">← На основной сайт</a></div></header>
+  <div class="wrap">
+    <section class="hero">
+      <span class="eyebrow">ЗАКРЫТОЕ ТЕСТИРОВАНИЕ</span>
+      <h1>АНАРХИЯ <span>PRISTAL</span></h1>
+      <p>Хочешь одним из первых проверить новый режим? Ознакомься с правилами и отправь заявку на участие.</p>
+      <div class="tabs" role="tablist" aria-label="Разделы тестирования">
+        <button class="tab active" id="tab-apply" role="tab" aria-selected="true" aria-controls="apply" data-target="apply">Подать заявку</button>
+        <button class="tab" id="tab-rules" role="tab" aria-selected="false" aria-controls="rules" data-target="rules">Правила тестирования</button>
+      </div>
+    </section>
+    <main>
+      <section class="panel active" id="apply" role="tabpanel" aria-labelledby="tab-apply">
+        <div class="card">
+          <h2>Заявка на тестирование</h2>
+          <p class="sub">Заполни форму внимательно. Ответы отправятся организатору тестирования.</p>
+          <iframe class="form-frame" src="https://docs.google.com/forms/d/e/1FAIpQLScpwAgo42vin4CqyjaKuh4nu9HuTnajvopfbKEV6nZ-SuZcEA/viewform?embedded=true" title="Форма заявки на закрытое тестирование Анархии Pristal" loading="lazy">Загрузка формы…</iframe>
+          <p class="form-tip">Если форма не отображается, <a href="https://docs.google.com/forms/d/e/1FAIpQLScpwAgo42vin4CqyjaKuh4nu9HuTnajvopfbKEV6nZ-SuZcEA/viewform" target="_blank" rel="noopener noreferrer">открой её отдельно</a>.</p>
+        </div>
+      </section>
+      <section class="panel" id="rules" role="tabpanel" aria-labelledby="tab-rules">
+        <div class="card">
+          <h2>Правила закрытого тестирования</h2>
+          <p class="sub">Отправляя заявку, будь готов соблюдать все правила.</p>
+          <div class="rules">
+            <article class="rule"><div><strong>Сообщай обо всех багах</strong><p>Обо всех найденных багах, ошибках, недоработках и неисправностях необходимо сообщать администрации. Не скрывай найденные проблемы.</p></div></article>
+            <article class="rule"><div><strong>Соблюдай конфиденциальность</strong><p>Запрещено рассказывать посторонним о том, что происходит на тестировании, включая детали игрового процесса, изменения и внутреннюю информацию.</p></div></article>
+            <article class="rule"><div><strong>Не публикуй материалы</strong><p>Нельзя распространять скриншоты, видео, записи экрана, переписки и другие материалы тестирования без разрешения администрации.</p></div></article>
+            <article class="rule"><div><strong>Следуй указаниям администрации</strong><p>Выполняй просьбы и инструкции организаторов, участвуй в проверках и не мешай другим тестировщикам.</p></div></article>
+            <article class="rule"><div><strong>Относись к тестированию ответственно</strong><p>Тестирование проводится для поиска проблем и улучшения режима. Не используй найденные ошибки для получения преимущества или вреда проекту.</p></div></article>
+          </div>
+          <div class="notice"><strong>Важно:</strong> нарушение правил, особенно разглашение информации о тестировании или сокрытие багов, может привести к немедленному исключению из закрытого тестирования.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <footer><div class="wrap">PRISTAL · Закрытое тестирование режима «Анархия»</div></footer>
+  <script>
+    const tabs=[...document.querySelectorAll('.tab')];
+    const panels=[...document.querySelectorAll('.panel')];
+    tabs.forEach(tab=>tab.addEventListener('click',()=>{
+      tabs.forEach(item=>{const active=item===tab;item.classList.toggle('active',active);item.setAttribute('aria-selected',String(active));});
+      panels.forEach(panel=>panel.classList.toggle('active',panel.id===tab.dataset.target));
+    }));
+  </script>
+</body>
+</html>
