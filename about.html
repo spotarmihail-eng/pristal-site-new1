@@ -194,7 +194,7 @@ footer{border-top:1px solid #ffffff14;padding:30px 0;color:#7f8997;text-align:ce
     <div>
       <div class="hearts" id="hearts"></div>
       <p class="sim-msg" id="simMsg"></p>
-      <div class="btns"><button class="btn primary" id="dieBtn" type="button">💀 Погибнуть</button><button class="btn" id="resetBtn" type="button">↺ Заново</button><button class="btn" id="sbBtn" type="button">/sb — скрыть</button></div>
+      <div class="btns"><button class="btn primary" id="dieBtn" data-sfx="hurt" type="button">💀 Погибнуть</button><button class="btn" id="resetBtn" type="button">↺ Заново</button><button class="btn" id="sbBtn" type="button">/sb — скрыть</button></div>
       <ul class="ach" id="ach"></ul>
     </div>
     <div class="sb" id="sb"><b>PristalHard</b><small>HARD SMP</small>
@@ -213,7 +213,7 @@ footer{border-top:1px solid #ffffff14;padding:30px 0;color:#7f8997;text-align:ce
   <div class="card finder">
     <input id="pSearch" type="search" placeholder="Введи свой ник…" autocomplete="off" aria-label="Поиск ника">
     <div class="chips"><button class="chip on" type="button" data-f="all">Все</button><button class="chip" type="button" data-f="nobots">Без ботов</button><button class="chip" type="button" data-f="fav">⭐ Друзья</button></div>
-    <div class="btns"><button class="btn" id="pRandom" type="button">🎲 Случайный</button><button class="btn" id="pShuffle" type="button">🔀 Перемешать</button><button class="btn" id="pAZ" type="button">А→Я</button></div>
+    <div class="btns"><button class="btn" id="pRandom" data-sfx="dice" type="button">🎲 Случайный</button><button class="btn" id="pShuffle" data-sfx="dice" type="button">🔀 Перемешать</button><button class="btn" id="pAZ" type="button">А→Я</button></div>
   </div>
   <p class="sub center" id="pCount"></p>
   <div class="pgrid" id="pGrid"></div>
@@ -427,7 +427,7 @@ function peakReset(){clearInterval(pt);pt=null;pk=0;$$('#slots i').forEach(i=>i.
 function peakRun(){
   peakReset();peaked=true;const el=$$('#slots i');
   if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.forEach(i=>i.classList.add('on'));pk=PEAK;$('#peakN').textContent=PEAK;try{localStorage.setItem('pristalPeak','1')}catch(e){}return}
-  pt=setInterval(()=>{el[pk].classList.add('on');pk++;$('#peakN').textContent=pk;if(pk>=PEAK){clearInterval(pt);pt=null;try{localStorage.setItem('pristalPeak','1')}catch(e){}toast('Пик онлайна: '+PEAK+' '+PT.peakWord+' одновременно!')}},55);
+  pt=setInterval(()=>{el[pk].classList.add('on');pk++;if(window.PristalAudio)PristalAudio.play('tick',pk/PEAK);$('#peakN').textContent=pk;if(pk>=PEAK){clearInterval(pt);pt=null;try{localStorage.setItem('pristalPeak','1')}catch(e){}if(window.PristalAudio)PristalAudio.play('success');toast('Пик онлайна: '+PEAK+' '+PT.peakWord+' одновременно!')}},55);
 }
 $('#peakBtn').onclick=peakRun;$('#peakReset').onclick=peakReset;
 $('#playersBtn').onclick=()=>$('#players').scrollIntoView({behavior:'smooth'});
@@ -451,7 +451,7 @@ function setPart(n){
   $('#fullBtn').dataset.open=IM.length-1;
   $('#stTitle').textContent=PT.stTitle;$('#tlTitle').textContent=PT.tlTitle;$('#wTitle').textContent=PT.wTitle;$('#wSub').textContent=PT.wSub;$('#cTitle').textContent=PT.cTitle;$('#cSub').textContent=PT.cSub;
   $$('.stat').forEach((s,i)=>{const c=s.querySelector('.cnt');c.dataset.to=PT.stats[i][0];c.textContent=PT.stats[i][0];s.querySelector('span').textContent=PT.stats[i][1]});
-  $('#lives').hidden=n!==1;setPlayers(n);
+  $('#lives').hidden=n!==1;setPlayers(n);if(window.PristalAudio)PristalAudio.setTrack(n?'about2':'about1');
   buildViewer();buildTl();buildWants();buildChecks();buildGal();go(0);
 }
 $$('.pt').forEach(b=>b.onclick=()=>{setPart(+b.dataset.p);try{history.replaceState(null,'',+b.dataset.p?'#season2':location.pathname)}catch(e){}});
@@ -468,5 +468,6 @@ if('IntersectionObserver' in window){
 }else $$('.rv').forEach(r=>r.classList.add('in'));
 })();
 </script>
+<script src="audio.js" data-track="about1" defer></script>
 </body>
 </html>

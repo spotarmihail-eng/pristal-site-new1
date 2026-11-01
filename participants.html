@@ -3,4 +3,5 @@
 </style></head><body><header><h1>🤝 Участники <span>Pristal</span></h1><p>Спасибо каждому, кто помогает развивать наше сообщество.</p><a class="back" href="./">← На главную</a></header><main id="list" class="list"><div class="empty">Загружаем список участников…</div></main><script>
 const list=document.getElementById('list');fetch('participants.json').then(r=>{if(!r.ok)throw new Error('Не удалось загрузить список');return r.json()}).then(d=>{list.innerHTML=d.length?d.map(p=>`<article class="card"><img loading="lazy" src="https://minotar.net/avatar/${encodeURIComponent(p.nick)}/64" alt="Аватар ${String(p.nick).replace(/[&<>"']/g,'')}"><div><div class="name">${String(p.nick).replace(/[&<>"']/g,'')}</div><div class="small">${String(p.help||'Участник сообщества').replace(/[&<>"']/g,'')}</div></div></article>`).join(''):'<div class="empty">Список участников пока пуст.</div>'}).catch(()=>{list.innerHTML='<div class="empty">Не удалось загрузить участников. Попробуйте обновить страницу.</div>'});
 </script><script>try{localStorage.setItem('pristalSeen:participants','1')}catch(e){}</script>
+<script src="audio.js" data-track="players" defer></script>
 </body></html>

@@ -306,6 +306,7 @@ body #pristalTop{right:18px;bottom:76px}
 .auth-out{border:0;border-radius:9px;padding:7px 10px;background:#1c2530;color:#c8ced7;font-family:inherit;font-size:12px;cursor:pointer}
 .auth-out:hover{background:#2a3544;color:#fff}
 @media(max-width:800px){.auth{margin-left:auto;margin-right:10px}.auth-chip span{display:none}.discord-login{padding:10px 12px;font-size:13px}}
+@media(max-width:560px){.discord-login .lg{display:none}}
 </style>
 <script src="config.js"></script>
 <style>[hidden]{display:none!important}</style>
@@ -861,7 +862,7 @@ document.addEventListener("click",(e)=>{
       out.addEventListener("click",()=>{logout();render();say("Вы вышли из аккаунта")});
       chip.append(img,name,out);box.append(chip);
     }else{
-      const b=document.createElement("button");b.type="button";b.className="discord-login";b.textContent="Войти через Discord";
+      const b=document.createElement("button");b.type="button";b.className="discord-login";b.append("Войти");const lg=document.createElement("span");lg.className="lg";lg.textContent=" через Discord";b.append(lg);
       b.addEventListener("click",login);box.append(b);
     }
   };
@@ -897,5 +898,6 @@ document.addEventListener("click",(e)=>{
 })();
 </script>
 <script>try{localStorage.setItem('pristalSeen:index','1')}catch(e){}</script>
+<script src="audio.js" data-track="home" defer></script>
 </body>
 </html>
