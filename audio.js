@@ -7,6 +7,14 @@ const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
 const mulberry = (a) => () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
 
 // ---------- композиции: у каждой страницы / вкладки своё настроение ----------
+// риф ковбелла для фонка: 4 такта по 16 шагов (16-е доли), с небольшими вариациями
+const PHONK_RIFF = (() => {
+  const A = [69, null, null, 69, null, null, 72, null, 69, null, 67, null, 64, null, null, null];
+  const B = [69, null, null, 69, null, null, 72, null, 69, null, 67, null, 72, null, 74, null];
+  const C = [69, null, null, 69, null, null, 72, null, 76, null, 74, null, 72, null, 67, null];
+  return [...A, ...A, ...B, ...C];
+})();
+
 const TRACKS = {
   home:   { name: 'Приключение', bpm: 84, root: 60, seed: 11, scale: [0, 2, 4, 7, 9],
     prog: [[0, 4, 7], [-3, 0, 4], [-7, -3, 0], [-5, -1, 2]],
@@ -32,6 +40,11 @@ const TRACKS = {
   profile_style:{ name: 'Мечты', bpm: 62, root: 60, seed: 83, scale: [0, 2, 4, 6, 7, 9, 11],
     prog: [[0, 4, 7, 11], [2, 6, 9, 14], [-3, 0, 4, 7], [4, 7, 11, 14]],
     L: { pad: { vol: .065, cut: 1600 }, bass: { vol: .08, steps: [0] }, mel: { inst: 'bell', vol: .05, density: .3, oct: 12 } } },
+  profile_phonk: { name: 'Фонк (Memphis)', gain: .68, bpm: 140, div: 4, root: 57, seed: 7, scale: [0, 3, 5, 7, 10], riff: PHONK_RIFF,
+    prog: [[0, 3, 7], [0, 3, 7], [0, 3, 7], [0, 3, 7], [-4, 0, 3], [-4, 0, 3], [-2, 2, 5], [-2, 2, 5]],
+    L: { pad: { vol: .045, cut: 520, wave: 'sawtooth' }, bass: { vol: .34, follow: true }, mel: { inst: 'cow', vol: .17 },
+      drums: { kick: [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0], snare: [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+               hat: [.5, .25, .35, .25, .5, .25, .35, .25, .5, .25, .35, .25, .5, .35, .5, .35] } } },
 };
 
 function genMelody(def, rnd) {
@@ -69,6 +82,7 @@ function build(ctx, out) {
   const gain = (dest) => { const g = ctx.createGain(); g.connect(dest); return g; };
 
   // инструменты (t — время, m — нота MIDI, bus — куда играть)
+  const SAT = new Float32Array(1024); for (let i = 0; i < 1024; i++) SAT[i] = Math.tanh(2.5 * (i / 512 - 1));
   const I = {
     pad(t, m, dur, vol, bus, cut, wave) {
       const g = gain(bus), f = filt('lowpass', cut || 1200, g);
@@ -83,17 +97,37 @@ function build(ctx, out) {
     bass(t, m, dur, vol, bus) { const g = gain(bus); env(g, t, .02, dur, vol); osc('triangle', hz(m), t, dur + .1, g); osc('sine', hz(m), t, dur + .1, g); },
     thump(t, vol, bus) { const g = gain(bus), o = osc('sine', 80, t, .3, g); o.frequency.exponentialRampToValueAtTime(38, t + .14); env(g, t, .005, .22, vol); },
     hat(t, vol, bus) { const s = ctx.createBufferSource(); s.buffer = nb; const g = gain(bus), f = filt('highpass', 7000, g); env(g, t, .002, .04, vol); s.connect(f); s.start(t, Math.random() * .5, .08); },
+    kick(t, vol, bus) {
+      const g = gain(bus), o = osc('sine', 150, t, .5, g); o.frequency.exponentialRampToValueAtTime(42, t + .12);
+      g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + .38);
+      const s = ctx.createBufferSource(); s.buffer = nb; const g2 = gain(bus), f = filt('lowpass', 3000, g2); env(g2, t, .001, .02, vol * .4); s.connect(f); s.start(t, 0, .03);
+    },
+    sub808(t, m, dur, vol, bus) {
+      const sh = ctx.createWaveShaper(); sh.curve = SAT; const g = gain(bus); sh.connect(g);
+      const o = osc('sine', hz(m) * 1.6, t, dur + .2, sh); o.frequency.exponentialRampToValueAtTime(hz(m), t + .05);
+      g.gain.setValueAtTime(.0001, t); g.gain.linearRampToValueAtTime(vol, t + .008); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    },
+    cow(t, m, dur, vol, bus) { const g = gain(bus), f = filt('bandpass', hz(m) * 2, g, 1.4); env(g, t, .002, .3, vol); osc('square', hz(m), t, .4, f); osc('square', hz(m) * 1.51, t, .4, f); },
+    clap(t, vol, bus) {
+      for (const d of [0, .011, .024]) { const s = ctx.createBufferSource(); s.buffer = nb; const g = gain(bus), f = filt('bandpass', 1700, g, .9); env(g, t + d, .001, d === .024 ? .14 : .03, vol); s.connect(f); s.start(t + d, Math.random() * .5, .2); }
+    },
   };
 
   function playStep(def, mel, bus, step, t, spb) {
     const L = def.L, bar = Math.floor(step / 8) % def.prog.length, bs = step % 8, chord = def.prog[bar], R = def.root, barDur = spb * 8;
     if (bs === 0 && L.pad) chord.forEach((c) => I.pad(t, R + c, barDur, L.pad.vol, bus, L.pad.cut, L.pad.wave));
     if (L.arp) { const k = L.arp.pat[bs]; if (k != null) I[L.arp.inst](t, R + chord[k % chord.length] + 12, spb * 3, L.arp.vol, bus); }
-    if (L.bass && L.bass.steps.includes(bs)) I.bass(t, R + chord[0] - 12, spb * 3.5, L.bass.vol, bus);
+    if (L.bass && L.bass.steps && L.bass.steps.includes(bs)) I[L.bass.inst || 'bass'](t, R + chord[0] - 12, spb * 3.5, L.bass.vol, bus);
     if (L.mel) { const m = mel[bar * 8 + bs]; if (m != null) I[L.mel.inst](t, m, spb * 3, L.mel.vol, bus); }
     if (L.beat) {
       if (L.beat.type === 'heart' && bs % 4 === 0) { I.thump(t, L.beat.vol, bus); I.thump(t + .2, L.beat.vol * .7, bus); }
       if (L.beat.type === 'hat' && bs % 2 === 1) I.hat(t, L.beat.vol, bus);
+    }
+    if (L.drums) {
+      const d = L.drums, i = step % 16;
+      if (d.kick[i]) { I.kick(t, .55 * d.kick[i], bus); if (L.bass && L.bass.follow) I.sub808(t, R + chord[0] - 24, spb * 5, L.bass.vol, bus); }
+      if (d.snare[i]) I.clap(t, .3 * d.snare[i], bus);
+      if (d.hat[i]) I.hat(t, .1 * d.hat[i], bus);
     }
   }
 
@@ -101,8 +135,8 @@ function build(ctx, out) {
     const def = TRACKS[name], T = { name, stopped: false };
     const bus = ctx.createGain(), send = ctx.createGain(); send.gain.value = .4;
     bus.connect(musicM); bus.connect(send); send.connect(rev);
-    const now = ctx.currentTime; bus.gain.setValueAtTime(.0001, now); bus.gain.linearRampToValueAtTime(1, now + 2);
-    const mel = genMelody(def, mulberry(def.seed)), spb = 60 / def.bpm / 2;
+    const now = ctx.currentTime; bus.gain.setValueAtTime(.0001, now); bus.gain.linearRampToValueAtTime(def.gain || 1, now + 2);
+    const mel = def.riff || genMelody(def, mulberry(def.seed)), spb = 60 / def.bpm / (def.div || 2);
     let step = 0, next = now + .12;
     T.tick = (until) => { if (T.stopped) return; while (next < until) { playStep(def, mel, bus, step, next, spb); step++; next += spb; } };
     T.stop = (fade) => {
@@ -139,6 +173,7 @@ function build(ctx, out) {
     tick: (t, x) => { const f = 420 + (x || 0) * 700; blip(t, [f, f], .04, .16, 'sine'); },
     on: (t) => { blip(t, [440, 440], .07, .14, 'triangle'); blip(t + .07, [660, 660], .09, .14, 'triangle'); },
     off: (t) => { blip(t, [660, 660], .07, .14, 'triangle'); blip(t + .07, [440, 440], .09, .14, 'triangle'); },
+    boom: (t) => { I.kick(t, .5, sfxM); I.cow(t + .12, 69, .3, .12, sfxM); I.cow(t + .24, 72, .3, .12, sfxM); },
   };
   return {
     startTrack,
@@ -152,7 +187,7 @@ const KEY = 'pristalAudio';
 const load = () => { try { return Object.assign({ music: true, sfx: true, vol: .6 }, JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) { return { music: true, sfx: true, vol: .6 }; } };
 const S = load(); const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
 const me = document.currentScript;
-let wanted = (me && me.dataset.track) || 'home', ctx = null, A = null, cur = null, curName = '', timer = null, lastSfx = 0;
+let wanted = window.PRISTAL_TRACK || (me && me.dataset.track) || 'home', ctx = null, A = null, cur = null, curName = '', timer = null, lastSfx = 0;
 const log = [];
 
 function ensure() {
@@ -170,6 +205,7 @@ function switchTo(name) {
 function stopMusic() { if (cur) { cur.stop(.8); cur = null; curName = ''; } clearInterval(timer); timer = null; }
 function startMusic() { if (S.music && ctx && ctx.state === 'running') switchTo(wanted); }
 function setTrack(name) { if (!TRACKS[name]) return; wanted = name; if (cur) switchTo(name); refresh(); }
+function setMusic(on) { S.music = !!on; save(); if (S.music) { if (ensure()) ctx.resume().then(startMusic).catch(() => {}); } else stopMusic(); refresh(); }
 function play(name, arg) {
   if (!S.sfx || !ensure()) return;
   const n = performance.now(); if (name === lastSfx.n && n - lastSfx.t < 25) return; lastSfx = { n: name, t: n };
@@ -240,7 +276,9 @@ async function renderTest(kind, name, secs) {
   if (kind === 'music') { const T = a.startTrack(name); T.tick(secs); } else a.sfx(name, .5);
   const buf = await off.startRendering(); let peak = 0, sum = 0, n = 0, bad = 0;
   for (let c = 0; c < 2; c++) { const d = buf.getChannelData(c); for (let i = 0; i < d.length; i++) { const v = d[i]; if (!isFinite(v)) bad++; const x = Math.abs(v); if (x > peak) peak = x; sum += v * v; n++; } }
-  return { peak, rms: Math.sqrt(sum / n), bad };
+  const d0 = buf.getChannelData(0), w = Math.floor(rate * .05), win = [];
+  for (let i = 0; i + w <= d0.length; i += w) { let q = 0; for (let j = 0; j < w; j++) q += d0[i + j] * d0[i + j]; win.push(Math.sqrt(q / w)); }
+  return { peak, rms: Math.sqrt(sum / n), bad, win };
 }
-window.PristalAudio = { play, setTrack, log, renderTest, tracks: Object.keys(TRACKS), state: () => ({ track: curName, wanted, music: S.music, sfx: S.sfx, vol: S.vol, ctx: ctx ? ctx.state : 'none' }) };
+window.PristalAudio = { play, setTrack, setMusic, log, renderTest, tracks: Object.keys(TRACKS), state: () => ({ track: curName, wanted, music: S.music, sfx: S.sfx, vol: S.vol, ctx: ctx ? ctx.state : 'none' }) };
 })();

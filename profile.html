@@ -113,6 +113,12 @@ main{padding:44px 0 70px}
 .chip{border:1px solid #ffffff17;background:#10161f;color:#aeb7c3;padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:800;font-size:13px}
 .chip.on{background:var(--accent);border-color:var(--accent);color:#160923}
 .big-av{cursor:pointer}@keyframes flip{to{transform:rotate(360deg) scale(1.08)}}.big-av.spin{animation:flip .6s ease}
+.eq{display:inline-flex;gap:2px;align-items:flex-end;height:14px;margin-left:8px;vertical-align:middle}
+.eq i{width:3px;height:3px;background:currentColor;border-radius:1px;animation:eqb .43s ease-in-out infinite alternate}
+.eq i:nth-child(2){animation-delay:.11s}.eq i:nth-child(3){animation-delay:.21s}.eq i:nth-child(4){animation-delay:.07s}
+@keyframes eqb{to{height:14px}}
+@keyframes beat{50%{transform:scale(1.045)}}
+body.phonk .ring{animation:shimmer 4s ease-in-out infinite alternate,beat .43s ease-in-out infinite}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media(max-width:360px){.logo{font-size:17px;letter-spacing:.04em}nav{gap:2px}nav a{padding:8px 7px;font-size:12px}}
 </style>
@@ -243,6 +249,7 @@ function achievements(x){
     A('player','⛏️','Игрок','Привязать Minecraft-ник','common',x.linked),
     A('stylist','💅','Стилист','Сменить тему или фон сайта кнопкой «Стиль сайта» на главной','common',(th&&th!=='violet')||(bg&&bg!=='all')),
     A('explorer','🧭','Исследователь','Заглянуть на все страницы: главная, «О нас», «Участники», профиль','common',pages>=4,pages,4),
+    A('phonk','🔔','Фонкер','Включить фонк в профиле','common',flag('pristalPhonkEver')),
     A('s1','🌱','Первый сезон','Привязать ник из списка игроков 1 сезона','rare',x.in1),
     A('s2','🔥','Второй сезон','Привязать ник из списка игроков 2 сезона','rare',x.in2),
     A('social','⭐','Общительный','Отметить 3 игроков звёздочкой на странице «О нас»','rare',x.fr>=3,Math.min(x.fr,3),3),
@@ -285,9 +292,18 @@ addEventListener('keydown',e=>{kp=[...kp,e.code].slice(-KON.length);if(kp.join()
 setFlag('pristalSeen:profile');
 if(new Date().getHours()<5)setFlag('pristalOwl');
 
+const phonkOn=()=>flag('pristalPhonk');
+function setPhonk(on){
+  try{on?localStorage.setItem('pristalPhonk','1'):localStorage.removeItem('pristalPhonk')}catch(e){}
+  if(on)setFlag('pristalPhonkEver');
+  if(window.PristalAudio){if(on){PristalAudio.setMusic(true);PristalAudio.play('boom')}else PristalAudio.play('off')}
+  toast(on?'🔥 Фонк включён':'Фонк выключен — музыка снова по вкладкам');
+  render();
+}
 function render(){
   const v=$('#view'),chip=$('#authBox');chip.replaceChildren();
-  if(window.PristalAudio)PristalAudio.setTrack(({overview:'profile',mc:'profile_mc',badges:'profile_badges',style:'profile_style'})[TAB]||'profile');
+  document.body.classList.toggle('phonk',phonkOn());
+  {const tk=phonkOn()?'profile_phonk':(({overview:'profile',mc:'profile_mc',badges:'profile_badges',style:'profile_style'})[TAB]||'profile');if(window.PristalAudio)PristalAudio.setTrack(tk);else window.PRISTAL_TRACK=tk}
   if(!(LOCAL?localUser():S()))return v.replaceChildren(note('Войдите через Discord','Профиль доступен после входа через Discord.',h('a',{class:'btn primary',href:'./?login=1'},'Войти через Discord')));
   if(!P)return v.replaceChildren(note('Загрузка…','Получаем твой профиль.'));
   chip.append(h('div',{class:'me-chip'},h('img',{src:avSrc(P),alt:'',onerror:fb}),h('span',{},P.nickname)));
@@ -307,6 +323,7 @@ function render(){
     h('div',{class:'btns',style:'margin-top:18px'},
       linked?null:h('button',{class:'btn primary',onclick:linkModal},'Привязать Minecraft'),
       h('button',{class:'btn'+(linked?' primary':''),onclick:editModal},'Изменить профиль'),
+      h('button',{class:'btn'+(phonkOn()?' primary':''),'data-sfx':'none',title:'Фонк в профиле',onclick:()=>setPhonk(!phonkOn())},phonkOn()?'🔥 Фонк':'🎧 Фонк',phonkOn()?h('span',{class:'eq'},h('i'),h('i'),h('i'),h('i')):null),
       h('button',{class:'btn',onclick:()=>logout(true)},'Выйти')));
   const wrap=h('div',{class:'prof2'},cover,hero);
   if(matchMedia('(hover:hover) and (pointer:fine)').matches&&!reduced()){
@@ -344,6 +361,8 @@ function render(){
     panel=h('div',{class:'panel card'},h('h2',{},'Обложка профиля'),h('p',{class:'sub'},'Выбор применяется сразу и хранится в этом браузере.'),
       h('div',{class:'covers'},...COVERS.map(([id,css])=>h('button',{class:'cv'+(cv===id?' on':''),style:'background:'+css+';background-size:cover;background-position:center','aria-label':'Обложка',onclick:()=>{setCover(id);render();toast('Обложка применена')}}))),
       h('div',{class:'btns'},h('button',{class:'btn',onclick:()=>{setCover(COVERS[Math.floor(Math.random()*COVERS.length)][0]);render();toast('Случайная обложка 🎲')}},'🎲 Случайная'),h('button',{class:'btn',onclick:()=>{setCover('');render()}},'Сбросить')),
+      h('h2',{style:'margin-top:22px'},'Музыка профиля'),h('p',{class:'sub'},'Выбери, что играет в профиле (громкость и выключение — кнопка 🔊 слева внизу).'),
+      h('div',{class:'btns'},h('button',{class:'btn'+(phonkOn()?'':' primary'),onclick:()=>{if(phonkOn())setPhonk(false)}},'🎵 По вкладкам'),h('button',{class:'btn'+(phonkOn()?' primary':''),'data-sfx':'none',onclick:()=>{if(!phonkOn())setPhonk(true)}},'🔥 Фонк')),
       h('p',{class:'sub',style:'margin-top:14px'},'Аватарку и никнейм меняются кнопкой «Изменить профиль».'));
   }
   v.replaceChildren(...(LOCAL?[h('p',{class:'hint'},'Локальный режим: профиль и привязка хранятся только в этом браузере — на других устройствах их не будет, а уникальность ников не проверяется. Подключить общий сервер можно позже (см. README).')]:[]),wrap,tabs,panel);

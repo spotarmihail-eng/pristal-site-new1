@@ -451,7 +451,7 @@ function setPart(n){
   $('#fullBtn').dataset.open=IM.length-1;
   $('#stTitle').textContent=PT.stTitle;$('#tlTitle').textContent=PT.tlTitle;$('#wTitle').textContent=PT.wTitle;$('#wSub').textContent=PT.wSub;$('#cTitle').textContent=PT.cTitle;$('#cSub').textContent=PT.cSub;
   $$('.stat').forEach((s,i)=>{const c=s.querySelector('.cnt');c.dataset.to=PT.stats[i][0];c.textContent=PT.stats[i][0];s.querySelector('span').textContent=PT.stats[i][1]});
-  $('#lives').hidden=n!==1;setPlayers(n);if(window.PristalAudio)PristalAudio.setTrack(n?'about2':'about1');
+  $('#lives').hidden=n!==1;setPlayers(n);{const tk=n?'about2':'about1';if(window.PristalAudio)PristalAudio.setTrack(tk);else window.PRISTAL_TRACK=tk}
   buildViewer();buildTl();buildWants();buildChecks();buildGal();go(0);
 }
 $$('.pt').forEach(b=>b.onclick=()=>{setPart(+b.dataset.p);try{history.replaceState(null,'',+b.dataset.p?'#season2':location.pathname)}catch(e){}});
