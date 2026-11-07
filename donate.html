@@ -2,26 +2,260 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pristal — Донат магазин</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Донаты — Анархия Pristal</title>
+<meta name="description" content="Донаты Анархии Pristal: привилегии, наборы и косметика. Выбери, добавь в корзину и оформи заказ через Discord.">
+<meta name="theme-color" content="#a855f7">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23160923'/%3E%3Cpath d='M32 10l6 16 16 6-16 6-6 16-6-16-16-6 16-6z' fill='%23a855f7'/%3E%3C/svg%3E">
+<script src="donate-data.js"></script>
 <style>
-body{margin:0;background:#080b12;color:white;font-family:Arial;text-align:center;padding:40px}
-h1{font-size:42px}
-.shop{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
-.card{background:#182433;border-radius:18px;padding:25px;width:260px;box-shadow:0 0 20px #000}
-.price{font-size:28px;color:#69e56f}
-button{background:#69e56f;border:0;padding:12px 25px;border-radius:10px;font-weight:bold}
-a{color:white}
+:root{--accent:#a855f7;--muted:#9aa3b2}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:#070a0f;color:#f5f7fb;line-height:1.55;overflow-x:hidden}
+button,input{font-family:inherit}[hidden]{display:none!important}
+.bg{position:fixed;inset:0;z-index:-1;background:center/cover;opacity:.22}
+.wrap{width:min(1120px,92%);margin:auto}
+header{position:sticky;top:0;z-index:50;background:rgba(7,10,15,.82);backdrop-filter:blur(16px);border-bottom:1px solid #ffffff14}
+.nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo{font-size:24px;font-weight:900;letter-spacing:.08em;text-decoration:none;color:inherit}.logo span{color:var(--accent)}
+nav{display:flex;align-items:center;gap:6px}
+nav a{padding:9px 12px;border-radius:10px;color:#b9c0ca;text-decoration:none;font-size:14px;font-weight:700;white-space:nowrap}
+nav a:hover,nav a.on{color:#fff;background:#ffffff12}nav a.dc{background:#5865f2;color:#fff}
+.cart-btn{border:1px solid #ffffff22;background:#0d1219;color:#fff;border-radius:12px;padding:9px 13px;font-weight:800;font-size:14px;cursor:pointer;transition:.2s;white-space:nowrap}
+.cart-btn:hover{border-color:var(--accent)}.cart-btn b{color:var(--accent)}
+.hero{padding:56px 0 20px;text-align:center}
+.badge{display:inline-flex;padding:8px 14px;border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);background:color-mix(in srgb,var(--accent) 10%,transparent);border-radius:999px;color:color-mix(in srgb,var(--accent) 70%,#fff);font-size:13px;font-weight:700;margin-bottom:18px}
+h1{font-size:clamp(40px,8vw,76px);line-height:.98;letter-spacing:-.05em}h1 span{color:var(--accent);text-shadow:0 0 35px color-mix(in srgb,var(--accent) 30%,transparent)}
+.lead{max-width:640px;margin:18px auto 0;color:#c3cad6;font-size:18px}
+.status{display:inline-block;margin-top:18px;padding:8px 16px;border-radius:12px;background:#ffffff0d;border:1px solid #ffffff1a;font-weight:700;font-size:14px}
+.demo{max-width:760px;margin:22px auto 0;padding:12px 16px;border-radius:14px;border:1px dashed #f59e0b99;background:#f59e0b14;color:#fcd9a0;font-size:14px}
+.tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:30px 0 22px}
+.tab{border:1px solid #ffffff17;background:#10161f;color:#aeb7c3;padding:11px 18px;border-radius:12px;cursor:pointer;font-weight:800;font-size:14px;transition:.2s}
+.tab:hover{color:#fff}.tab.on{background:var(--accent);border-color:var(--accent);color:#160923}
+.tools{display:flex;justify-content:center;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.dcard{position:relative;display:flex;flex-direction:column;gap:8px;padding:22px 20px 18px;border-radius:22px;background:linear-gradient(145deg,#111720ee,#0b0f15ee);border:1px solid color-mix(in srgb,var(--rc) 35%,#ffffff14);transition:.25s;overflow:hidden}
+.dcard:hover{transform:translateY(-5px);border-color:var(--rc);box-shadow:0 18px 44px color-mix(in srgb,var(--rc) 22%,transparent)}
+.dcard:before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--rc)}
+.ribbon{position:absolute;top:14px;right:-34px;transform:rotate(35deg);background:#f59e0b;color:#2b1a00;font-size:10px;font-weight:900;letter-spacing:.1em;padding:3px 38px}
+.dic{font-size:44px;line-height:1}.dcard h3{font-size:20px;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:14px}
+.perks{list-style:none;display:grid;gap:5px;margin:4px 0 6px;font-size:14px;color:#c8ced7}.perks li:before{content:"✓ ";color:var(--rc);font-weight:900}
+.dfoot{margin-top:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:8px}.price{font-size:22px;margin-right:auto;color:#fff}
+.btn{padding:10px 14px;border-radius:12px;border:1px solid #ffffff1f;background:#111721;color:#fff;font-weight:800;font-size:14px;cursor:pointer;text-decoration:none;display:inline-block;transition:.2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#160923}.btn.danger{border-color:#ef444488;color:#fca5a5}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:50px 0 12px}
+.step{padding:20px;border-radius:18px;background:#0d1219;border:1px solid #ffffff12}.step b{display:block;font-size:30px;color:var(--accent);line-height:1;margin-bottom:6px}
+.fine{color:var(--muted);font-size:13px;text-align:center;margin:10px 0 60px}
+.ov{position:fixed;inset:0;background:#000a;z-index:105;opacity:0;pointer-events:none;transition:.3s}.ov.open{opacity:1;pointer-events:auto}
+.modal{position:fixed;inset:0;z-index:110;display:none;align-items:center;justify-content:center;padding:16px;overflow:auto;background:#000b}.modal.open{display:flex}
+.mbox{width:min(560px,100%);max-height:92vh;overflow:auto;background:#0d1219;border:1px solid #ffffff1f;border-radius:22px;padding:24px}
+.mbox h2{letter-spacing:-.02em;margin-bottom:6px}.mbox .perks{margin:12px 0}
+.table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;display:block;overflow-x:auto}.table th,.table td{padding:10px 12px;border-bottom:1px solid #ffffff12;text-align:center;white-space:nowrap}.table th:first-child,.table td:first-child{text-align:left}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(430px,100%);z-index:112;background:#0d1219;border-left:1px solid #ffffff1f;transform:translateX(105%);transition:transform .3s;display:flex;flex-direction:column;padding:20px;gap:12px}
+.drawer.open{transform:none}.dh{display:flex;justify-content:space-between;align-items:center}.dh h2{letter-spacing:-.02em}
+.x{border:0;background:#ffffff14;color:#fff;width:38px;height:38px;border-radius:11px;font-size:18px;cursor:pointer}
+.list{flex:1;overflow:auto;display:grid;gap:10px;align-content:start}
+.row{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:#0b0f15;border:1px solid #ffffff10}.row .ri{font-size:26px}.row .rn{flex:1;min-width:0;font-weight:800;overflow-wrap:anywhere}.row small{display:block;color:var(--muted);font-weight:600}
+.total{display:flex;justify-content:space-between;font-size:20px;font-weight:900;padding:6px 2px}
+.drawer input{width:100%;padding:13px 16px;border-radius:12px;border:1px solid #ffffff1f;background:#070a0f;color:#fff;font-size:16px}.drawer input:focus{outline:2px solid var(--accent)}
+.err{color:#fca5a5;font-size:14px;min-height:20px}.empty{text-align:center;color:var(--muted);padding:40px 10px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}.btns .btn{flex:1;text-align:center}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);z-index:130;padding:12px 18px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:999px;background:rgba(15,18,26,.96);color:#fff;opacity:0;pointer-events:none;transition:.25s;font-weight:700;max-width:calc(100vw - 28px);text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+footer{border-top:1px solid #ffffff14;padding:28px 0;color:#7f8997;text-align:center}footer a{color:var(--accent);text-decoration:none}
+#pay{margin:46px 0 6px;text-align:center}#pay h2{font-size:clamp(26px,4vw,34px);letter-spacing:-.03em}
+.paybar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin:16px 0}
+.chip{border:1px solid #ffffff17;background:#10161f;color:#aeb7c3;padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:800;font-size:13px;transition:.2s}.chip:hover{color:#fff}.chip.on{background:var(--accent);border-color:var(--accent);color:#160923}
+.payframe{position:relative;max-width:1140px;margin:0 auto;border-radius:20px;overflow:hidden;background:#0d1219;border:1px solid #ffffff14;min-height:var(--ph,312px)}
+.payframe iframe{display:block;width:100%;height:var(--ph,312px);border:0;position:relative;z-index:1}
+.payload{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);z-index:0}
+.payfine{margin-top:12px;color:var(--muted);font-size:13px}.payfine a{color:var(--accent)}
+@media(max-width:700px){.payframe{min-height:var(--pm,430px)}.payframe iframe{height:var(--pm,430px)}}
+@media(max-width:800px){.how{grid-template-columns:1fr}.hero{padding-top:36px}}
+@media(max-width:560px){nav a.hs{display:none}nav a{padding:8px 9px;font-size:13px}.logo{font-size:20px}.cart-btn{padding:8px 10px}}
+@media(max-width:360px){.logo{font-size:17px;letter-spacing:.04em}nav{gap:2px}nav a{padding:8px 6px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
-<h1>💎 Донат магазин Pristal</h1>
-<p>Поддержи проект и получи игровые возможности.</p>
-<div class="shop">
-<div class="card"><h2>VIP</h2><p>Особые команды и возможности</p><div class="price">99 ₽</div><button>Купить</button></div>
-<div class="card"><h2>PREMIUM</h2><p>Больше привилегий</p><div class="price">199 ₽</div><button>Купить</button></div>
-<div class="card"><h2>ELITE</h2><p>Максимальный набор</p><div class="price">399 ₽</div><button>Купить</button></div>
-</div>
-<br><a href="index.html">← Вернуться на главную</a>
-<div class="card"><a href="donate_smp.html">💎 Pristal SMP</a></div><div class="card"><a href="donate_hard.html">🔥 Pristal HARD</a></div><div class="card"><a href="donate_pvp.html">⚔️ Pristal PvP</a></div></body>
+<div class="bg" id="bg" aria-hidden="true"></div>
+<header><div class="wrap nav">
+  <a class="logo" href="./">PRI<span>STAL</span></a>
+  <nav><a class="hs" href="./">Главная</a><a href="about.html">О нас</a><a class="on" href="donate.html">Донаты</a><a id="navProfile" href="profile.html" hidden>Профиль</a><a class="hs" href="participants.html">Участники</a><button class="cart-btn" id="cartBtn" type="button" aria-label="Открыть корзину">🛒 <b id="cartN">0</b></button></nav>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="badge">🛒 ДОНАТЫ</span>
+    <h1>Донаты <span id="srv">Анархии</span></h1>
+    <p class="lead">Поддержи проект и получи приятные бонусы. Выбери товар, добавь в корзину и оформи заказ через Discord.</p>
+    <div class="status" id="status"></div>
+    <div class="demo" id="demo" hidden>⚠️ Демонстрационная витрина: товары и цены на этой странице примерные. Актуальный список уточняйте в Discord проекта.</div>
+  </section>
+  <div class="tabs" id="cats"></div>
+  <div class="tools" id="tools"></div>
+  <div class="grid" id="items"></div>
+  <section id="pay" hidden>
+    <h2>💳 Оплата через DonatePay</h2>
+    <p class="sub" style="margin-top:6px">Выбери сумму или подставь её из корзины, заполни форму и оплати. В поле «Сообщение» вставь свой заказ — так мы поймём, кому выдать товар.</p>
+    <div class="paybar" id="payBar"></div>
+    <div class="payframe" id="payBox"><div class="payload" id="payLoad">Загружаем форму оплаты…</div></div>
+    <p class="payfine">Форма не загружается? <a id="payOpen" target="_blank" rel="noopener noreferrer">Открыть её в новой вкладке</a></p>
+  </section>
+  <section class="how">
+    <div class="step"><b>1</b>Выбери привилегию, набор или косметику.</div>
+    <div class="step"><b>2</b>Добавь в корзину и укажи свой игровой ник.</div>
+    <div class="step"><b>3</b>Оплати через DonatePay на этой странице или оформи заказ в Discord проекта.</div>
+  </section>
+  <p class="fine">Донат — добровольная поддержка проекта. Условия покупки и вопросы по заказам уточняйте у администрации в Discord.</p>
+</main>
+<footer><div class="wrap">© 2026 Pristal Network · <a href="./">Главная</a> · <a href="about.html">О нас</a></div></footer>
+
+<div class="ov" id="ov"></div>
+<aside class="drawer" id="drawer" aria-label="Корзина"></aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="mbox" id="mbox"></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const D=Object.assign({items:[],categories:[],currency:'₽',discord:'',payUrl:'',demo:false},window.PRISTAL_DONATE||{});
+const A={mint:'#72f27d',violet:'#a855f7',rose:'#ff8fb1',blue:'#78a9ff',sunset:'#ffb86b',mono:'#e8edf2',darkpink:'#ff6ccf',ice:'#7fffd4',forest:'#76d66f'};
+let th='violet',bgn='all';try{th=localStorage.getItem('pristalTheme')||th;bgn=localStorage.getItem('pristalBg')||bgn}catch(e){}
+document.documentElement.style.setProperty('--accent',A[th]||A.violet);
+$('#bg').style.backgroundImage='url(assets/backgrounds/bg'+(/^[1-8]$/.test(bgn)?bgn:'2')+'.jpg)';
+try{localStorage.setItem('pristalSeen:donate','1');const u=JSON.parse(localStorage.getItem('pristalUser'));if(u&&u.id)$('#navProfile').hidden=false}catch(e){}
+
+const h=(t,a={},...c)=>{const e=document.createElement(t);for(const[k,v]of Object.entries(a)){if(k==='class')e.className=v;else if(k.startsWith('on'))e[k]=v;else e.setAttribute(k,v)}e.append(...c.flat().filter(x=>x!=null&&x!==false));return e};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2400)};
+const money=n=>Number(n).toLocaleString('ru-RU')+' '+D.currency;
+const RC={common:'#94a3b8',rare:'#38bdf8',epic:'#c084fc',legend:'#fde047'},RL={common:'Обычный',rare:'Редкий',epic:'Эпический',legend:'Легендарный'};
+const find=id=>D.items.find(i=>i.id===id);
+// адрес виджета: принимаем только https://widget.donatepay.ru, чтобы по ошибке не встроить чужую страницу
+const DP=D.donatepay||{};let DPOK=false,dpBase=null;
+try{const u=new URL(DP.widget);if(u.protocol==='https:'&&u.hostname==='widget.donatepay.ru'){DPOK=true;dpBase=u}}catch(e){}
+let paySum=Math.max(1,Math.round(Number(DP.sum)||300)),payFrame=null;
+const payURL=n=>{const u=new URL(dpBase.href);u.searchParams.set('sum',String(n));return u.href};
+function setSum(n){
+  paySum=Math.max(1,Math.round(n));
+  if(!payFrame)return;
+  const src=payURL(paySum);
+  if(payFrame.src!==src){$('#payLoad').hidden=false;payFrame.src=src}
+  $('#payOpen').href=src;renderPayBar();
+}
+function renderPayBar(){
+  const t=total();
+  $('#payBar').replaceChildren(h('span',{class:'sub'},'Сумма:'),...[100,300,500,1000].map(s=>h('button',{class:'chip'+(paySum===s?' on':''),type:'button',onclick:()=>setSum(s)},money(s))),
+    t>0?h('button',{class:'chip'+(paySum===t?' on':''),type:'button','data-sfx':'coin',onclick:()=>{setSum(t);toast('Сумма из корзины: '+money(t))}},'🛒 Из корзины: '+money(t)):null);
+}
+let CAT=(D.categories[0]||{}).id,cart=[];
+try{cart=(JSON.parse(localStorage.getItem('pristalCart'))||[]).filter(id=>find(id))}catch(e){}
+const saveCart=()=>{try{localStorage.setItem('pristalCart',JSON.stringify(cart))}catch(e){}};
+const play=n=>{if(window.PristalAudio)PristalAudio.play(n)};
+
+$('#srv').textContent=(D.server||'Анархии Pristal').replace(/^Анархия /,'Анархии ')||'Анархии';
+$('#status').textContent='⏳ '+(D.status||'');$('#status').hidden=!D.status;$('#demo').hidden=!D.demo;
+
+// ---- каталог ----
+function card(it){
+  const inCart=cart.includes(it.id),rc=RC[it.tier]||RC.common;
+  return h('article',{class:'dcard',style:'--rc:'+rc},
+    D.demo?h('span',{class:'ribbon'},'ПРИМЕР'):null,
+    h('div',{class:'dic'},it.icon||'🎁'),h('h3',{},it.name),h('p',{class:'sub'},it.short||''),
+    h('ul',{class:'perks'},...(it.perks||[]).slice(0,3).map(p=>h('li',{},p))),
+    h('div',{class:'dfoot'},h('b',{class:'price'},money(it.price)),
+      h('button',{class:'btn',onclick:()=>detail(it)},'Подробнее'),
+      h('button',{class:'btn'+(inCart?'':' primary'),'data-sfx':inCart?'pop':'coin',onclick:()=>toggle(it.id)},inCart?'✓ В корзине':'В корзину')));
+}
+function renderCatalog(){
+  $('#cats').replaceChildren(...D.categories.map(c=>h('button',{class:'tab'+(CAT===c.id?' on':''),onclick:()=>{CAT=c.id;renderCatalog()}},(c.icon||'')+' '+c.name)));
+  $('#tools').replaceChildren(CAT==='ranks'?h('button',{class:'btn',onclick:compare},'⚖️ Сравнить привилегии'):'');
+  const list=D.items.filter(i=>i.cat===CAT);
+  $('#items').replaceChildren(...(list.length?list.map(card):[h('p',{class:'empty'},'Здесь скоро появятся товары.')]));
+  $('#cartN').textContent=cart.length;
+  if(DPOK&&payFrame)renderPayBar();
+}
+function toggle(id){
+  const it=find(id);if(!it)return;
+  if(cart.includes(id)){cart=cart.filter(x=>x!==id);toast('Убрано: '+it.name)}else{cart.push(id);toast('Добавлено в корзину: '+it.name)}
+  saveCart();renderCatalog();if($('#drawer').classList.contains('open'))renderCart();
+}
+
+// ---- окна ----
+const M=$('#modal');
+const openM=n=>{$('#mbox').replaceChildren(n);M.classList.add('open')},closeM=()=>M.classList.remove('open');
+M.addEventListener('click',e=>{if(e.target===M)closeM()});
+function detail(it){
+  const inCart=cart.includes(it.id);
+  openM(h('div',{style:'--rc:'+(RC[it.tier]||RC.common)},
+    h('div',{class:'dic'},it.icon||'🎁'),h('h2',{},it.name),h('p',{class:'sub'},RL[it.tier]||'Обычный'),h('p',{style:'margin-top:10px'},it.short||''),
+    h('ul',{class:'perks'},...(it.perks||[]).map(p=>h('li',{},p))),h('b',{class:'price'},money(it.price)),
+    h('div',{class:'btns',style:'margin-top:16px'},h('button',{class:'btn'+(inCart?'':' primary'),'data-sfx':inCart?'pop':'coin',onclick:()=>{toggle(it.id);closeM()}},inCart?'Убрать из корзины':'В корзину'),h('button',{class:'btn',onclick:closeM},'Закрыть'))));
+}
+function compare(){
+  const ranks=D.items.filter(i=>i.cat==='ranks'),perks=[...new Set(ranks.flatMap(r=>r.perks||[]))];
+  openM(h('div',{},h('h2',{},'Сравнение привилегий'),
+    h('table',{class:'table'},h('thead',{},h('tr',{},h('th',{},'Возможность'),...ranks.map(r=>h('th',{},r.name)))),
+      h('tbody',{},...perks.map(p=>h('tr',{},h('td',{},p),...ranks.map(r=>h('td',{},(r.perks||[]).includes(p)?'✅':'—')))),h('tr',{},h('td',{},h('b',{},'Цена')),...ranks.map(r=>h('td',{},h('b',{},money(r.price))))))),
+    h('button',{class:'btn',onclick:closeM},'Закрыть')));
+}
+
+// ---- корзина и заказ ----
+const drawer=$('#drawer'),ov=$('#ov');
+const openCart=()=>{renderCart();drawer.classList.add('open');ov.classList.add('open')},closeCart=()=>{drawer.classList.remove('open');ov.classList.remove('open')};
+ov.addEventListener('click',closeCart);$('#cartBtn').addEventListener('click',openCart);
+addEventListener('keydown',e=>{if(e.key==='Escape'){closeM();closeCart()}});
+let nick='';try{const l=JSON.parse(localStorage.getItem('pristalLocal'));nick=localStorage.getItem('pristalOrderNick')||(l&&l.mc)||''}catch(e){}
+const total=()=>cart.reduce((s,id)=>s+(find(id)?find(id).price:0),0);
+function orderText(){
+  let dn='';try{dn=(JSON.parse(localStorage.getItem('pristalUser'))||{}).name||''}catch(e){}
+  return ['Заказ с сайта Pristal — '+(D.server||'Анархия'),'Ник в игре: '+nick,dn?'Discord: '+dn:null,'Товары:',...cart.map(id=>'• '+find(id).name+' — '+money(find(id).price)),'Итого: '+money(total())].filter(Boolean).join('\n');
+}
+const nickOk=()=>/^[A-Za-z0-9_]{3,16}$/.test(nick);
+async function copyOrder(e,quiet){
+  const err=$('#cerr');
+  if(!cart.length){if(e)e.preventDefault();return false}
+  if(!nickOk()){if(e)e.preventDefault();if(err)err.textContent='Укажи ник: 3–16 символов — латиница, цифры и _';play('error');return false}
+  try{localStorage.setItem('pristalOrderNick',nick)}catch(x){}
+  try{await navigator.clipboard.writeText(orderText());if(!quiet)toast('Заказ скопирован — вставь его в тикет в Discord')}catch(x){toast('Не удалось скопировать заказ — впиши ник и товары в сообщение вручную')}
+  return true;
+}
+function renderCart(){
+  const inp=h('input',{placeholder:'Твой ник в Minecraft',maxlength:'16',autocomplete:'off',autocapitalize:'off',spellcheck:'false',value:nick,'aria-label':'Ник в Minecraft'});
+  inp.addEventListener('input',()=>{nick=inp.value.trim();const e=$('#cerr');if(e)e.textContent=''});
+  const link=h('a',{class:'btn'+(DPOK?'':' primary'),href:D.payUrl||D.discord||'#',target:'_blank',rel:'noopener noreferrer',onclick:copyOrder},D.payUrl?'Перейти к оплате':'Оформить в Discord');
+  drawer.replaceChildren(
+    h('div',{class:'dh'},h('h2',{},'Корзина'),h('button',{class:'x',type:'button','aria-label':'Закрыть',onclick:closeCart},'✕')),
+    cart.length?h('div',{class:'list'},...cart.map(id=>{const it=find(id);return h('div',{class:'row'},h('span',{class:'ri'},it.icon||'🎁'),h('div',{class:'rn'},it.name,h('small',{},money(it.price))),h('button',{class:'btn danger',type:'button',onclick:()=>toggle(id)},'✕'))}))
+      :h('div',{class:'list'},h('p',{class:'empty'},'Корзина пуста. Добавь что-нибудь из каталога 🙂')),
+    cart.length?h('div',{},h('div',{class:'total'},h('span',{},'Итого'),h('span',{},money(total()))),inp,h('p',{class:'err',id:'cerr'}),
+      h('div',{class:'btns'},DPOK?h('button',{class:'btn primary',type:'button','data-sfx':'coin',style:'flex-basis:100%',onclick:payFromCart},'💳 Оплатить через DonatePay'):null,h('button',{class:'btn',type:'button',onclick:copyOrder},'Скопировать заказ'),link),
+      h('p',{class:'sub',style:'margin-top:10px'},(DPOK?'Нажми «Оплатить» — заказ скопируется и откроется форма оплаты. Вставь заказ в поле «Сообщение».':'Нажми «'+(D.payUrl?'Перейти к оплате':'Оформить в Discord')+'» — заказ скопируется, останется вставить его в сообщение.'))):null);
+}
+
+// ---- оплата через виджет DonatePay ----
+function payFromCart(e){
+  return copyOrder(e,true).then(ok=>{
+    if(!ok)return;
+    closeCart();setSum(total());
+    $('#pay').scrollIntoView({behavior:'smooth',block:'start'});
+    toast('Заказ скопирован. Вставь его в поле «Сообщение» формы оплаты');
+  });
+}
+if(DPOK){
+  $('#pay').hidden=false;
+  payFrame=h('iframe',{id:'payFrame',src:payURL(paySum),width:'1140',height:String(DP.height||312),frameborder:'0',loading:'lazy',allow:'payment *',title:'Форма оплаты DonatePay',referrerpolicy:'strict-origin-when-cross-origin'});
+  payFrame.addEventListener('load',()=>{$('#payLoad').hidden=true});
+  const box=$('#payBox');box.style.setProperty('--ph',(DP.height||312)+'px');box.style.setProperty('--pm',(DP.mobileHeight||430)+'px');
+  box.append(payFrame);$('#payOpen').href=payURL(paySum);renderPayBar();
+}
+renderCatalog();
+})();
+</script>
+<script src="navmenu.js" defer></script>
+<script src="audio.js" data-track="donate" defer></script>
+</body>
 </html>

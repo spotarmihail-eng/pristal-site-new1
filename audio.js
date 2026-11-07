@@ -28,6 +28,9 @@ const TRACKS = {
   players:{ name: 'Друзья на сервере', bpm: 96, root: 67, seed: 41, scale: [0, 2, 4, 7, 9],
     prog: [[0, 4, 7], [-3, 0, 4], [5, 9, 12], [7, 11, 14]],
     L: { pad: { vol: .03, cut: 1800 }, arp: { inst: 'pluck', vol: .075, pat: [0, 2, 1, 2, 0, 2, 1, 2] }, bass: { vol: .12, steps: [0, 4] }, beat: { type: 'hat', vol: .05 }, mel: { inst: 'pluck', vol: .065, density: .45, oct: 12 } } },
+  donate: { name: 'Магазин', bpm: 100, root: 65, seed: 97, scale: [0, 2, 4, 7, 9],
+    prog: [[0, 4, 7], [-5, -1, 2], [-3, 0, 4], [-7, -3, 0]],
+    L: { pad: { vol: .035, cut: 1700 }, arp: { inst: 'pluck', vol: .07, pat: [0, 2, 1, 2, 0, 2, 1, 2] }, bass: { vol: .12, steps: [0, 4] }, beat: { type: 'hat', vol: .045 }, mel: { inst: 'bell', vol: .065, density: .5, oct: 12 } } },
   profile:{ name: 'Лоу-фай профиль', bpm: 78, root: 57, seed: 53, scale: [0, 3, 5, 7, 10],
     prog: [[0, 3, 7, 10], [-4, 0, 3, 7], [3, 7, 10, 14], [-2, 2, 5, 9]],
     L: { pad: { vol: .05, cut: 900 }, arp: { inst: 'epiano', vol: .08, pat: [0, null, 2, null, 1, null, 3, 2] }, bass: { vol: .12, steps: [0, 4] }, beat: { type: 'hat', vol: .03 }, mel: { inst: 'epiano', vol: .06, density: .22, oct: 12 } } },
@@ -173,6 +176,7 @@ function build(ctx, out) {
     tick: (t, x) => { const f = 420 + (x || 0) * 700; blip(t, [f, f], .04, .16, 'sine'); },
     on: (t) => { blip(t, [440, 440], .07, .14, 'triangle'); blip(t + .07, [660, 660], .09, .14, 'triangle'); },
     off: (t) => { blip(t, [660, 660], .07, .14, 'triangle'); blip(t + .07, [440, 440], .09, .14, 'triangle'); },
+    coin: (t) => { blip(t, [hz(83), hz(83)], .09, .16, 'square', 3200); blip(t + .08, [hz(88), hz(88)], .3, .16, 'square', 3200); },
     boom: (t) => { I.kick(t, .5, sfxM); I.cow(t + .12, 69, .3, .12, sfxM); I.cow(t + .24, 72, .3, .12, sfxM); },
   };
   return {

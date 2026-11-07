@@ -127,7 +127,7 @@ body.phonk .ring{animation:shimmer 4s ease-in-out infinite alternate,beat .43s e
 <div class="bg" id="bg" aria-hidden="true"></div>
 <header><div class="wrap nav">
   <a class="logo" href="./">PRI<span>STAL</span></a>
-  <nav><a class="hs" href="./">Главная</a><a href="about.html">О нас</a><a class="on" href="profile.html">Профиль</a><a class="hs" href="participants.html">Участники</a><span id="authBox"></span></nav>
+  <nav><a class="hs" href="./">Главная</a><a href="about.html">О нас</a><a href="donate.html">Донаты</a><a class="on" href="profile.html">Профиль</a><a class="hs" href="participants.html">Участники</a><span id="authBox"></span></nav>
 </div></header>
 <main class="wrap"><div id="view"></div></main>
 <div class="modal" id="m" role="dialog" aria-modal="true"><div class="mbox" id="mbox"></div></div>
@@ -430,6 +430,7 @@ render();
 if(LOCAL?localUser():(API&&S()))api('/api/me').then(p=>{P=p;syncUser(p);render()}).catch(e=>{if(e.status!==401)$('#view').replaceChildren(note('Сервер профилей недоступен','Попробуй обновить страницу чуть позже.'))});
 })();
 </script>
+<script src="navmenu.js" defer></script>
 <script src="audio.js" data-track="profile" defer></script>
 </body>
 </html>
