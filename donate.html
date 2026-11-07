@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Донаты — Анархия Pristal</title>
-<meta name="description" content="Донаты Анархии Pristal: привилегии, наборы и косметика. Выбери, добавь в корзину и оформи заказ через Discord.">
+<meta name="description" content="Донаты Анархии Pristal: привилегии ВОИН, БОЕЦ, ИМПЕРАТОР и ДИКИЙ. Оплата через DonatePay или заказ в Discord.">
 <meta name="theme-color" content="#a855f7">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23160923'/%3E%3Cpath d='M32 10l6 16 16 6-16 6-6 16-6-16-16-6 16-6z' fill='%23a855f7'/%3E%3C/svg%3E">
 <script src="donate-data.js"></script>
@@ -41,6 +41,8 @@ h1{font-size:clamp(40px,8vw,76px);line-height:.98;letter-spacing:-.05em}h1 span{
 .ribbon{position:absolute;top:14px;right:-34px;transform:rotate(35deg);background:#f59e0b;color:#2b1a00;font-size:10px;font-weight:900;letter-spacing:.1em;padding:3px 38px}
 .dic{font-size:44px;line-height:1}.dcard h3{font-size:20px;letter-spacing:-.02em}
 .sub{color:var(--muted);font-size:14px}
+.code{font-family:ui-monospace,monospace;color:var(--rc);font-size:13px;font-weight:800;letter-spacing:.06em}
+.note{color:var(--muted);font-size:13px;line-height:1.45}
 .perks{list-style:none;display:grid;gap:5px;margin:4px 0 6px;font-size:14px;color:#c8ced7}.perks li:before{content:"✓ ";color:var(--rc);font-weight:900}
 .dfoot{margin-top:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:8px}.price{font-size:22px;margin-right:auto;color:#fff}
 .btn{padding:10px 14px;border-radius:12px;border:1px solid #ffffff1f;background:#111721;color:#fff;font-weight:800;font-size:14px;cursor:pointer;text-decoration:none;display:inline-block;transition:.2s}
@@ -91,7 +93,7 @@ footer{border-top:1px solid #ffffff14;padding:28px 0;color:#7f8997;text-align:ce
   <section class="hero">
     <span class="badge">🛒 ДОНАТЫ</span>
     <h1>Донаты <span id="srv">Анархии</span></h1>
-    <p class="lead">Поддержи проект и получи приятные бонусы. Выбери товар, добавь в корзину и оформи заказ через Discord.</p>
+    <p class="lead">Поддержи проект и получи привилегию на Анархии. Выбери её, добавь в корзину и оплати через DonatePay — или оформи заказ в Discord.</p>
     <div class="status" id="status"></div>
     <div class="demo" id="demo" hidden>⚠️ Демонстрационная витрина: товары и цены на этой странице примерные. Актуальный список уточняйте в Discord проекта.</div>
   </section>
@@ -106,7 +108,7 @@ footer{border-top:1px solid #ffffff14;padding:28px 0;color:#7f8997;text-align:ce
     <p class="payfine">Форма не загружается? <a id="payOpen" target="_blank" rel="noopener noreferrer">Открыть её в новой вкладке</a></p>
   </section>
   <section class="how">
-    <div class="step"><b>1</b>Выбери привилегию, набор или косметику.</div>
+    <div class="step"><b>1</b>Выбери привилегию для Анархии.</div>
     <div class="step"><b>2</b>Добавь в корзину и укажи свой игровой ник.</div>
     <div class="step"><b>3</b>Оплати через DonatePay на этой странице или оформи заказ в Discord проекта.</div>
   </section>
@@ -146,9 +148,10 @@ function setSum(n){
   if(payFrame.src!==src){$('#payLoad').hidden=false;payFrame.src=src}
   $('#payOpen').href=src;renderPayBar();
 }
+const quick=()=>{const q=(DP.quickSums&&DP.quickSums.length)?DP.quickSums:[...new Set(D.items.map(i=>i.price))].sort((a,b)=>a-b).slice(0,5);return q.length?q:[100,300,500,1000]};
 function renderPayBar(){
   const t=total();
-  $('#payBar').replaceChildren(h('span',{class:'sub'},'Сумма:'),...[100,300,500,1000].map(s=>h('button',{class:'chip'+(paySum===s?' on':''),type:'button',onclick:()=>setSum(s)},money(s))),
+  $('#payBar').replaceChildren(h('span',{class:'sub'},'Сумма:'),...quick().map(s=>h('button',{class:'chip'+(paySum===s?' on':''),type:'button',onclick:()=>setSum(s)},money(s))),
     t>0?h('button',{class:'chip'+(paySum===t?' on':''),type:'button','data-sfx':'coin',onclick:()=>{setSum(t);toast('Сумма из корзины: '+money(t))}},'🛒 Из корзины: '+money(t)):null);
 }
 let CAT=(D.categories[0]||{}).id,cart=[];
@@ -164,15 +167,15 @@ function card(it){
   const inCart=cart.includes(it.id),rc=RC[it.tier]||RC.common;
   return h('article',{class:'dcard',style:'--rc:'+rc},
     D.demo?h('span',{class:'ribbon'},'ПРИМЕР'):null,
-    h('div',{class:'dic'},it.icon||'🎁'),h('h3',{},it.name),h('p',{class:'sub'},it.short||''),
-    h('ul',{class:'perks'},...(it.perks||[]).slice(0,3).map(p=>h('li',{},p))),
+    h('div',{class:'dic'},it.icon||'🎁'),h('h3',{},it.name),it.code?h('div',{class:'code'},it.code):null,h('p',{class:'sub'},it.short||''),
+    (it.perks||[]).length?h('ul',{class:'perks'},...it.perks.slice(0,3).map(p=>h('li',{},p))):(it.note?h('p',{class:'note'},it.note):null),
     h('div',{class:'dfoot'},h('b',{class:'price'},money(it.price)),
       h('button',{class:'btn',onclick:()=>detail(it)},'Подробнее'),
       h('button',{class:'btn'+(inCart?'':' primary'),'data-sfx':inCart?'pop':'coin',onclick:()=>toggle(it.id)},inCart?'✓ В корзине':'В корзину')));
 }
 function renderCatalog(){
-  $('#cats').replaceChildren(...D.categories.map(c=>h('button',{class:'tab'+(CAT===c.id?' on':''),onclick:()=>{CAT=c.id;renderCatalog()}},(c.icon||'')+' '+c.name)));
-  $('#tools').replaceChildren(CAT==='ranks'?h('button',{class:'btn',onclick:compare},'⚖️ Сравнить привилегии'):'');
+  $('#cats').hidden=D.categories.length<2;$('#cats').replaceChildren(...(D.categories.length<2?[]:D.categories.map(c=>h('button',{class:'tab'+(CAT===c.id?' on':''),onclick:()=>{CAT=c.id;renderCatalog()}},(c.icon||'')+' '+c.name))));
+  $('#tools').replaceChildren(CAT==='ranks'&&D.items.some(i=>i.cat==='ranks'&&(i.perks||[]).length)?h('button',{class:'btn',onclick:compare},'⚖️ Сравнить привилегии'):'');
   const list=D.items.filter(i=>i.cat===CAT);
   $('#items').replaceChildren(...(list.length?list.map(card):[h('p',{class:'empty'},'Здесь скоро появятся товары.')]));
   $('#cartN').textContent=cart.length;
@@ -191,8 +194,8 @@ M.addEventListener('click',e=>{if(e.target===M)closeM()});
 function detail(it){
   const inCart=cart.includes(it.id);
   openM(h('div',{style:'--rc:'+(RC[it.tier]||RC.common)},
-    h('div',{class:'dic'},it.icon||'🎁'),h('h2',{},it.name),h('p',{class:'sub'},RL[it.tier]||'Обычный'),h('p',{style:'margin-top:10px'},it.short||''),
-    h('ul',{class:'perks'},...(it.perks||[]).map(p=>h('li',{},p))),h('b',{class:'price'},money(it.price)),
+    h('div',{class:'dic'},it.icon||'🎁'),h('h2',{},it.name),it.code?h('div',{class:'code'},it.code):null,h('p',{class:'sub'},RL[it.tier]||'Обычный'),h('p',{style:'margin-top:10px'},it.short||''),
+    (it.perks||[]).length?h('ul',{class:'perks'},...it.perks.map(p=>h('li',{},p))):(it.note?h('p',{class:'note',style:'margin:12px 0'},it.note):null),h('b',{class:'price'},money(it.price)),
     h('div',{class:'btns',style:'margin-top:16px'},h('button',{class:'btn'+(inCart?'':' primary'),'data-sfx':inCart?'pop':'coin',onclick:()=>{toggle(it.id);closeM()}},inCart?'Убрать из корзины':'В корзину'),h('button',{class:'btn',onclick:closeM},'Закрыть'))));
 }
 function compare(){
@@ -212,7 +215,7 @@ let nick='';try{const l=JSON.parse(localStorage.getItem('pristalLocal'));nick=lo
 const total=()=>cart.reduce((s,id)=>s+(find(id)?find(id).price:0),0);
 function orderText(){
   let dn='';try{dn=(JSON.parse(localStorage.getItem('pristalUser'))||{}).name||''}catch(e){}
-  return ['Заказ с сайта Pristal — '+(D.server||'Анархия'),'Ник в игре: '+nick,dn?'Discord: '+dn:null,'Товары:',...cart.map(id=>'• '+find(id).name+' — '+money(find(id).price)),'Итого: '+money(total())].filter(Boolean).join('\n');
+  return ['Заказ с сайта Pristal — '+(D.server||'Анархия'),'Ник в игре: '+nick,dn?'Discord: '+dn:null,'Товары:',...cart.map(id=>'• '+find(id).name+(find(id).code?' ('+find(id).code+')':'')+' — '+money(find(id).price)),'Итого: '+money(total())].filter(Boolean).join('\n');
 }
 const nickOk=()=>/^[A-Za-z0-9_]{3,16}$/.test(nick);
 async function copyOrder(e,quiet){
@@ -229,7 +232,7 @@ function renderCart(){
   const link=h('a',{class:'btn'+(DPOK?'':' primary'),href:D.payUrl||D.discord||'#',target:'_blank',rel:'noopener noreferrer',onclick:copyOrder},D.payUrl?'Перейти к оплате':'Оформить в Discord');
   drawer.replaceChildren(
     h('div',{class:'dh'},h('h2',{},'Корзина'),h('button',{class:'x',type:'button','aria-label':'Закрыть',onclick:closeCart},'✕')),
-    cart.length?h('div',{class:'list'},...cart.map(id=>{const it=find(id);return h('div',{class:'row'},h('span',{class:'ri'},it.icon||'🎁'),h('div',{class:'rn'},it.name,h('small',{},money(it.price))),h('button',{class:'btn danger',type:'button',onclick:()=>toggle(id)},'✕'))}))
+    cart.length?h('div',{class:'list'},...cart.map(id=>{const it=find(id);return h('div',{class:'row'},h('span',{class:'ri'},it.icon||'🎁'),h('div',{class:'rn'},it.name,h('small',{},(it.code?it.code+' · ':'')+money(it.price))),h('button',{class:'btn danger',type:'button',onclick:()=>toggle(id)},'✕'))}))
       :h('div',{class:'list'},h('p',{class:'empty'},'Корзина пуста. Добавь что-нибудь из каталога 🙂')),
     cart.length?h('div',{},h('div',{class:'total'},h('span',{},'Итого'),h('span',{},money(total()))),inp,h('p',{class:'err',id:'cerr'}),
       h('div',{class:'btns'},DPOK?h('button',{class:'btn primary',type:'button','data-sfx':'coin',style:'flex-basis:100%',onclick:payFromCart},'💳 Оплатить через DonatePay'):null,h('button',{class:'btn',type:'button',onclick:copyOrder},'Скопировать заказ'),link),

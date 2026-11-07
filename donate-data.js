@@ -2,7 +2,7 @@
 window.PRISTAL_DONATE = {
   // true — на карточках плашка «ПРИМЕР» и предупреждение (товары и цены ниже ненастоящие).
   // Когда впишете свои товары и цены, поставьте false.
-  demo: true,
+  demo: false,
   server: 'Анархия Pristal',
   status: 'Сервер скоро откроется — дату объявим в новостях',
   currency: '₽',
@@ -18,29 +18,18 @@ window.PRISTAL_DONATE = {
     mobileHeight: 430  // высота формы на телефоне
   },
   categories: [
-    { id: 'ranks', name: 'Привилегии', icon: '👑' },
-    { id: 'kits',  name: 'Наборы',     icon: '🎁' },
-    { id: 'style', name: 'Косметика',  icon: '✨' }
+    { id: 'ranks', name: 'Привилегии', icon: '👑' }
   ],
-  // tier: common | rare | epic | legend — цвет рамки карточки. perks — список возможностей (в «Привилегиях» они сравниваются в таблице).
+  // code — внутреннее название привилегии (его видит администрация в заказе). perks — список возможностей: пока не заполнен,
+  // впишите строки вида 'Префикс в чате' — тогда они появятся на карточке, а в «Привилегиях» включится кнопка «Сравнить».
   items: [
-    { id: 'guard',   cat: 'ranks', name: 'Страж',   icon: '🛡️', price: 149, tier: 'common', short: 'Старт для новичка',
-      perks: ['Префикс в чате', 'Цветной ник'] },
-    { id: 'knight',  cat: 'ranks', name: 'Рыцарь',  icon: '⚔️', price: 349, tier: 'rare',   short: 'Для тех, кто играет регулярно',
-      perks: ['Префикс в чате', 'Цветной ник', 'Приоритет в очереди входа'] },
-    { id: 'legend',  cat: 'ranks', name: 'Легенда', icon: '👑', price: 699, tier: 'legend', short: 'Всё самое лучшее',
-      perks: ['Префикс в чате', 'Цветной ник', 'Приоритет в очереди входа', 'Эксклюзивные эффекты'] },
-    { id: 'start',   cat: 'kits',  name: 'Набор «Старт»',     icon: '🎒', price: 99,  tier: 'common', short: 'Чтобы не начинать с нуля',
-      perks: ['Содержимое набора — впишите сюда'] },
-    { id: 'builder', cat: 'kits',  name: 'Набор строителя',   icon: '🧱', price: 199, tier: 'rare',   short: 'Для больших проектов',
-      perks: ['Содержимое набора — впишите сюда'] },
-    { id: 'warrior', cat: 'kits',  name: 'Набор воина',       icon: '🗡️', price: 299, tier: 'epic',   short: 'Для самых опасных походов',
-      perks: ['Содержимое набора — впишите сюда'] },
-    { id: 'color',   cat: 'style', name: 'Особый цвет в чате', icon: '🎨', price: 79,  tier: 'common', short: 'Выделись в общем чате',
-      perks: ['Цвет сообщений в чате'] },
-    { id: 'trail',   cat: 'style', name: 'Звёздный след',      icon: '🌟', price: 129, tier: 'rare',   short: 'Красивый эффект при ходьбе',
-      perks: ['Эффект частиц за игроком'] },
-    { id: 'tag',     cat: 'style', name: 'Уникальный префикс', icon: '🏷️', price: 249, tier: 'epic',   short: 'Свой префикс рядом с ником',
-      perks: ['Префикс по вашему выбору (по правилам сервера)'] }
+    { id: 'warrior', code: 'warrior', cat: 'ranks', name: 'ВОИН',      icon: '⚔️', price: 15,  tier: 'common', short: 'Привилегия Анархии Pristal',
+      note: 'Подробности о возможностях уточняйте в Discord проекта.', perks: [] },
+    { id: 'fighter', code: 'fighter', cat: 'ranks', name: 'БОЕЦ',      icon: '🥊', price: 45,  tier: 'rare',   short: 'Привилегия Анархии Pristal',
+      note: 'Подробности о возможностях уточняйте в Discord проекта.', perks: [] },
+    { id: 'emperor', code: 'emperor', cat: 'ranks', name: 'ИМПЕРАТОР', icon: '👑', price: 156, tier: 'epic',   short: 'Привилегия Анархии Pristal',
+      note: 'Подробности о возможностях уточняйте в Discord проекта.', perks: [] },
+    { id: 'wild',    code: 'wild',    cat: 'ranks', name: 'ДИКИЙ',     icon: '🐺', price: 275, tier: 'legend', short: 'Привилегия Анархии Pristal',
+      note: 'Подробности о возможностях уточняйте в Discord проекта.', perks: [] }
   ]
 };
